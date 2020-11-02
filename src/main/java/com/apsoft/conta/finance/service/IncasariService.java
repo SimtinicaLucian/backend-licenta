@@ -1,15 +1,22 @@
 package com.apsoft.conta.finance.service;
 
 import com.apsoft.conta.finance.persistence.Incasari;
-import com.apsoft.conta.finance.repository.IncasariRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 public interface IncasariService {
 
     Incasari saveIncasari(Incasari incasari);
-    void delete(long id);
-    List<Incasari> viewAllIncasari();
+
+    void delete(int numar);
+
+    List<Incasari> searchAll();
+
+    List<Incasari> searchByData(String data);
+
+    List<Incasari> searchByFurnizor(String furnizor);
+
+    List<Incasari> searchByNumar(int numbar);
+
+    Incasari update(int numar, Incasari incasari);
 }
