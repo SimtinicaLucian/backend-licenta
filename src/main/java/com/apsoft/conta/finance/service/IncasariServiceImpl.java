@@ -19,6 +19,7 @@ public class IncasariServiceImpl implements IncasariService {
         return incasariRepository.save(incasari);
     }
 
+
     @Override
     public void delete(int numar) {
         incasariRepository.deleteByNumar(numar);
@@ -66,11 +67,9 @@ public class IncasariServiceImpl implements IncasariService {
         search.setSumaFaraTVA(incasari.getSumaFaraTVA());
         search.setSumaTVA(incasari.getSumaTVA());
 
-        search = incasariRepository.save(search);
-        incasariRepository.deleteByNumar(numar);
 
+        return incasariRepository.save(search);
 
-        return search;
     }
 
 

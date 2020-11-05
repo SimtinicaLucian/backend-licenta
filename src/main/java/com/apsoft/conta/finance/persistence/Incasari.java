@@ -15,7 +15,7 @@ public class Incasari {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+//    private long id;
 
     @Column(name = "data")
     private String data;

@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface IncasariService {
 
+
+
     Incasari saveIncasari(Incasari incasari);
 
     void delete(int numar);
