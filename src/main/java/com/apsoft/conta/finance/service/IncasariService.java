@@ -7,18 +7,15 @@ import java.util.List;
 public interface IncasariService {
 
 
-
     Incasari saveIncasari(Incasari incasari);
 
-    void delete(int numar);
 
     List<Incasari> searchAll();
-
     List<Incasari> searchByData(String data);
-
     List<Incasari> searchByFurnizor(String furnizor);
-
-    List<Incasari> searchByNumar(int numbar);
-
-    Incasari update(int numar, Incasari incasari);
+    List<Incasari> searchByNumber(int number);
+    Incasari update(int number, Incasari incasari);
+    void deleteNumber(int number);
+    double calculateTotalTVA();
+    double calculateTVAByDate(String data);
 }
