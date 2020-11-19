@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(value = "/incasari")
 public class IncasariResource {
@@ -57,6 +58,15 @@ public class IncasariResource {
         return incasariService.calculateTotalTVA();
     }
 
+    @GetMapping(value = "/searchAllTotal")
+    public double searchByTotal() {
+        return incasariService.calculateSumaTotala();
+    }
+
+    @GetMapping(value = "/searchAllFaraTVA")
+    public double searchByFaraTVA() {
+        return incasariService.calculateSumaFaraTVA();
+    }
 
 
     @GetMapping(value = "/searchByDateTVA/{data}")
@@ -65,5 +75,11 @@ public class IncasariResource {
     }
 
 
+
+    @PutMapping(value = "/update")
+    public Incasari updaterows(@RequestBody Incasari incasari) {
+
+        return incasariService.updaterows(incasari);
+    }
 
 }

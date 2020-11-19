@@ -116,5 +116,12 @@ public class Incasari {
 
     }
 
+    public class date{
+        String [] dateParts = data.split(".");
+        String day = dateParts[0];
+        String month = dateParts[1];
+        String year = dateParts[2];
+    }
+
 
 }

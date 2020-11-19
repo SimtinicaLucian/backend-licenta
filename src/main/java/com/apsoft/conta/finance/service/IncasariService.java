@@ -14,8 +14,15 @@ public interface IncasariService {
     List<Incasari> searchByData(String data);
     List<Incasari> searchByFurnizor(String furnizor);
     List<Incasari> searchByNumber(int number);
+
+
     Incasari update(int number, Incasari incasari);
     void deleteNumber(int number);
     double calculateTotalTVA();
     double calculateTVAByDate(String data);
+
+    Incasari updaterows(Incasari incasari);
+
+    double calculateSumaTotala();
+    double calculateSumaFaraTVA();
 }

@@ -14,11 +14,13 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
     List<Incasari> findAllByData(String data);
     List<Incasari> findAllById(long id);
     List<Incasari> findAllByNumber(int number);
-//    List<Incasari> deleteByNumar(int numar);
+
     List<Incasari> findAllByFurnizor(String furnizor);
 
 
-//    void deleteByNumar(int numar);
+
+
+
 
     @Transactional
     void deleteByNumber(int number);
