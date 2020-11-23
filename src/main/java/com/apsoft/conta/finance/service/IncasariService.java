@@ -20,6 +20,10 @@ public interface IncasariService {
     void deleteNumber(int number);
 
     double calculateTotalByMonth(String month);
+    double calculateTotalByYear(String year);
+
+    double calculateTotalByMonthAndYear(String month, String year);
+
 
     double calculateTotalTVA();
     double calculateTVAByDate(String data);

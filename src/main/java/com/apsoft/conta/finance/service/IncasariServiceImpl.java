@@ -44,6 +44,8 @@ public class IncasariServiceImpl implements IncasariService {
     @Override
     public Incasari saveIncasari(Incasari incasari) {
         List<Incasari> incasariSearch = incasariRepository.findAllByNumber(incasari.getNumber());
+        incasari.setMonth(incasari.getData().substring(3,5));
+        incasari.setYear(incasari.getData().substring(6,10));
         if (incasariSearch.size() < 1) {
             incasari = incasariRepository.save(incasari);
         }
@@ -160,52 +162,96 @@ public class IncasariServiceImpl implements IncasariService {
 //        String month = dateParts[1];
 ////        String year = dateParts[2];
 
-        switch(month){
-            case "01":
-                month="Ianuarie";
-                break;
-            case "02":
-                month="Februarie";
-                break;
-            case "03":
-                month="Martie";
-                break;
-            case "04":
-                month="Aprilie";
-                break;
-            case "05":
-                month="Mai";
-                break;
-            case "06":
-                month="Iunie";
-                break;
-            case "07":
-                month="Iulie";
-                break;
-            case "08":
-                month="August";
-                break;
-            case "09":
-                month="Septembrie";
-                break;
-            case "10":
-                month="Octombrie";
-                break;
-            case "11":
-                month="Noiembrie";
-                break;
-            case "12":
-                month="Decembrie";
-                break;
-        }
+//        switch(month) {
+//            case "01":
+//                month = "Ianuarie";
+//                break;
+//            case "02":
+//                month = "Februarie";
+//                break;
+//            case "03":
+//                month = "Martie";
+//                break;
+//            case "04":
+//                month = "Aprilie";
+//                break;
+//            case "05":
+//                month = "Mai";
+//                break;
+//            case "06":
+//                month = "Iunie";
+//                break;
+//            case "07":
+//                month = "Iulie";
+//                break;
+//            case "08":
+//                month = "August";
+//                break;
+//            case "09":
+//                month = "Septembrie";
+//                break;
+//            case "10":
+//                month = "Octombrie";
+//                break;
+//            case "11":
+//                month = "Noiembrie";
+//                break;
+//            case "12":
+//                month = "Decembrie";
+//                break;
+//            default:
+//                System.out.println(month);
+//        }
 
-        List<Incasari> incasariListByDate = incasariRepository.findAllByMonth(month);
+//        if (month == "01"){
+//            month = "Ianuarie";
+//        }else if(month == "02"){
+//            month = "Februarie";
+//        }else if(month == "03") {
+//            month = "Februarie";
+//        }else if(month == "04") {
+//            month = "Martie";
+//        } else if(month == "05") {
+//            month = "Aprilie";
+//        }else if(month == "06") {
+//            month = "Mai";
+//        }else if(month == "07") {
+//            month = "Iunie";
+//        }else if(month == "08") {
+//            month = "Iulie";
+//        }else if(month == "09") {
+//            month = "August";
+//        }else if(month == "10") {
+//            month = "Septembrie";
+//        }else if(month == "11") {
+//            month = "Noiembrie";
+//        }else if(month == "12") {
+//            month = "Decembrie";
+//        }
+
+
+        List<Incasari> incasariListByDate = incasariRepository.findByMonth(month);
         log.info("Calculare");
-        return incasariListByDate.stream().map(Incasari::getSumaTVA).reduce(0.0, Double::sum);
+//        System.out.println(month);
+        return incasariListByDate.stream().map(Incasari::getSumaTotala).reduce(0.0, Double::sum);
 
 
 
 
+    }
+
+    @Override
+    public double calculateTotalByYear(String year) {
+        List<Incasari> incasariListByDate = incasariRepository.findAByYear(year);
+        log.info("Calculate by year");
+        return incasariListByDate.stream().map(Incasari::getSumaTotala).reduce(0.0, Double::sum);
+    }
+
+    @Override
+    public double calculateTotalByMonthAndYear(String month, String year) {
+        List<Incasari> incasariListByMonthAndYear = incasariRepository.findAllByMonthAndYear(month,year);
+        log.info("Month and year");
+        return incasariListByMonthAndYear.stream().map(Incasari::getSumaTotala).reduce(0.0, Double::sum);
     }
 
     public double calculateTotalTVA() {

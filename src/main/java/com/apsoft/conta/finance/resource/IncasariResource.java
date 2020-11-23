@@ -71,6 +71,7 @@ public class IncasariResource {
 
     @GetMapping(value = "/searchByDateTVA/{data}")
     public double searchByDateTVA(@PathVariable String data) {
+
         return incasariService.calculateTVAByDate(data);
     }
 
@@ -79,7 +80,15 @@ public class IncasariResource {
         return incasariService.calculateTotalByMonth(month);
     }
 
+    @GetMapping(value = "/calculateTotalByYear/{year}")
+    public double calculateTotalByYear(@PathVariable String year) {
+        return incasariService.calculateTotalByYear(year);
+    }
 
+    @GetMapping(value = "/calculateTotalByMonthAndYear/{month}.{year}")
+    public double calculateTotalByMonthAndYear(@PathVariable String month, String year) {
+        return incasariService.calculateTotalByMonthAndYear(month, year);
+    }
 
     @PutMapping(value = "/update")
     public Incasari updaterows(@RequestBody Incasari incasari) {

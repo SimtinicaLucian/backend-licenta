@@ -41,6 +41,9 @@ public class Incasari {
     @Column(name = "month")
     private String month;
 
+    @Column(name = "year")
+    private String year;
+
 
 
 
@@ -59,11 +62,8 @@ public class Incasari {
         this.sumaFaraTVA = builder.sumaFaraTVA;
         this.sumaTVA = builder.sumaTVA;
         this.month = builder.month;
-
-
-
+        this.year = builder.year;
     }
-
 
 
     public static class IncasariBilder{
@@ -75,11 +75,12 @@ public class Incasari {
         private double sumaTotala;
         private double sumaFaraTVA;
         private double sumaTVA;
-        private String month = data.substring(3,5);
+        private String month;
+        private String year;
 
 
 
-        public IncasariBilder(String data, String furnizor, int number, String detalii, double sumaTotala, double sumaFaraTVA, double sumaTVA, String month) {
+        public IncasariBilder(String data, String furnizor, int number, String detalii, double sumaTotala, double sumaFaraTVA, double sumaTVA, String month, String year) {
             this.data = data;
             this.furnizor = furnizor;
             this.number = number;
@@ -88,6 +89,7 @@ public class Incasari {
             this.sumaFaraTVA = sumaFaraTVA;
             this.sumaTVA = sumaTVA;
             this.month = month;
+            this.year = year;
 
 
         }
@@ -134,6 +136,11 @@ public class Incasari {
 
         public IncasariBilder month(String month) {
             this.month = month;
+            return this;
+        }
+
+        public IncasariBilder year(String year) {
+            this.year = year;
             return this;
         }
 

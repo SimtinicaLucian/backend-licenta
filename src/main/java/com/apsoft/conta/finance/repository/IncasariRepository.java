@@ -13,7 +13,11 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 
     List<Incasari> findAllByData(String data);
 
-    List<Incasari> findAllByMonth(String month);
+    List<Incasari> findAByYear(String year);
+
+    List<Incasari> findByMonth(String month);
+
+    List<Incasari> findAllByMonthAndYear(String month, String year);
 
     List<Incasari> findAllById(long id);
 
