@@ -74,6 +74,11 @@ public class IncasariResource {
         return incasariService.calculateTVAByDate(data);
     }
 
+    @GetMapping(value = "/calculateTotalByMonth/{month}")
+    public double calculateTotalByMonth(@PathVariable String month) {
+        return incasariService.calculateTotalByMonth(month);
+    }
+
 
 
     @PutMapping(value = "/update")

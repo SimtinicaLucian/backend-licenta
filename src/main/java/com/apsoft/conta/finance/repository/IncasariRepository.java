@@ -12,7 +12,11 @@ import java.util.List;
 public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 
     List<Incasari> findAllByData(String data);
+
+    List<Incasari> findAllByMonth(String month);
+
     List<Incasari> findAllById(long id);
+
     List<Incasari> findAllByNumber(int number);
 
     List<Incasari> findAllByFurnizor(String furnizor);
@@ -24,5 +28,7 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 
     @Transactional
     void deleteByNumber(int number);
+
+
 }
 

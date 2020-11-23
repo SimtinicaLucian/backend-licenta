@@ -38,6 +38,18 @@ public class Incasari {
     @Column(name = "sumaTVA")
     private double sumaTVA;
 
+    @Column(name = "month")
+    private String month;
+
+
+
+
+//    String [] dateParts = data.split(".");
+//    String day = dateParts[0];
+//    String month = dateParts[1];
+//    String year = dateParts[2];
+
+
     public Incasari(IncasariBilder builder){
         this.data = builder.data;
         this.furnizor = builder.furnizor;
@@ -46,6 +58,9 @@ public class Incasari {
         this.sumaTotala = builder.sumaTotala;
         this.sumaFaraTVA = builder.sumaFaraTVA;
         this.sumaTVA = builder.sumaTVA;
+        this.month = builder.month;
+
+
 
     }
 
@@ -60,8 +75,11 @@ public class Incasari {
         private double sumaTotala;
         private double sumaFaraTVA;
         private double sumaTVA;
+        private String month = data.substring(3,5);
 
-        public IncasariBilder(String data, String furnizor, int number, String detalii, double sumaTotala, double sumaFaraTVA, double sumaTVA) {
+
+
+        public IncasariBilder(String data, String furnizor, int number, String detalii, double sumaTotala, double sumaFaraTVA, double sumaTVA, String month) {
             this.data = data;
             this.furnizor = furnizor;
             this.number = number;
@@ -69,6 +87,9 @@ public class Incasari {
             this.sumaTotala = sumaTotala;
             this.sumaFaraTVA = sumaFaraTVA;
             this.sumaTVA = sumaTVA;
+            this.month = month;
+
+
         }
 
         public IncasariBilder(){
@@ -109,6 +130,15 @@ public class Incasari {
             this.sumaTVA = sumaTVA;
             return this;
         }
+
+
+        public IncasariBilder month(String month) {
+            this.month = month;
+            return this;
+        }
+
+
+
         public Incasari build(){
             Incasari incasari = new Incasari(this);
             return incasari;
@@ -116,12 +146,12 @@ public class Incasari {
 
     }
 
-    public class date{
-        String [] dateParts = data.split(".");
-        String day = dateParts[0];
-        String month = dateParts[1];
-        String year = dateParts[2];
-    }
+//    public class data{
+//        String [] dateParts = data.split(".");
+//        String day = dateParts[0];
+//        String month = dateParts[1];
+//        String year = dateParts[2];
+//    }
 
 
 }

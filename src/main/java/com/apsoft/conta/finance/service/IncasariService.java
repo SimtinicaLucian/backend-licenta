@@ -18,6 +18,9 @@ public interface IncasariService {
 
     Incasari update(int number, Incasari incasari);
     void deleteNumber(int number);
+
+    double calculateTotalByMonth(String month);
+
     double calculateTotalTVA();
     double calculateTVAByDate(String data);
 
@@ -25,4 +28,6 @@ public interface IncasariService {
 
     double calculateSumaTotala();
     double calculateSumaFaraTVA();
+
+
 }
