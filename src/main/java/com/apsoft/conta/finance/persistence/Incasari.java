@@ -44,6 +44,12 @@ public class Incasari {
     @Column(name = "year")
     private String year;
 
+    @Column(name = "data1")
+    private String data1;
+
+    @Column(name = "data2")
+    private String data2;
+
 
 
 
@@ -63,6 +69,8 @@ public class Incasari {
         this.sumaTVA = builder.sumaTVA;
         this.month = builder.month;
         this.year = builder.year;
+        this.data1 = builder.data1;
+        this.data2 = builder.data2;
     }
 
 
@@ -77,10 +85,12 @@ public class Incasari {
         private double sumaTVA;
         private String month;
         private String year;
+        private String data1;
+        private String data2;
 
 
 
-        public IncasariBilder(String data, String furnizor, int number, String detalii, double sumaTotala, double sumaFaraTVA, double sumaTVA, String month, String year) {
+        public IncasariBilder(String data, String furnizor, int number, String detalii, double sumaTotala, double sumaFaraTVA, double sumaTVA, String month, String year, String data1, String data2) {
             this.data = data;
             this.furnizor = furnizor;
             this.number = number;
@@ -90,6 +100,8 @@ public class Incasari {
             this.sumaTVA = sumaTVA;
             this.month = month;
             this.year = year;
+            this.data1 = data1;
+            this.data2 = data2;
 
 
         }
@@ -141,6 +153,16 @@ public class Incasari {
 
         public IncasariBilder year(String year) {
             this.year = year;
+            return this;
+        }
+
+        public IncasariBilder data1(String data1) {
+            this.data1 = data1;
+            return this;
+        }
+
+        public IncasariBilder data2(String data2) {
+            this.data2 = data2;
             return this;
         }
 

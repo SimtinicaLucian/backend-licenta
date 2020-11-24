@@ -46,6 +46,10 @@ public class IncasariServiceImpl implements IncasariService {
         List<Incasari> incasariSearch = incasariRepository.findAllByNumber(incasari.getNumber());
         incasari.setMonth(incasari.getData().substring(3,5));
         incasari.setYear(incasari.getData().substring(6,10));
+        incasari.setData1(incasari.getData().substring(0,10));
+        incasari.setData2(incasari.getData().substring(0,10));
+
+
         if (incasariSearch.size() < 1) {
             incasari = incasariRepository.save(incasari);
         }
@@ -116,9 +120,9 @@ public class IncasariServiceImpl implements IncasariService {
 
 
         search = incasariRepository.save(search);
-         incasariRepository.deleteByNumber(number);
+        incasariRepository.deleteByNumber(number);
 
-         return search;
+        return search;
 
 
 
@@ -247,12 +251,24 @@ public class IncasariServiceImpl implements IncasariService {
         return incasariListByDate.stream().map(Incasari::getSumaTotala).reduce(0.0, Double::sum);
     }
 
+
+
+
+
     @Override
     public double calculateTotalByMonthAndYear(String month, String year) {
         List<Incasari> incasariListByMonthAndYear = incasariRepository.findAllByMonthAndYear(month,year);
         log.info("Month and year");
         return incasariListByMonthAndYear.stream().map(Incasari::getSumaTotala).reduce(0.0, Double::sum);
     }
+
+    @Override
+    public double calculateTotalByDataBetweenData(String data1, String data2) {
+        List<Incasari> incasariListByDataBetweenData = incasariRepository.findAllByData1IsAfterAndData2IsBefore(data1, data2);
+        log.info("Between");
+        return incasariListByDataBetweenData.stream().map(Incasari::getSumaTotala).reduce(0.0, Double::sum);
+    }
+
 
     public double calculateTotalTVA() {
         List<Incasari> incasariList = incasariRepository.findAll();

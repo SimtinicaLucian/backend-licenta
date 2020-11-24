@@ -24,6 +24,8 @@ public interface IncasariService {
 
     double calculateTotalByMonthAndYear(String month, String year);
 
+    double calculateTotalByDataBetweenData(String data1, String data2);
+
 
     double calculateTotalTVA();
     double calculateTVAByDate(String data);

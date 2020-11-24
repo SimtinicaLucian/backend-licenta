@@ -19,6 +19,17 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 
     List<Incasari> findAllByMonthAndYear(String month, String year);
 
+//    List<Incasari> findAllByMonthAndYearBetweenAndMonthAndYear(String month, String year);
+
+//    List<Incasari> findAllByData1BeforeAndData2(String data1, String data2);
+
+//    List<Incasari> findAllByData1AfterAndData2Before(String data1, String data2);
+
+//    List<Incasari> findAllByData1AfterAndData2Before(String data1, String data2);
+
+    List<Incasari> findAllByData1IsAfterAndData2IsBefore(String data1, String data2);
+
+
     List<Incasari> findAllById(long id);
 
     List<Incasari> findAllByNumber(int number);
