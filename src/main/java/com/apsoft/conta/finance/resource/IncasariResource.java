@@ -37,6 +37,17 @@ public class IncasariResource {
         return incasariService.searchByFurnizor(furnizor);
     }
 
+//    @GetMapping(value = "/search/monthandyear")
+//    public List<Incasari> searchByMonthAndYear(@RequestParam String firstDate, @RequestParam String secondDate) {
+//        return incasariService.searchByMonthAndYear(firstDate, secondDate);
+//    }
+
+    @GetMapping(value = "/search/year/{year}")
+    public List<Incasari> searchByYear(@PathVariable String year) {
+        return incasariService.searchByYear(year);
+    }
+
+
     @GetMapping(value = "/search/number/{number}")
     public List<Incasari> searchByNumar(@PathVariable int number) {
         return incasariService.searchByNumber(number);
@@ -80,24 +91,30 @@ public class IncasariResource {
         return incasariService.calculateTotalByMonth(month);
     }
 
+
     @GetMapping(value = "/calculateTotalByYear/{year}")
     public double calculateTotalByYear(@PathVariable String year) {
         return incasariService.calculateTotalByYear(year);
     }
 
-    @GetMapping(value = "/calculateTotalByMonthAndYear/{month}.{year}")
-    public double calculateTotalByMonthAndYear(@PathVariable String month, @PathVariable String year) {
-        return incasariService.calculateTotalByMonthAndYear(month, year);
+
+
+
+        @GetMapping(value = "/calculateTotalByMonthAndYear")
+        public double calculateTotalByMonthAndYear(@RequestParam String firstDate, @RequestParam String secondDate ) {
+        return incasariService.calculateTotalByMonthAndYear(firstDate, secondDate);
     }
 
-
-    @GetMapping(value = "/calculateTotalByDataBetweenData/{data1}-{data2}")
-    public double calculateTotalByDataBetweenData(@PathVariable String data1, @PathVariable String data2 ) {
-        return incasariService.calculateTotalByDataBetweenData(data1, data2);
+    
+    @GetMapping(value = "/calculateTotalByDataBetweenData")
+    public double calculateTotalByDataBetweenData(@RequestParam String firstDate, @RequestParam String secondDate ) {
+        return incasariService.calculateTotalByDataBetweenData(firstDate, secondDate);
     }
 
-
-
+//    @GetMapping(value = "/calculateTotalByDataBetweenData/{data1}-{data2}")
+//    public double calculateTotalByDataBetweenData(@PathVariable String data1, @PathVariable String data2 ) {
+//        return incasariService.calculateTotalByDataBetweenData(data1, data2);
+//    }
 
 
     @PutMapping(value = "/update")

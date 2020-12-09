@@ -14,6 +14,8 @@ public interface IncasariService {
     List<Incasari> searchByData(String data);
     List<Incasari> searchByFurnizor(String furnizor);
     List<Incasari> searchByNumber(int number);
+    List<Incasari> searchByMonthAndYear(String month, String year);
+
 
 
     Incasari update(int number, Incasari incasari);
@@ -22,9 +24,12 @@ public interface IncasariService {
     double calculateTotalByMonth(String month);
     double calculateTotalByYear(String year);
 
+    List<Incasari> searchByYear(String year);
+
     double calculateTotalByMonthAndYear(String month, String year);
 
     double calculateTotalByDataBetweenData(String data1, String data2);
+
 
 
     double calculateTotalTVA();

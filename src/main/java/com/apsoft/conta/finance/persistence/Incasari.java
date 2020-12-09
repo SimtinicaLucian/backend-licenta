@@ -53,12 +53,6 @@ public class Incasari {
 
 
 
-//    String [] dateParts = data.split(".");
-//    String day = dateParts[0];
-//    String month = dateParts[1];
-//    String year = dateParts[2];
-
-
     public Incasari(IncasariBilder builder){
         this.data = builder.data;
         this.furnizor = builder.furnizor;
@@ -71,6 +65,7 @@ public class Incasari {
         this.year = builder.year;
         this.data1 = builder.data1;
         this.data2 = builder.data2;
+
     }
 
 
@@ -90,6 +85,7 @@ public class Incasari {
 
 
 
+
         public IncasariBilder(String data, String furnizor, int number, String detalii, double sumaTotala, double sumaFaraTVA, double sumaTVA, String month, String year, String data1, String data2) {
             this.data = data;
             this.furnizor = furnizor;
@@ -102,6 +98,7 @@ public class Incasari {
             this.year = year;
             this.data1 = data1;
             this.data2 = data2;
+
 
 
         }
@@ -175,12 +172,6 @@ public class Incasari {
 
     }
 
-//    public class data{
-//        String [] dateParts = data.split(".");
-//        String day = dateParts[0];
-//        String month = dateParts[1];
-//        String year = dateParts[2];
-//    }
 
 
 }

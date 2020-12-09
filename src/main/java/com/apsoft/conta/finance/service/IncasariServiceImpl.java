@@ -44,8 +44,11 @@ public class IncasariServiceImpl implements IncasariService {
     @Override
     public Incasari saveIncasari(Incasari incasari) {
         List<Incasari> incasariSearch = incasariRepository.findAllByNumber(incasari.getNumber());
-        incasari.setMonth(incasari.getData().substring(3,5));
-        incasari.setYear(incasari.getData().substring(6,10));
+
+         incasari.setMonth(incasari.getData().substring(5,7));
+         incasari.setYear(incasari.getData().substring(0,4));
+
+
         incasari.setData1(incasari.getData().substring(0,10));
         incasari.setData2(incasari.getData().substring(0,10));
 
@@ -57,24 +60,12 @@ public class IncasariServiceImpl implements IncasariService {
         return incasari;
     }
 
-//    private String getData() {
-//        Date date = new Date();
-//        String strDateFormat = "yyyy-MM-dd";
-//        DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
-//        String formattedDate = dateFormat.format(date);
-//        return formattedDate;
-//    }
 
 
     @Override
     public List<Incasari> searchAll() {
         log.info("Return all incasari");
         return incasariRepository.findAll();
-//        if(incasariList.size() >0 ){
-//            return incasariList;
-//        }else{
-//            return null;
-//        }
     }
 
 
@@ -85,14 +76,24 @@ public class IncasariServiceImpl implements IncasariService {
 
     @Override
     public List<Incasari> searchByFurnizor(String furnizor) {
+
         return incasariRepository.findAllByFurnizor(furnizor);
     }
+
+    @Override
+    public List<Incasari> searchByMonthAndYear(String month, String year) {
+        return incasariRepository.findAllByMonthAndYear(month, year);
+    }
+
+
 
     @Override
     public List<Incasari> searchByNumber(int number) {
 
         return incasariRepository.findAllByNumber(number);
     }
+
+
 
 
     @Override
@@ -160,88 +161,9 @@ public class IncasariServiceImpl implements IncasariService {
 
     @Override
     public double calculateTotalByMonth(String month) {
-
-//        String [] dateParts = data.split(".");
-//        //        String day = dateParts[0];
-//        String month = dateParts[1];
-////        String year = dateParts[2];
-
-//        switch(month) {
-//            case "01":
-//                month = "Ianuarie";
-//                break;
-//            case "02":
-//                month = "Februarie";
-//                break;
-//            case "03":
-//                month = "Martie";
-//                break;
-//            case "04":
-//                month = "Aprilie";
-//                break;
-//            case "05":
-//                month = "Mai";
-//                break;
-//            case "06":
-//                month = "Iunie";
-//                break;
-//            case "07":
-//                month = "Iulie";
-//                break;
-//            case "08":
-//                month = "August";
-//                break;
-//            case "09":
-//                month = "Septembrie";
-//                break;
-//            case "10":
-//                month = "Octombrie";
-//                break;
-//            case "11":
-//                month = "Noiembrie";
-//                break;
-//            case "12":
-//                month = "Decembrie";
-//                break;
-//            default:
-//                System.out.println(month);
-//        }
-
-//        if (month == "01"){
-//            month = "Ianuarie";
-//        }else if(month == "02"){
-//            month = "Februarie";
-//        }else if(month == "03") {
-//            month = "Februarie";
-//        }else if(month == "04") {
-//            month = "Martie";
-//        } else if(month == "05") {
-//            month = "Aprilie";
-//        }else if(month == "06") {
-//            month = "Mai";
-//        }else if(month == "07") {
-//            month = "Iunie";
-//        }else if(month == "08") {
-//            month = "Iulie";
-//        }else if(month == "09") {
-//            month = "August";
-//        }else if(month == "10") {
-//            month = "Septembrie";
-//        }else if(month == "11") {
-//            month = "Noiembrie";
-//        }else if(month == "12") {
-//            month = "Decembrie";
-//        }
-
-
         List<Incasari> incasariListByDate = incasariRepository.findByMonth(month);
         log.info("Calculare");
-//        System.out.println(month);
         return incasariListByDate.stream().map(Incasari::getSumaTotala).reduce(0.0, Double::sum);
-
-
-
-
     }
 
     @Override
@@ -249,6 +171,11 @@ public class IncasariServiceImpl implements IncasariService {
         List<Incasari> incasariListByDate = incasariRepository.findAByYear(year);
         log.info("Calculate by year");
         return incasariListByDate.stream().map(Incasari::getSumaTotala).reduce(0.0, Double::sum);
+    }
+
+    @Override
+    public List<Incasari> searchByYear(String year) {
+        return incasariRepository.findAByYear(year);
     }
 
 
@@ -264,10 +191,13 @@ public class IncasariServiceImpl implements IncasariService {
 
     @Override
     public double calculateTotalByDataBetweenData(String data1, String data2) {
-        List<Incasari> incasariListByDataBetweenData = incasariRepository.findAllByData1IsAfterAndData2IsBefore(data1, data2);
+
+        List<Incasari> incasariListByDataBetweenData = incasariRepository.findAllByData1GreaterThanEqualAndData2LessThanEqual(data1, data2);
         log.info("Between");
+
         return incasariListByDataBetweenData.stream().map(Incasari::getSumaTotala).reduce(0.0, Double::sum);
     }
+
 
 
     public double calculateTotalTVA() {
