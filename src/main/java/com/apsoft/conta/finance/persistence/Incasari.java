@@ -50,6 +50,12 @@ public class Incasari {
     @Column(name = "data2")
     private String data2;
 
+    @Column(name = "sumaTotala1")
+    private double sumaTotala1;
+
+    @Column(name = "sumaTotala2")
+    private double sumaTotala2;
+
 
 
 
@@ -65,7 +71,8 @@ public class Incasari {
         this.year = builder.year;
         this.data1 = builder.data1;
         this.data2 = builder.data2;
-
+        this.sumaTotala1 = builder.sumaTotala1;
+        this.sumaTotala2 = builder.sumaTotala2;
     }
 
 
@@ -82,11 +89,13 @@ public class Incasari {
         private String year;
         private String data1;
         private String data2;
+        private double sumaTotala1;
+        private double sumaTotala2;
 
 
 
 
-        public IncasariBilder(String data, String furnizor, int number, String detalii, double sumaTotala, double sumaFaraTVA, double sumaTVA, String month, String year, String data1, String data2) {
+        public IncasariBilder(String data, String furnizor, int number, String detalii, double sumaTotala, double sumaFaraTVA, double sumaTVA, String month, String year, String data1, String data2, double sumaTotala1, double sumaTotala2) {
             this.data = data;
             this.furnizor = furnizor;
             this.number = number;
@@ -98,6 +107,8 @@ public class Incasari {
             this.year = year;
             this.data1 = data1;
             this.data2 = data2;
+            this.sumaTotala1 = sumaTotala1;
+            this.sumaTotala2 = sumaTotala2;
 
 
 
@@ -160,6 +171,16 @@ public class Incasari {
 
         public IncasariBilder data2(String data2) {
             this.data2 = data2;
+            return this;
+        }
+
+        public IncasariBilder sumaTotala1(double sumaTotala1) {
+            this.sumaTotala1 = sumaTotala1;
+            return this;
+        }
+
+        public IncasariBilder sumaTotala2(double sumaTotala2) {
+            this.sumaTotala2 = sumaTotala2;
             return this;
         }
 

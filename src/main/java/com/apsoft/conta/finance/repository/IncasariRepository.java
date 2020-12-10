@@ -21,6 +21,12 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 
     List<Incasari> findAllByData1GreaterThanEqualAndData2LessThanEqual(String data1, String data2);
 
+//    List<Incasari> findAllBySumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(double sumaTotala1, double sumaTotala2);
+
+    List<Incasari> findAllByData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(String data1, String data2, double sumaTotala1, double sumaTotala2);
+
+    List<Incasari> findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(String furnizor,String data1, String data2, double sumaTotala1, double sumaTotala2);
+
     List<Incasari> findAllById(long id);
 
     List<Incasari> findAllByNumber(int number);

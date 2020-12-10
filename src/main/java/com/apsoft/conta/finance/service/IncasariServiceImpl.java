@@ -52,6 +52,9 @@ public class IncasariServiceImpl implements IncasariService {
         incasari.setData1(incasari.getData().substring(0,10));
         incasari.setData2(incasari.getData().substring(0,10));
 
+        incasari.setSumaTotala1(incasari.getSumaTotala());
+        incasari.setSumaTotala2(incasari.getSumaTotala());
+
 
         if (incasariSearch.size() < 1) {
             incasari = incasariRepository.save(incasari);
@@ -83,6 +86,21 @@ public class IncasariServiceImpl implements IncasariService {
     @Override
     public List<Incasari> searchByMonthAndYear(String month, String year) {
         return incasariRepository.findAllByMonthAndYear(month, year);
+    }
+
+    @Override
+    public List<Incasari> searchByBetweenData(String data1, String data2) {
+        return incasariRepository.findAllByData1GreaterThanEqualAndData2LessThanEqual(data1, data2);
+    }
+
+    @Override
+    public List<Incasari> searchByBetweenSumaTotala(String data1, String data2, double sumaTotala1, double sumaTotala2) {
+        return incasariRepository.findAllByData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(data1, data2, sumaTotala1, sumaTotala2);
+    }
+
+    @Override
+    public List<Incasari> searchByFurnizorAndBetweenSumaTotala(String furnizor,String data1, String data2, double sumaTotala1, double sumaTotala2) {
+        return incasariRepository.findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(furnizor,data1, data2, sumaTotala1, sumaTotala2);
     }
 
 

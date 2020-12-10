@@ -15,6 +15,10 @@ public interface IncasariService {
     List<Incasari> searchByFurnizor(String furnizor);
     List<Incasari> searchByNumber(int number);
     List<Incasari> searchByMonthAndYear(String month, String year);
+    List<Incasari> searchByBetweenData(String data1, String data2);
+    List<Incasari> searchByBetweenSumaTotala(String data1, String data2, double sumaTotala1, double sumaTotala2);
+    List<Incasari> searchByFurnizorAndBetweenSumaTotala(String furnizor, String data1, String data2, double sumaTotala1, double sumaTotala2);
+
 
 
 

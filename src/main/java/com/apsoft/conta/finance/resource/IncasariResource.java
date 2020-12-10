@@ -37,10 +37,26 @@ public class IncasariResource {
         return incasariService.searchByFurnizor(furnizor);
     }
 
-//    @GetMapping(value = "/search/monthandyear")
-//    public List<Incasari> searchByMonthAndYear(@RequestParam String firstDate, @RequestParam String secondDate) {
-//        return incasariService.searchByMonthAndYear(firstDate, secondDate);
-//    }
+    @GetMapping(value = "/search/monthandyear")
+    public List<Incasari> searchByMonthAndYear(@RequestParam String firstDate, @RequestParam String secondDate) {
+        return incasariService.searchByMonthAndYear(firstDate, secondDate);
+    }
+
+    @GetMapping(value = "/search/betweenData")
+    public List<Incasari> searchByBetweenData(@RequestParam String firstDate, @RequestParam String secondDate) {
+        return incasariService.searchByBetweenData(firstDate, secondDate);
+    }
+
+    @GetMapping(value = "/search/betweenSumaTotala")
+    public List<Incasari> searchByBetweenSumaTotala(@RequestParam String firstDate, @RequestParam String secondDate, @RequestParam double firstDate1, @RequestParam double secondDate1) {
+        return incasariService.searchByBetweenSumaTotala(firstDate, secondDate, firstDate1, secondDate1);
+    }
+
+    @GetMapping(value = "/search/furnizorbetweenSumaTotala")
+    public List<Incasari> searchByFurnizorAndBetweenSumaTotala(@RequestParam String furnizor,@RequestParam String firstDate, @RequestParam String secondDate, @RequestParam double firstDate1, @RequestParam double secondDate1) {
+        return incasariService.searchByFurnizorAndBetweenSumaTotala(furnizor,firstDate, secondDate, firstDate1, secondDate1);
+    }
+
 
     @GetMapping(value = "/search/year/{year}")
     public List<Incasari> searchByYear(@PathVariable String year) {
@@ -94,14 +110,14 @@ public class IncasariResource {
 
     @GetMapping(value = "/calculateTotalByYear/{year}")
     public double calculateTotalByYear(@PathVariable String year) {
+
         return incasariService.calculateTotalByYear(year);
     }
 
 
 
-
-        @GetMapping(value = "/calculateTotalByMonthAndYear")
-        public double calculateTotalByMonthAndYear(@RequestParam String firstDate, @RequestParam String secondDate ) {
+    @GetMapping(value = "/calculateTotalByMonthAndYear")
+    public double calculateTotalByMonthAndYear(@RequestParam String firstDate, @RequestParam String secondDate ) {
         return incasariService.calculateTotalByMonthAndYear(firstDate, secondDate);
     }
 
