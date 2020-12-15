@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -27,6 +29,8 @@ public class IncasariResource {
         return incasariService.searchAll();
     }
 
+
+
     @GetMapping(value = "/search/data/{data}")
     public List<Incasari> searchByData(@PathVariable String data) {
         return incasariService.searchByData(data);
@@ -38,8 +42,8 @@ public class IncasariResource {
     }
 
     @GetMapping(value = "/search/monthandyear")
-    public List<Incasari> searchByMonthAndYear(@RequestParam String firstDate, @RequestParam String secondDate) {
-        return incasariService.searchByMonthAndYear(firstDate, secondDate);
+    public List<Incasari> searchByMonthAndYear(@RequestParam String month, @RequestParam String year) {
+        return incasariService.searchByMonthAndYear(month, year);
     }
 
     @GetMapping(value = "/search/betweenData")
@@ -53,9 +57,26 @@ public class IncasariResource {
     }
 
     @GetMapping(value = "/search/furnizorbetweenSumaTotala")
-    public List<Incasari> searchByFurnizorAndBetweenSumaTotala(@RequestParam String furnizor,@RequestParam String firstDate, @RequestParam String secondDate, @RequestParam double firstDate1, @RequestParam double secondDate1) {
+    public List<Incasari> searchByFurnizorAndBetweenSumaTotala(@RequestParam String furnizor,@RequestParam String firstDate, @RequestParam String secondDate, @RequestParam(required = false, name = "firstDate1") double firstDate1, @RequestParam(required = false, name = "secondDate1") double secondDate1) {
         return incasariService.searchByFurnizorAndBetweenSumaTotala(furnizor,firstDate, secondDate, firstDate1, secondDate1);
     }
+
+
+    @GetMapping(value = "/test")
+    public List<Incasari> testMethod(@RequestParam Map<String, String> params){
+
+        String firstDate = params.get("firstDate");
+        
+        if(null == params.get("furnizor")){
+            return incasariService.searchByFurnizorAndBetweenSumaTotala(params.get("furnizor"), params.get("data1"), params.get("data2"), Double.valueOf(params.get("sumaTotala1")), Double.valueOf(params.get("sumaTotala2")));
+        }
+
+        return params.get("firstDate");
+
+
+    }
+
+
 
 
     @GetMapping(value = "/search/year/{year}")
@@ -113,8 +134,7 @@ public class IncasariResource {
 
         return incasariService.calculateTotalByYear(year);
     }
-
-
+    
 
     @GetMapping(value = "/calculateTotalByMonthAndYear")
     public double calculateTotalByMonthAndYear(@RequestParam String firstDate, @RequestParam String secondDate ) {

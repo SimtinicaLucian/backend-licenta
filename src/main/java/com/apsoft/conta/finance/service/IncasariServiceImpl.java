@@ -72,6 +72,10 @@ public class IncasariServiceImpl implements IncasariService {
     }
 
 
+
+
+
+
     @Override
     public List<Incasari> searchByData(String data) {
         return incasariRepository.findAllByData(data);
@@ -98,11 +102,24 @@ public class IncasariServiceImpl implements IncasariService {
         return incasariRepository.findAllByData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(data1, data2, sumaTotala1, sumaTotala2);
     }
 
+//    @Override
+//    public List<Incasari> searchByFurnizorAndBetweenSumaTotala(String furnizor,String data1, String data2, double sumaTotala1, double sumaTotala2) {
+//        return incasariRepository.findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(furnizor,data1, data2, sumaTotala1, sumaTotala2);
+//    }
+
     @Override
     public List<Incasari> searchByFurnizorAndBetweenSumaTotala(String furnizor,String data1, String data2, double sumaTotala1, double sumaTotala2) {
+        if(furnizor.isEmpty()){
+            return incasariRepository.findAllByData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(data1, data2, sumaTotala1, sumaTotala2);
+        }
+        else if((data1.isEmpty()) && (data2.isEmpty())){
+            return incasariRepository.findAllByFurnizorAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(furnizor, sumaTotala1, sumaTotala2);
+        }
+        else if((sumaTotala1 == 0) && (sumaTotala2 == 0)){
+            return incasariRepository.findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqual(furnizor, data1, data2);
+        }
         return incasariRepository.findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(furnizor,data1, data2, sumaTotala1, sumaTotala2);
     }
-
 
 
     @Override
