@@ -1,8 +1,10 @@
 package com.apsoft.conta.finance.service;
 
 import com.apsoft.conta.finance.persistence.Incasari;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IncasariService {
 
@@ -13,11 +15,17 @@ public interface IncasariService {
     List<Incasari> searchAll();
     List<Incasari> searchByData(String data);
     List<Incasari> searchByFurnizor(String furnizor);
+
+
+
     List<Incasari> searchByNumber(int number);
     List<Incasari> searchByMonthAndYear(String month, String year);
     List<Incasari> searchByBetweenData(String data1, String data2);
     List<Incasari> searchByBetweenSumaTotala(String data1, String data2, double sumaTotala1, double sumaTotala2);
     List<Incasari> searchByFurnizorAndBetweenSumaTotala(String furnizor, String data1, String data2, double sumaTotala1, double sumaTotala2);
+
+
+    List<Incasari> testMethod(Map<String, String> params);
 
 
 
@@ -44,6 +52,7 @@ public interface IncasariService {
 
     double calculateSumaTotala();
     double calculateSumaFaraTVA();
+
 
 
 }

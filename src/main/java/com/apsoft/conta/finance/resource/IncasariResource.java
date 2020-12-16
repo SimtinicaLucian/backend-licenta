@@ -57,25 +57,26 @@ public class IncasariResource {
     }
 
     @GetMapping(value = "/search/furnizorbetweenSumaTotala")
-    public List<Incasari> searchByFurnizorAndBetweenSumaTotala(@RequestParam String furnizor,@RequestParam String firstDate, @RequestParam String secondDate, @RequestParam(required = false, name = "firstDate1") double firstDate1, @RequestParam(required = false, name = "secondDate1") double secondDate1) {
-        return incasariService.searchByFurnizorAndBetweenSumaTotala(furnizor,firstDate, secondDate, firstDate1, secondDate1);
+    public List<Incasari> searchByFurnizorAndBetweenSumaTotala(@RequestParam String furnizor,@RequestParam String data1, @RequestParam String data2, @RequestParam double sumaTotala1, @RequestParam double sumaTotala2) {
+        return incasariService.searchByFurnizorAndBetweenSumaTotala(furnizor,data1, data2, sumaTotala1, sumaTotala2);
     }
 
+
+//    @GetMapping(value = "/test")
+//    public List<Incasari> testMethod(@RequestParam Map<String, String> params){
+//
+//        String furnizor = params.get("furnizor");
+//
+//        if(null == params.get("furnizor")){
+//            return incasariService.searchByBetweenSumaTotala(params.get("data1"), params.get("data2"), Double.valueOf(params.get("sumaTotala1")), Double.valueOf(params.get("sumaTotala2")));
+//        }
+//        return incasariService.searchByFurnizorAndBetweenSumaTotala(params.get("furnizor"), params.get("data1"), params.get("data2"), Double.valueOf(params.get("sumaTotala1")), Double.valueOf(params.get("sumaTotala2")));
+//    }
 
     @GetMapping(value = "/test")
     public List<Incasari> testMethod(@RequestParam Map<String, String> params){
-
-        String firstDate = params.get("firstDate");
-        
-        if(null == params.get("furnizor")){
-            return incasariService.searchByFurnizorAndBetweenSumaTotala(params.get("furnizor"), params.get("data1"), params.get("data2"), Double.valueOf(params.get("sumaTotala1")), Double.valueOf(params.get("sumaTotala2")));
-        }
-
-        return params.get("firstDate");
-
-
+        return incasariService.testMethod(params);
     }
-
 
 
 
