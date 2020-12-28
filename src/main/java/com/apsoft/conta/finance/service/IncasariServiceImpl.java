@@ -21,7 +21,6 @@ import java.util.Map;
 public class IncasariServiceImpl implements IncasariService {
 
 
-
     @Autowired
     private IncasariRepository incasariRepository;
 
@@ -47,12 +46,12 @@ public class IncasariServiceImpl implements IncasariService {
     public Incasari saveIncasari(Incasari incasari) {
         List<Incasari> incasariSearch = incasariRepository.findAllByNumber(incasari.getNumber());
 
-         incasari.setMonth(incasari.getData().substring(5,7));
-         incasari.setYear(incasari.getData().substring(0,4));
+        incasari.setMonth(incasari.getData().substring(5, 7));
+        incasari.setYear(incasari.getData().substring(0, 4));
 
 
-        incasari.setData1(incasari.getData().substring(0,10));
-        incasari.setData2(incasari.getData().substring(0,10));
+        incasari.setData1(incasari.getData().substring(0, 10));
+        incasari.setData2(incasari.getData().substring(0, 10));
 
         incasari.setSumaTotala1(incasari.getSumaTotala());
         incasari.setSumaTotala2(incasari.getSumaTotala());
@@ -66,16 +65,11 @@ public class IncasariServiceImpl implements IncasariService {
     }
 
 
-
     @Override
     public List<Incasari> searchAll() {
         log.info("Return all incasari");
         return incasariRepository.findAll();
     }
-
-
-
-
 
 
     @Override
@@ -109,63 +103,35 @@ public class IncasariServiceImpl implements IncasariService {
 //        return incasariRepository.findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(furnizor,data1, data2, sumaTotala1, sumaTotala2);
 //    }
 
+
     @Override
-    public List<Incasari> searchByFurnizorAndBetweenSumaTotala(String furnizor,String data1, String data2, double sumaTotala1, double sumaTotala2) {
-        String sumaTotalaStr1 = String.valueOf(sumaTotala1);
-        String sumaTotalaStr2 = String.valueOf(sumaTotala2);
-        if((furnizor.isEmpty()) && (sumaTotala1 == 0) && (sumaTotala2 == 0)){
-            log.info("Return all without data1 - data2 - furnizor");
-            return incasariRepository.findAllByData1GreaterThanEqualAndData2LessThanEqual(data1, data2);
-        }
-
-        else if((furnizor.isEmpty()) && (data1.isEmpty()) && (data2.isEmpty())) {
-            log.info("Return all without data1 - data2 - furnizor");
-            return incasariRepository.findAllBySumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(sumaTotala1, sumaTotala2);
-        }
-
-        else if((furnizor.isEmpty())){
-            log.info("Return all without furnizor");
-            return incasariRepository.findAllByData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(data1, data2, sumaTotala1, sumaTotala2);
-        }
-        else if((data1.isEmpty()) && (data2.isEmpty())){
-            log.info("Return all without data1 - data2");
-            return incasariRepository.findAllByFurnizorAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(furnizor, sumaTotala1, sumaTotala2);
-        }
-        else if((sumaTotala1 == 0) && (sumaTotala2 == 0)){
-            log.info("Return all without suma1 - suma2");
-            return incasariRepository.findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqual(furnizor, data1, data2);
-        }
-
-
-        return incasariRepository.findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(furnizor,data1, data2, sumaTotala1, sumaTotala2);
+    public List<Incasari> searchWithoutDates(String furnizor, double sumaTotala1, double SumaTotala2){
+        return incasariRepository.findAllByFurnizorAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(furnizor,sumaTotala1,SumaTotala2);
     }
 
+    @Override
+    public List<Incasari> searchWithoutFurnizor(String firstDate, String secondDate, double totalSum, double totalSumTwo){
+        return incasariRepository.findAllByData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(firstDate, secondDate, totalSum, totalSumTwo);
+    }
 
     @Override
-    public List<Incasari> testMethod(Map<String, String> params) {
-        String furnizor = params.get("furnizor");
-        String data1 = params.get("data1");
-        String data2 = params.get("data2");
-        Double sumaTotala1 =  Double.valueOf(params.get("sumaTotala1"));
+    public List<Incasari> searchWithoutSum(String furnizor, String data1, String data2){
+        return incasariRepository.findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqual(furnizor,data1,data2);
+    }
 
-        Double sumaTotala2 =  Double.valueOf(params.get("sumaTotala2"));
+    @Override
+    public List<Incasari> searchWithoutFurnizorAndSum(String data1, String data2) {
+        return incasariRepository.findAllByData1GreaterThanEqualAndData2LessThanEqual(data1, data2);
+    }
 
+    @Override
+    public List<Incasari> searchWithoutFurnizorAndDates(double sumaTotala1, double sumaTotala2) {
+        return incasariRepository.findAllBySumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(sumaTotala1, sumaTotala2);
+    }
 
-
-        if(null == params.get("furnizor")){
-            log.info("Return all without furnizor");
-            return incasariRepository.findAllByData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(data1, data2, sumaTotala1, sumaTotala2);
-        }
-        else if((null == params.get("data1")) && (null == params.get("data2"))) {
-            log.info("Return all without data1 - data2");
-            return incasariRepository.findAllByFurnizorAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(furnizor,sumaTotala1, sumaTotala2);
-        }
-
-
-
-
-        return incasariRepository.findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(furnizor,data1, data2, sumaTotala1, sumaTotala2);
-
+    @Override
+    public List<Incasari> searchAllParams(String furnizor, String data1, String data2, Double sumaTotala1, Double sumaTotala2) {
+        return incasariRepository.findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(furnizor,data1,data2,sumaTotala1,sumaTotala2);
     }
 
 
@@ -174,8 +140,6 @@ public class IncasariServiceImpl implements IncasariService {
 
         return incasariRepository.findAllByNumber(number);
     }
-
-
 
 
     @Override
@@ -208,18 +172,13 @@ public class IncasariServiceImpl implements IncasariService {
         return search;
 
 
-
     }
-
-
 
 
     @Override
     public void deleteNumber(int number) {
         incasariRepository.deleteByNumber(number);
     }
-
-
 
 
     public double calculateTVAByDate(String data) {
@@ -234,11 +193,11 @@ public class IncasariServiceImpl implements IncasariService {
         return incasariList.stream().map(Incasari::getSumaTotala).reduce(0.0, Double::sum);
     }
 
-    public double calculateSumaFaraTVA(){
+    public double calculateSumaFaraTVA() {
         List<Incasari> incasariList = incasariRepository.findAll();
 //        return incasariList.stream().map(Incasari::getSumaFaraTVA).reduce(0.0, Double::sum);
 //        log.info("Calculare suma totala fara TVA");
-        return calculateSumaTotala()-calculateTotalTVA();
+        return calculateSumaTotala() - calculateTotalTVA();
     }
 
     @Override
@@ -261,12 +220,9 @@ public class IncasariServiceImpl implements IncasariService {
     }
 
 
-
-
-
     @Override
     public double calculateTotalByMonthAndYear(String month, String year) {
-        List<Incasari> incasariListByMonthAndYear = incasariRepository.findAllByMonthAndYear(month,year);
+        List<Incasari> incasariListByMonthAndYear = incasariRepository.findAllByMonthAndYear(month, year);
         log.info("Month and year");
         return incasariListByMonthAndYear.stream().map(Incasari::getSumaTotala).reduce(0.0, Double::sum);
     }
@@ -279,7 +235,6 @@ public class IncasariServiceImpl implements IncasariService {
 
         return incasariListByDataBetweenData.stream().map(Incasari::getSumaTotala).reduce(0.0, Double::sum);
     }
-
 
 
     public double calculateTotalTVA() {

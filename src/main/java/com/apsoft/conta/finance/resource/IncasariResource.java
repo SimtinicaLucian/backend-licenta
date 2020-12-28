@@ -30,7 +30,6 @@ public class IncasariResource {
     }
 
 
-
     @GetMapping(value = "/search/data/{data}")
     public List<Incasari> searchByData(@PathVariable String data) {
         return incasariService.searchByData(data);
@@ -56,10 +55,7 @@ public class IncasariResource {
         return incasariService.searchByBetweenSumaTotala(firstDate, secondDate, firstDate1, secondDate1);
     }
 
-    @GetMapping(value = "/search/furnizorbetweenSumaTotala")
-    public List<Incasari> searchByFurnizorAndBetweenSumaTotala(@RequestParam String furnizor,@RequestParam String data1, @RequestParam String data2, @RequestParam double sumaTotala1, @RequestParam double sumaTotala2) {
-        return incasariService.searchByFurnizorAndBetweenSumaTotala(furnizor,data1, data2, sumaTotala1, sumaTotala2);
-    }
+
 
 
 //    @GetMapping(value = "/test")
@@ -74,10 +70,32 @@ public class IncasariResource {
 //    }
 
     @GetMapping(value = "/test")
-    public List<Incasari> testMethod(@RequestParam Map<String, String> params){
-        return incasariService.testMethod(params);
-    }
+    public List<Incasari> testMethod(@RequestParam Map<String, String> params) {
 
+        if (null == params.get("furnizor")) {
+            return incasariService
+                    .searchWithoutFurnizor(params.get("data1"), params.get("data2"),
+                            Double.valueOf(params.get("sumaTotala1")), Double.valueOf(params.get("sumaTotala2")));
+        } else if (null == params.get("sumaTotala1") && null == params.get("sumaTotala2")) {
+            return incasariService
+                    .searchWithoutSum(params.get("furnizor"), params.get("data1"), params.get("data2"));
+        } else if (null == params.get("data1") && null == params.get("data2")) {
+            return incasariService
+                    .searchWithoutDates(params.get("furnizor"), Double.valueOf(params.get("sumaTotala1")), Double.valueOf(params.get("sumaTotala2")));
+        }
+          else if (null == params.get("furnizor") && null == params.get("sumaTotala1") && null == params.get("sumaTotala2")){
+              return incasariService
+                      .searchWithoutFurnizorAndSum(params.get("data1"), params.get("data2"));
+        }
+          else if (null == params.get("furnizor") && null == params.get("data1") && null == params.get("data2")){
+              return incasariService
+                      .searchWithoutFurnizorAndDates(Double.valueOf(params.get("sumaTotala1")), Double.valueOf(params.get("sumaTotala2")));
+
+        }
+
+
+        return incasariService.searchAllParams(params.get("furnizor"), params.get("data1"), params.get("data2"), Double.valueOf(params.get("sumaTotala1")), Double.valueOf(params.get("sumaTotala2")));
+    }
 
 
     @GetMapping(value = "/search/year/{year}")
@@ -98,7 +116,7 @@ public class IncasariResource {
     }
 
     @DeleteMapping(value = "/delete/number/{number}")
-    public void deleteNumber(@PathVariable int number){
+    public void deleteNumber(@PathVariable int number) {
         incasariService.deleteNumber(number);
     }
 
@@ -135,16 +153,16 @@ public class IncasariResource {
 
         return incasariService.calculateTotalByYear(year);
     }
-    
+
 
     @GetMapping(value = "/calculateTotalByMonthAndYear")
-    public double calculateTotalByMonthAndYear(@RequestParam String firstDate, @RequestParam String secondDate ) {
+    public double calculateTotalByMonthAndYear(@RequestParam String firstDate, @RequestParam String secondDate) {
         return incasariService.calculateTotalByMonthAndYear(firstDate, secondDate);
     }
 
-    
+
     @GetMapping(value = "/calculateTotalByDataBetweenData")
-    public double calculateTotalByDataBetweenData(@RequestParam String firstDate, @RequestParam String secondDate ) {
+    public double calculateTotalByDataBetweenData(@RequestParam String firstDate, @RequestParam String secondDate) {
         return incasariService.calculateTotalByDataBetweenData(firstDate, secondDate);
     }
 

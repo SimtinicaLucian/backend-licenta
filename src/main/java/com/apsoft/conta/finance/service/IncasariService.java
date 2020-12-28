@@ -22,11 +22,16 @@ public interface IncasariService {
     List<Incasari> searchByMonthAndYear(String month, String year);
     List<Incasari> searchByBetweenData(String data1, String data2);
     List<Incasari> searchByBetweenSumaTotala(String data1, String data2, double sumaTotala1, double sumaTotala2);
-    List<Incasari> searchByFurnizorAndBetweenSumaTotala(String furnizor, String data1, String data2, double sumaTotala1, double sumaTotala2);
 
 
-    List<Incasari> testMethod(Map<String, String> params);
+//   List<Incasari> testMethod(Map<String, String> params);
 
+    List<Incasari> searchWithoutDates(String furnizor, double sumaTotala1, double SumaTotala2);
+    List<Incasari> searchWithoutFurnizor(String firstDate, String secondDate, double totalSum, double totalSumTwo);
+    List<Incasari> searchWithoutSum(String furnizor, String data1, String data2);
+    List<Incasari> searchWithoutFurnizorAndSum(String data1, String data2);
+    List<Incasari> searchWithoutFurnizorAndDates(double sumaTotala1, double sumaTotala2);
+    List<Incasari> searchAllParams(String furnizor, String data1, String data2, Double sumaTotala1, Double sumaTotala2);
 
 
 
@@ -52,7 +57,6 @@ public interface IncasariService {
 
     double calculateSumaTotala();
     double calculateSumaFaraTVA();
-
 
 
 }
