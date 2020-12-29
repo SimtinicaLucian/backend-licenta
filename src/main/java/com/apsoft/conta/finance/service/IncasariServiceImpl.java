@@ -106,6 +106,7 @@ public class IncasariServiceImpl implements IncasariService {
 
     @Override
     public List<Incasari> searchWithoutDates(String furnizor, double sumaTotala1, double SumaTotala2){
+        log.info("without data1, data2");
         return incasariRepository.findAllByFurnizorAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(furnizor,sumaTotala1,SumaTotala2);
     }
 

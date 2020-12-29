@@ -1,6 +1,7 @@
 package com.apsoft.conta.finance.resource;
 
 
+import ch.qos.logback.classic.Logger;
 import com.apsoft.conta.finance.persistence.Incasari;
 import com.apsoft.conta.finance.service.IncasariService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +57,6 @@ public class IncasariResource {
     }
 
 
-
-
 //    @GetMapping(value = "/test")
 //    public List<Incasari> testMethod(@RequestParam Map<String, String> params){
 //
@@ -72,25 +71,27 @@ public class IncasariResource {
     @GetMapping(value = "/test")
     public List<Incasari> testMethod(@RequestParam Map<String, String> params) {
 
-        if (null == params.get("furnizor")) {
+        if ((null == params.get("data1") || params.get("data1").isEmpty()) && ((null == params.get("data2")) || params.get("data2").isEmpty()) && (null == params.get("furnizor") || params.get("furnizor").isEmpty())) {
+            System.out.println(params.get("furnizor"));
+            return incasariService
+                    .searchWithoutFurnizorAndDates(Double.valueOf(params.get("sumaTotala1")), Double.valueOf(params.get("sumaTotala2")));
+        } else if ((null == params.get("data1") || params.get("data1").isEmpty()) && (null == params.get("data2") || params.get("data2").isEmpty())) {
+            System.out.println("without data1, data2");
+            return incasariService
+                    .searchWithoutDates(params.get("furnizor"), Double.valueOf(params.get("sumaTotala1")), Double.valueOf(params.get("sumaTotala2")));
+        } else if (null == params.get("sumaTotala1") && (null == params.get("furnizor") || params.get("furnizor").isEmpty()) && null == params.get("sumaTotala2")) {
+            System.out.println("without sum1, sum2, furnizor");
+            return incasariService
+                    .searchWithoutFurnizorAndSum(params.get("data1"), params.get("data2"));
+        } else if (null == params.get("furnizor") || params.get("furnizor").isEmpty()) {
+            System.out.println("without furnizor");
             return incasariService
                     .searchWithoutFurnizor(params.get("data1"), params.get("data2"),
                             Double.valueOf(params.get("sumaTotala1")), Double.valueOf(params.get("sumaTotala2")));
         } else if (null == params.get("sumaTotala1") && null == params.get("sumaTotala2")) {
+            System.out.println("without sum1, sum2");
             return incasariService
                     .searchWithoutSum(params.get("furnizor"), params.get("data1"), params.get("data2"));
-        } else if (null == params.get("data1") && null == params.get("data2")) {
-            return incasariService
-                    .searchWithoutDates(params.get("furnizor"), Double.valueOf(params.get("sumaTotala1")), Double.valueOf(params.get("sumaTotala2")));
-        }
-          else if (null == params.get("furnizor") && null == params.get("sumaTotala1") && null == params.get("sumaTotala2")){
-              return incasariService
-                      .searchWithoutFurnizorAndSum(params.get("data1"), params.get("data2"));
-        }
-          else if (null == params.get("furnizor") && null == params.get("data1") && null == params.get("data2")){
-              return incasariService
-                      .searchWithoutFurnizorAndDates(Double.valueOf(params.get("sumaTotala1")), Double.valueOf(params.get("sumaTotala2")));
-
         }
 
 
