@@ -19,6 +19,7 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 
     List<Incasari> findAllByMonthAndYear(String month, String year);
 
+    //data1, data2
     List<Incasari> findAllByData1GreaterThanEqualAndData2LessThanEqual(String data1, String data2);
 
     //furnizor, sum1, sum2
@@ -27,14 +28,17 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 
     //furnizor, data1, data2
     List<Incasari> findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqual(String furnizor, String data1, String data2 );
-    //
+
+    //suma1, sum2
     List<Incasari> findAllBySumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(double sumaTotala1, double sumaTotala2);
 
+    //data1, data2, sum1, sum2
     List<Incasari> findAllByData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(String data1, String data2, double sumaTotala1, double sumaTotala2);
 
+    //furnizor, data1, data1, sum1, sum2
     List<Incasari> findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(String furnizor,String data1, String data2, double sumaTotala1, double sumaTotala2);
 
-    List<Incasari> findAllById(long id);
+
 
     List<Incasari> findAllByNumber(int number);
 
