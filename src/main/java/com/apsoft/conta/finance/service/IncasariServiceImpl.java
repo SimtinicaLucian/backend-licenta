@@ -139,39 +139,39 @@ public class IncasariServiceImpl implements IncasariService {
 
 
     @Override
-    public List<Incasari> searchByNumber(int number) {
+    public List<Incasari> searchByNumber(String number) {
 
         return incasariRepository.findAllByNumber(number);
     }
 
 
     @Override
-    public Incasari update(int number, Incasari incasari) {
-        List<Incasari> numberSearch = incasariRepository.findAllByNumber(number);
-//        Incasari search = numberSearch.get(0);
-////        Incasari search = new Incasari();
-//        search.setData(incasari.getData());
-//        search.setFurnizor(incasari.getFurnizor());
-//        search.setNumber(incasari.getNumber());
-//        search.setDetalii(incasari.getDetalii());
-//        search.setSumaTotala(incasari.getSumaTotala());
-//        search.setSumaFaraTVA(incasari.getSumaFaraTVA());
-//        search.setSumaTVA(incasari.getSumaTVA());
+    public Incasari update(String id, Incasari incasari) {
+        List<Incasari> numberSearch = incasariRepository.findAllById(id);
+        Incasari search = numberSearch.get(0);
+//        Incasari search = new Incasari();
+        search.setData(incasari.getData());
+        search.setFurnizor(incasari.getFurnizor());
+        search.setNumber(incasari.getNumber());
+        search.setDetalii(incasari.getDetalii());
+        search.setSumaTotala(incasari.getSumaTotala());
+        search.setSumaFaraTVA(incasari.getSumaFaraTVA());
+        search.setSumaTVA(incasari.getSumaTVA());
 
-        Incasari search = new Incasari.IncasariBilder()
-                .data(incasari.getData())
-                .furnizor(incasari.getFurnizor())
-                .number(incasari.getNumber())
-                .detalii(incasari.getDetalii())
-                .sumaTotala(incasari.getSumaTotala())
-                .sumaFaraTVA(incasari.getSumaFaraTVA())
-                .sumaTVA(incasari.getSumaTotala())
-                .build();
+//        Incasari search = new Incasari.IncasariBilder()
+//                .data(incasari.getData())
+//                .furnizor(incasari.getFurnizor())
+//                .number(incasari.getNumber())
+//                .detalii(incasari.getDetalii())
+//                .sumaTotala(incasari.getSumaTotala())
+//                .sumaFaraTVA(incasari.getSumaFaraTVA())
+//                .sumaTVA(incasari.getSumaTotala())
+//                .build();
 
 
         search = incasariRepository.save(search);
-        incasariRepository.deleteByNumber(number);
-
+//        incasariRepository.deleteByNumber(number);
+        log.info("Update");
         return search;
 
 
@@ -179,7 +179,8 @@ public class IncasariServiceImpl implements IncasariService {
 
 
     @Override
-    public void deleteNumber(int number) {
+    public void deleteNumber(String number) {
+        log.info("delete");
         incasariRepository.deleteByNumber(number);
     }
 

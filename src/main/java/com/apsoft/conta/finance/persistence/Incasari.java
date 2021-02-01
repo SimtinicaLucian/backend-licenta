@@ -3,6 +3,8 @@ package com.apsoft.conta.finance.persistence;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+
 
 import javax.persistence.*;
 
@@ -13,9 +15,15 @@ import javax.persistence.*;
 @Table(name = "incasari")
 public class Incasari {
 
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String id;
 
     @Column(name = "data")
     private String data;
@@ -24,7 +32,7 @@ public class Incasari {
     private String furnizor;
 
     @Column(name = "number")
-    private int number;
+    private String number;
 
     @Column(name = "detalii")
     private String detalii;
@@ -80,7 +88,7 @@ public class Incasari {
 
         private String data;
         private String furnizor;
-        private int number;
+        private String number;
         private String detalii;
         private double sumaTotala;
         private double sumaFaraTVA;
@@ -95,7 +103,7 @@ public class Incasari {
 
 
 
-        public IncasariBilder(String data, String furnizor, int number, String detalii, double sumaTotala, double sumaFaraTVA, double sumaTVA, String month, String year, String data1, String data2, double sumaTotala1, double sumaTotala2) {
+        public IncasariBilder(String data, String furnizor, String number, String detalii, double sumaTotala, double sumaFaraTVA, double sumaTVA, String month, String year, String data1, String data2, double sumaTotala1, double sumaTotala2) {
             this.data = data;
             this.furnizor = furnizor;
             this.number = number;
@@ -128,7 +136,7 @@ public class Incasari {
             return this;
         }
 
-        public IncasariBilder number(int number) {
+        public IncasariBilder number(String number) {
             this.number = number;
             return this;
         }

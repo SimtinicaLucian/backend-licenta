@@ -18,7 +18,7 @@ public interface IncasariService {
 
 
 
-    List<Incasari> searchByNumber(int number);
+    List<Incasari> searchByNumber(String number);
     List<Incasari> searchByMonthAndYear(String month, String year);
     List<Incasari> searchByBetweenData(String data1, String data2);
     List<Incasari> searchByBetweenSumaTotala(String data1, String data2, double sumaTotala1, double sumaTotala2);
@@ -36,8 +36,8 @@ public interface IncasariService {
 
 
 
-    Incasari update(int number, Incasari incasari);
-    void deleteNumber(int number);
+    Incasari update(String number, Incasari incasari);
+    void deleteNumber(String number);
 
     double calculateTotalByMonth(String month);
     double calculateTotalByYear(String year);

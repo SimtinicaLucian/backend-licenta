@@ -106,18 +106,18 @@ public class IncasariResource {
 
 
     @GetMapping(value = "/search/number/{number}")
-    public List<Incasari> searchByNumar(@PathVariable int number) {
+    public List<Incasari> searchByNumar(@PathVariable String number) {
         return incasariService.searchByNumber(number);
     }
 
 
-    @PutMapping(value = "/update/{number}")
-    public Incasari update(@PathVariable int number, @RequestBody Incasari incasari) {
-        return incasariService.update(number, incasari);
+    @PutMapping(value = "/update/{id}")
+    public Incasari update(@PathVariable String id, @RequestBody Incasari incasari) {
+        return incasariService.update(id, incasari);
     }
 
     @DeleteMapping(value = "/delete/number/{number}")
-    public void deleteNumber(@PathVariable int number) {
+    public void deleteNumber(@PathVariable String number) {
         incasariService.deleteNumber(number);
     }
 
