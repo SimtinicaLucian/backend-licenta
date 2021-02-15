@@ -1,12 +1,16 @@
 package com.apsoft.conta.finance.persistence;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -20,10 +24,16 @@ public class Incasari {
 
 
 
+
+
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
+
+    // Date date = new Date();
+    //    SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+    //    String dateCurrent = formatter.format(date);
 
     @Column(name = "data")
     private String data;

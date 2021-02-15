@@ -34,6 +34,16 @@ public interface IncasariService {
     List<Incasari> searchAllParams(String furnizor, String data1, String data2, Double sumaTotala1, Double sumaTotala2);
 
 
+ //   AICI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+//    List<Incasari> searchWithoutDate2(String furnizor, String data1,String dateCurrent, double sumaTotala1, double sumaTotala2);
+
+//    AICI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    List<Incasari> searchWithoutsumaTotala2(String furnizor, String data1, String data2, double sumaTotala1);
+    List<Incasari> searchWithoutDatesAndSum2(String furnizor, double sumaTotala1);
+    List<Incasari> searchWithoutFurnizorAndSum2(String data1, String data2, double sumaTotala1);
+    List<Incasari> searchWithoutFunrizorAndDatesAndSum2(double sumaTotala1);
 
 
     Incasari update(String number, Incasari incasari);
