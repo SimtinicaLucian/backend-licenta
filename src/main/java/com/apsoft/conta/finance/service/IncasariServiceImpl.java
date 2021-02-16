@@ -131,15 +131,8 @@ public class IncasariServiceImpl implements IncasariService {
     }
 
 
-//  AICI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-//    @Override
-//    public List<Incasari> searchWithoutDate2(String furnizor, String data1,String dateCurrent, double sumaTotala1, double sumaTotala2) {
-//        return incasariRepository.findAllByFurnizorAndData1GreaterThanEqualAndDateCurrentAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(furnizor, data1, dateCurrent, sumaTotala1, sumaTotala2);
-//    }
-
-//   AICI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+// SUMATOTALA2
 
 
     @Override
@@ -163,6 +156,27 @@ public class IncasariServiceImpl implements IncasariService {
         return incasariRepository.findAllBySumaTotala1GreaterThanEqual(sumaTotala1);
     }
 
+
+// SUMATOTALA1
+    @Override
+    public List<Incasari> searchWithoutsumaTotala1(String furnizor, String data1, String data2, double sumaTotala2) {
+         return incasariRepository.findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala2LessThanEqual(furnizor, data1, data2, sumaTotala2);
+    }
+
+    @Override
+    public List<Incasari> searchWithoutDatesAndSum1(String furnizor, double sumaTotala2) {
+        return incasariRepository.findAllByFurnizorAndSumaTotala2LessThanEqual(furnizor, sumaTotala2);
+    }
+
+    @Override
+    public List<Incasari> searchWithoutFurnizorAndSum1(String data1, String data2, double sumaTotala2) {
+        return incasariRepository.findAllByData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala2LessThanEqual(data1, data2, sumaTotala2);
+    }
+
+    @Override
+    public List<Incasari> searchWithoutFunrizorAndDatesAndSum1(double sumaTotala2) {
+        return incasariRepository.findAllBySumaTotala2LessThanEqual(sumaTotala2);
+    }
 
 
 

@@ -24,7 +24,7 @@ public interface IncasariService {
     List<Incasari> searchByBetweenSumaTotala(String data1, String data2, double sumaTotala1, double sumaTotala2);
 
 
-//   List<Incasari> testMethod(Map<String, String> params);
+
 
     List<Incasari> searchWithoutDates(String furnizor, double sumaTotala1, double SumaTotala2);
     List<Incasari> searchWithoutFurnizor(String firstDate, String secondDate, double totalSum, double totalSumTwo);
@@ -34,17 +34,18 @@ public interface IncasariService {
     List<Incasari> searchAllParams(String furnizor, String data1, String data2, Double sumaTotala1, Double sumaTotala2);
 
 
- //   AICI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-//    List<Incasari> searchWithoutDate2(String furnizor, String data1,String dateCurrent, double sumaTotala1, double sumaTotala2);
-
-//    AICI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// SUMATOTALA2
 
     List<Incasari> searchWithoutsumaTotala2(String furnizor, String data1, String data2, double sumaTotala1);
     List<Incasari> searchWithoutDatesAndSum2(String furnizor, double sumaTotala1);
     List<Incasari> searchWithoutFurnizorAndSum2(String data1, String data2, double sumaTotala1);
     List<Incasari> searchWithoutFunrizorAndDatesAndSum2(double sumaTotala1);
 
+// SUMATOTALA1
+    List<Incasari> searchWithoutsumaTotala1(String furnizor, String data1, String data2, double sumaTotala2);
+    List<Incasari> searchWithoutDatesAndSum1(String furnizor, double sumaTotala2);
+    List<Incasari> searchWithoutFurnizorAndSum1(String data1, String data2, double sumaTotala2);
+    List<Incasari> searchWithoutFunrizorAndDatesAndSum1(double sumaTotala2);
 
     Incasari update(String number, Incasari incasari);
     void deleteNumber(String number);

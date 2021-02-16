@@ -42,7 +42,7 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 // aici!!!!!!!!!!!!
 //    List<Incasari> findAllByFurnizorAndData1GreaterThanEqualAndDateCurrentAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(String furnizor, String data1, String dateCurrent, double sumaTotala1, double sumaTotala2);
 // aici!!!!!!!!!!!!
-
+    // SUMATOTALA2
     // without sumaTotala2
     List<Incasari> findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqual(String furnizor,String data1, String data2, double sumaTotala1);
 
@@ -55,10 +55,24 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
     // without furnizor, data1, data2, sum2
     List<Incasari> findAllBySumaTotala1GreaterThanEqual(double sumaTotala1);
 
+
+    // SUMATOTALA1
+    // without sumaTotala1
+    List<Incasari> findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala2LessThanEqual(String furnizor, String data1, String data2, double sumaTotala2);
+
+    // without Data1, data2, sum1
+    List<Incasari> findAllByFurnizorAndSumaTotala2LessThanEqual(String furnizor, double sumaTotala2);
+
+    // without furnizor, sum1
+    List<Incasari> findAllByData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala2LessThanEqual(String data1, String data2, double sumaTotala2);
+
+    // without furnizor, data1, data2, sum1
+    List<Incasari> findAllBySumaTotala2LessThanEqual(double sumaTotala2);
+
+
     List<Incasari> findAllByNumber(String number);
 
     List<Incasari> findAllById(String id);
-
 
     List<Incasari> findAllByFurnizor(String furnizor);
 

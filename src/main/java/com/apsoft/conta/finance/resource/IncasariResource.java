@@ -106,6 +106,13 @@ public class IncasariResource {
             return incasariService
                     .searchWithoutFunrizorAndDatesAndSum2(Double.valueOf(params.get("sumaTotala1")));
         }
+//-----------------------
+        else if ((null == params.get("data1") || params.get("data1").isEmpty()) && ((null == params.get("data2")) || params.get("data2").isEmpty()) && (null == params.get("furnizor") || params.get("furnizor").isEmpty()) && null == params.get("sumaTotala1")) {
+            System.out.println("without furnizor, data1, data2, sum1");
+            return incasariService
+                    .searchWithoutFunrizorAndDatesAndSum1(Double.valueOf(params.get("sumaTotala2")));
+        }
+//-----------------------
          else if ((null == params.get("data1") || params.get("data1").isEmpty()) && ((null == params.get("data2")) || params.get("data2").isEmpty()) && (null == params.get("furnizor") || params.get("furnizor").isEmpty())) {
             System.out.println(params.get("furnizor"));
             return incasariService
@@ -117,6 +124,13 @@ public class IncasariResource {
              return incasariService
                      .searchWithoutDatesAndSum2(params.get("furnizor"), Double.valueOf(params.get("sumaTotala1")));
          }
+//---------------------
+        else if ((null == params.get("data1") || params.get("data1").isEmpty()) && (null == params.get("data2") || params.get("data2").isEmpty()) && (null == params.get("sumaTotala1"))) {
+            System.out.println("without data1, data2, sum1");
+            return incasariService
+                    .searchWithoutDatesAndSum1(params.get("furnizor"), Double.valueOf(params.get("sumaTotala2")));
+        }
+//---------------------
 
          else if (null == params.get("sumaTotala1") && (null == params.get("furnizor") || params.get("furnizor").isEmpty()) && null == params.get("sumaTotala2")) {
              System.out.println("without sum1, sum2, furnizor");
@@ -135,8 +149,15 @@ public class IncasariResource {
              return incasariService
                      .searchWithoutFurnizorAndSum2(params.get("data1"), params.get("data2"),Double.valueOf(params.get("sumaTotala1")));
          }
+//-------------------------
+        else if ((null == params.get("furnizor") || params.get("furnizor").isEmpty()) && null == params.get("sumaTotala1")) {
+            System.out.println("without sum1, furnizor");
+            return incasariService
+                    .searchWithoutFurnizorAndSum1(params.get("data1"), params.get("data2"),Double.valueOf(params.get("sumaTotala2")));
+        }
+//-------------------------
 
-         else if (null == params.get("furnizor") || params.get("furnizor").isEmpty()) {F
+         else if (null == params.get("furnizor") || params.get("furnizor").isEmpty()) {
             System.out.println("without furnizor");
             return incasariService
                     .searchWithoutFurnizor(params.get("data1"), params.get("data2"),
@@ -154,6 +175,13 @@ public class IncasariResource {
             return incasariService
                     .searchWithoutsumaTotala2(params.get("furnizor"), params.get("data1"), params.get("data2"), Double.valueOf(params.get("sumaTotala1")));
         }
+//------------------------------------
+        else if (null == params.get("sumaTotala1")) {
+            System.out.println("without sumaTotala1");
+            return incasariService
+                    .searchWithoutsumaTotala1(params.get("furnizor"), params.get("data1"), params.get("data2"), Double.valueOf(params.get("sumaTotala2")));
+        }
+//-------------------------------------
 
 
         return incasariService.searchAllParams(params.get("furnizor"), params.get("data1"), params.get("data2"), Double.valueOf(params.get("sumaTotala1")), Double.valueOf(params.get("sumaTotala2")));
