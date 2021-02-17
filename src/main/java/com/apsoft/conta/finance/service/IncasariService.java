@@ -47,6 +47,25 @@ public interface IncasariService {
     List<Incasari> searchWithoutFurnizorAndSum1(String data1, String data2, double sumaTotala2);
     List<Incasari> searchWithoutFunrizorAndDatesAndSum1(double sumaTotala2);
 
+
+// DATA1
+    List<Incasari> searchWithoutData1(String furnizor, String data2, double sumaTotala1, double sumaTotala2);
+    List<Incasari> searchWithoutData1AndSum1(String furnizor, String data2, double sumaTotala2);
+    List<Incasari> searchWithoutData1AndSum2(String furnizor, String data2, double sumaTotala1);
+    List<Incasari> searchWithoutFurnizorAndData1(String data2, double sumaTotala1, double sumaTotala2);
+    List<Incasari> searchWithoutFurnizorAndData1AndSum1(String data2, double sumaTotala2);
+    List<Incasari> searchWithoutFurnizorAndData1AndSum2(String data2, double sumaTotala);
+
+//DATA2
+    List<Incasari> searchWithoutData2(String furnizor, String data1, double sumaTotala1, double sumaTotala2);
+    List<Incasari> searchWithoutData2AndSum1(String furnizor, String data1, double sumaTotala2);
+    List<Incasari> searchWithoutData2AndSum2(String furnizor, String data1, double sumaTotala1);
+    List<Incasari> searchWithoutFurnizorAndData2(String data1, double sumaTotala1, double sumaTotala2);
+    List<Incasari> searchWithoutFurnizorAndData2AndSum1(String data1, double sumaTotala2);
+    List<Incasari> searchWithoutFurnizorAndData2AndSum2(String data1, double sumaTotala);
+
+
+
     Incasari update(String number, Incasari incasari);
     void deleteNumber(String number);
 

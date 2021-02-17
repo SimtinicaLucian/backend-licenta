@@ -70,6 +70,47 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
     List<Incasari> findAllBySumaTotala2LessThanEqual(double sumaTotala2);
 
 
+    //DATA1
+    //without data1
+    List<Incasari> findAllByFurnizorAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(String furnizor, String data2, double sumaTotala1, double sumaTotala2);
+
+    //without data1, sumaTotala1
+    List<Incasari> findAllByFurnizorAndData2LessThanEqualAndSumaTotala2LessThanEqual(String furnizor, String data2, double sumaTotala2);
+
+    //without data1, sumaTotala2
+    List<Incasari> findAllByFurnizorAndData2LessThanEqualAndSumaTotala1GreaterThanEqual(String furnizor, String data2, double sumaTotala1);
+
+    //without furnizor, data1
+    List<Incasari> findAllByData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(String data2, double sumaTotala1, double sumaTotala2);
+
+    //without furnizor, data1, sumaTotala1
+    List<Incasari> findAllByData2LessThanEqualAndSumaTotala2LessThanEqual(String data2, double sumaTotala2);
+
+    //without furnizor, data1, sumaTotala2
+    List<Incasari> findAllByData2LessThanEqualAndSumaTotala1GreaterThanEqual(String data2, double sumaTotala1);
+
+
+    //DATA2
+    //without data2
+    List<Incasari> findAllByFurnizorAndData1GreaterThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(String furnizor, String data1, double sumaTotala1, double sumaTotala2);
+
+    //without data2, sumaTotala1
+    List<Incasari> findAllByFurnizorAndData1GreaterThanEqualAndSumaTotala2LessThanEqual(String furnizor, String data1, double sumaTotala2);
+
+    //without data2, sumaTotala2
+    List<Incasari> findAllByFurnizorAndData1GreaterThanEqualAndSumaTotala1GreaterThanEqual(String furnizor, String data1, double sumaTotala1);
+
+    //without furnizor, data2
+    List<Incasari> findAllByData1GreaterThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(String data1, double sumaTotala1, double sumaTotala2);
+
+    //without furnizor, data2, sumaTotala1
+    List<Incasari> findAllByData1GreaterThanEqualAndSumaTotala2LessThanEqual(String data1, double sumaTotala2);
+
+    //without furnizor, data2, sumaTotala2
+    List<Incasari> findAllByData1GreaterThanEqualAndSumaTotala1GreaterThanEqual(String data1, double sumaTotala1);
+
+
+
     List<Incasari> findAllByNumber(String number);
 
     List<Incasari> findAllById(String id);
