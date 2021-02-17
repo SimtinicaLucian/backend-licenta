@@ -218,7 +218,7 @@ public class IncasariServiceImpl implements IncasariService {
 
     @Override
     public List<Incasari> searchWithoutData2AndSum1(String furnizor, String data1, double sumaTotala2) {
-        return incasariRepository.findAllByFurnizorAndData2LessThanEqualAndSumaTotala2LessThanEqual(furnizor, data1, sumaTotala2);
+        return incasariRepository.findAllByFurnizorAndData1GreaterThanEqualAndSumaTotala2LessThanEqual(furnizor, data1, sumaTotala2);
     }
 
     @Override
@@ -266,15 +266,16 @@ public class IncasariServiceImpl implements IncasariService {
     @Override
     public Incasari update(String id, Incasari incasari) {
         List<Incasari> numberSearch = incasariRepository.findAllById(id);
-        Incasari search = numberSearch.get(0);
+
+            Incasari search = numberSearch.get(0);
 //        Incasari search = new Incasari();
-        search.setData(incasari.getData());
-        search.setFurnizor(incasari.getFurnizor());
-        search.setNumber(incasari.getNumber());
-        search.setDetalii(incasari.getDetalii());
-        search.setSumaTotala(incasari.getSumaTotala());
-        search.setSumaFaraTVA(incasari.getSumaFaraTVA());
-        search.setSumaTVA(incasari.getSumaTVA());
+            search.setData(incasari.getData());
+            search.setFurnizor(incasari.getFurnizor());
+            search.setNumber(incasari.getNumber());
+            search.setDetalii(incasari.getDetalii());
+            search.setSumaTotala(incasari.getSumaTotala());
+            search.setSumaFaraTVA(incasari.getSumaFaraTVA());
+            search.setSumaTVA(incasari.getSumaTVA());
 
 //        Incasari search = new Incasari.IncasariBilder()
 //                .data(incasari.getData())
@@ -286,10 +287,9 @@ public class IncasariServiceImpl implements IncasariService {
 //                .sumaTVA(incasari.getSumaTotala())
 //                .build();
 
-
-        search = incasariRepository.save(search);
+                search = incasariRepository.save(search);
 //        incasariRepository.deleteByNumber(number);
-        log.info("Update");
+            log.info("Update");
         return search;
 
 
