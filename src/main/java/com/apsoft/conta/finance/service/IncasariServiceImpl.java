@@ -209,6 +209,11 @@ public class IncasariServiceImpl implements IncasariService {
         return incasariRepository.findAllByData2LessThanEqualAndSumaTotala1GreaterThanEqual(data2, sumaTotala1);
     }
 
+    @Override
+    public List<Incasari> searchWithoutFurnizorAndData1AndSums(String data2) {
+        return incasariRepository.findAllByData2LessThanEqual(data2);
+    }
+
 
 //WITHOUT DATA2
     @Override
@@ -241,6 +246,11 @@ public class IncasariServiceImpl implements IncasariService {
         return incasariRepository.findAllByData1GreaterThanEqualAndSumaTotala1GreaterThanEqual(data1, sumaTotala1);
     }
 
+    @Override
+    public List<Incasari> searchWithoutFurnizorAndData2AndSums(String data1) {
+        return incasariRepository.findAllByData1GreaterThanEqual(data1);
+    }
+
 
 
 
@@ -270,6 +280,8 @@ public class IncasariServiceImpl implements IncasariService {
             Incasari search = numberSearch.get(0);
 //        Incasari search = new Incasari();
             search.setData(incasari.getData());
+            search.setData1(incasari.getData());
+            search.setData2(incasari.getData());
             search.setFurnizor(incasari.getFurnizor());
             search.setNumber(incasari.getNumber());
             search.setDetalii(incasari.getDetalii());
@@ -286,9 +298,9 @@ public class IncasariServiceImpl implements IncasariService {
 //                .sumaFaraTVA(incasari.getSumaFaraTVA())
 //                .sumaTVA(incasari.getSumaTotala())
 //                .build();
+//            incasariRepository.deleteById(id);
+            search = incasariRepository.save(search);
 
-                search = incasariRepository.save(search);
-//        incasariRepository.deleteByNumber(number);
             log.info("Update");
         return search;
 

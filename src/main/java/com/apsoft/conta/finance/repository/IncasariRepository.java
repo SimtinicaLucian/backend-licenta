@@ -89,6 +89,10 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
     //without furnizor, data1, sumaTotala2
     List<Incasari> findAllByData2LessThanEqualAndSumaTotala1GreaterThanEqual(String data2, double sumaTotala1);
 
+    //without furnizor, data1, sum1, sum2
+    List<Incasari> findAllByData2LessThanEqual(String data2);
+
+
 
     //DATA2
     //without data2
@@ -109,6 +113,9 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
     //without furnizor, data2, sumaTotala2
     List<Incasari> findAllByData1GreaterThanEqualAndSumaTotala1GreaterThanEqual(String data1, double sumaTotala1);
 
+    //without furnizor, data2, sum1, sum2
+    List<Incasari> findAllByData1GreaterThanEqual(String data1);
+
 
 
     List<Incasari> findAllByNumber(String number);
@@ -121,6 +128,9 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 
     @Transactional
     void deleteByNumber(String number);
+
+    @Transactional
+    void deleteById(String id);
 
 
 }

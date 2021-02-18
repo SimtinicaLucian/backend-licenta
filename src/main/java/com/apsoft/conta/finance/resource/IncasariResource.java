@@ -171,14 +171,34 @@ public class IncasariResource {
             return incasariService
                     .searchWithoutFunrizorAndDatesAndSum1(Double.valueOf(params.get("sumaTotala2")));
         }
-//        -------------------------------------------------
+
+
+//        -------------------------------------------------aici
+        else if((null == params.get("furnizor") || params.get("furnizor").isEmpty()) && (null == params.get("data1") || params.get("data1").isEmpty()) && null == params.get("sumaTotala1") && null == params.get("sumaTotala2")){
+            System.out.println("without furnizor, data1, sum1, sum2");
+            return incasariService
+                    .searchWithoutFurnizorAndData1AndSums(params.get("data2"));
+        }
+
+        // data2
+
+
+        else if((null == params.get("furnizor") || params.get("furnizor").isEmpty()) && (null == params.get("data2") || params.get("data2").isEmpty()) && null == params.get("sumaTotala1") && null == params.get("sumaTotala2")){
+            System.out.println("without furnizor, data2, sum1, sum2");
+            return incasariService
+                    .searchWithoutFurnizorAndData2AndSums(params.get("data1"));
+        }
+
+//        -------------------------------------------------pana aici
+
+
         else if((null == params.get("furnizor") || params.get("furnizor").isEmpty()) && (null == params.get("data1") || params.get("data1").isEmpty()) && null == params.get("sumaTotala2")){
             System.out.println("without furnizor, data1, sum2");
             return incasariService
                     .searchWithoutFurnizorAndData1AndSum2(params.get("data2"), Double.valueOf(params.get("sumaTotala1")));
         }
     //data2
-        else if((null == params.get("furnizor") || params.get("furnizor").isEmpty()) && (null == params.get("data2") || params.get("data2").isEmpty()) && null == params.get("sumaTotala2")){
+        else if((null == params.get("data2") || params.get("data2").isEmpty()) && null == params.get("sumaTotala2") && (null == params.get("furnizor") || params.get("furnizor").isEmpty())){
             System.out.println("without furnizor, data2, sum2");
             return incasariService
                     .searchWithoutFurnizorAndData2AndSum2(params.get("data1"), Double.valueOf(params.get("sumaTotala1")));
@@ -348,7 +368,7 @@ public class IncasariResource {
     }
 
     @DeleteMapping(value = "/delete/number/{number}")
-    public void deleteNumber(@PathVariable String number) {
+    public void deleteId(@PathVariable String number) {
         incasariService.deleteNumber(number);
     }
 
