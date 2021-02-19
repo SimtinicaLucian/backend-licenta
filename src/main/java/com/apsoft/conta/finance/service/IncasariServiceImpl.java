@@ -1,11 +1,14 @@
 package com.apsoft.conta.finance.service;
 
+import com.apsoft.conta.finance.exception.HttpError;
 import com.apsoft.conta.finance.persistence.Incasari;
 import com.apsoft.conta.finance.repository.IncasariRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 import java.util.List;
 
@@ -15,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
+
 
 @Slf4j
 @Service
@@ -42,8 +46,46 @@ public class IncasariServiceImpl implements IncasariService {
 //
 //    }
 
+
+//    @Override
+//    public List<Incasari> save(@RequestParam Map<String, String> params, Incasari incasari) {
+//
+//        if((null == params.get("data") || params.get("data").isEmpty() )|| (null == params.get("furnizor") || params.get("furnizor").isEmpty()) ||
+//                (null == params.get("number") || params.get("number").isEmpty()) || (null == params.get("detalii") || params.get("detalii").isEmpty()) ||
+//                null == params.get("sumaTotala1") || null == params.get("sumaTotala2")){
+//            throw HttpError.notFound("Object is null");
+//        }
+//
+//        List<Incasari> incasariSearch = incasariRepository.findAllByNumber(incasari.getNumber());
+//
+//        incasari.setMonth(incasari.getData().substring(5, 7));
+//        incasari.setYear(incasari.getData().substring(0, 4));
+//
+//
+//        incasari.setData1(incasari.getData().substring(0, 10));
+//        incasari.setData2(incasari.getData().substring(0, 10));
+//
+//        incasari.setSumaTotala1(incasari.getSumaTotala());
+//        incasari.setSumaTotala2(incasari.getSumaTotala());
+//
+//
+//        if (incasariSearch.size() < 1) {
+//            incasari = incasariRepository.save(incasari);
+//        }
+//        log.info("The {} has been added to the database", incasari.getDetalii());
+//        return (List<Incasari>) incasari;
+//    }
+
+
+
+
     @Override
     public Incasari saveIncasari(Incasari incasari) {
+        if((null == incasari.getData() || incasari.getData().isEmpty() )|| (null == incasari.getFurnizor() || incasari.getFurnizor().isEmpty()) ||
+                (null == incasari.getNumber() || incasari.getNumber().isEmpty()) || (null == incasari.getDetalii() || incasari.getDetalii().isEmpty()) ||
+                (incasari.getSumaTotala() == 0) || (incasari.getSumaFaraTVA() == 0)|| (incasari.getSumaTVA() == 0)) {
+            throw HttpError.notFound("Object is null");
+        }
         List<Incasari> incasariSearch = incasariRepository.findAllByNumber(incasari.getNumber());
 
         incasari.setMonth(incasari.getData().substring(5, 7));

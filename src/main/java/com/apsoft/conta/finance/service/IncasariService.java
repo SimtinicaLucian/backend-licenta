@@ -9,7 +9,31 @@ import java.util.Map;
 public interface IncasariService {
 
 
+    //    @Override
+    //    public List<Incasari> deleteByNumar(int numar) {
+    //        List<Incasari> deleteNumar = incasariRepository.findAllByNumar(numar);
+    //        if (deleteNumar.size() >= 1) {
+    //            incasariRepository.deleteByNumar(numar);
+    //        }
+    //        return deleteNumar;
+    //
+    //    }
+
+    //    @Override
+    //    public List<Incasari> deleteByNumar(int numar) {
+    //        List<Incasari> deleteNumar = incasariRepository.findAllByNumar(numar);
+    //        if (deleteNumar.size() >= 1) {
+    //            incasariRepository.deleteByNumar(numar);
+    //        }
+    //        return deleteNumar;
+    //
+    //    }
+
+
+
     Incasari saveIncasari(Incasari incasari);
+
+
 
 
     List<Incasari> searchAll();

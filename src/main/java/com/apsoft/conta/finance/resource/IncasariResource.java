@@ -28,6 +28,13 @@ public class IncasariResource {
         return incasariService.saveIncasari(incasari);
     }
 
+
+//    @PostMapping(value = "/add")
+//    public Incasari add(@RequestParam Map<String, String> params, @RequestBody Incasari incasari ){
+//        return incasariService.save(params, incasari);
+//    }
+
+
     @GetMapping(value = "/searchAll")
     public List<Incasari> searchAll() {
         return incasariService.searchAll();
