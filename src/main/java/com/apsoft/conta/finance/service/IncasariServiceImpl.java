@@ -81,12 +81,14 @@ public class IncasariServiceImpl implements IncasariService {
 
     @Override
     public Incasari saveIncasari(Incasari incasari) {
+
         if((null == incasari.getData() || incasari.getData().isEmpty() )|| (null == incasari.getFurnizor() || incasari.getFurnizor().isEmpty()) ||
                 (null == incasari.getNumber() || incasari.getNumber().isEmpty()) || (null == incasari.getDetalii() || incasari.getDetalii().isEmpty()) ||
                 (incasari.getSumaTotala() == 0) || (incasari.getSumaFaraTVA() == 0)|| (incasari.getSumaTVA() == 0)) {
             throw HttpError.notFound("Object is null");
         }
         List<Incasari> incasariSearch = incasariRepository.findAllByNumber(incasari.getNumber());
+        List<Incasari> furnizorSearch = incasariRepository.findAllByFurnizorAndNumber(incasari.getFurnizor(), incasari.getNumber());
 
         incasari.setMonth(incasari.getData().substring(5, 7));
         incasari.setYear(incasari.getData().substring(0, 4));
@@ -95,12 +97,17 @@ public class IncasariServiceImpl implements IncasariService {
         incasari.setData1(incasari.getData().substring(0, 10));
         incasari.setData2(incasari.getData().substring(0, 10));
 
+
         incasari.setSumaTotala1(incasari.getSumaTotala());
         incasari.setSumaTotala2(incasari.getSumaTotala());
 
 
-        if (incasariSearch.size() < 1) {
+
+        if (furnizorSearch.size() < 1) {
             incasari = incasariRepository.save(incasari);
+        }
+        else{
+            throw HttpError.notFound("This provider with this number exists !");
         }
         log.info("The {} has been added to the database", incasari.getDetalii());
         return incasari;
@@ -113,7 +120,7 @@ public class IncasariServiceImpl implements IncasariService {
         return incasariRepository.findAll();
     }
 
-
+    
     @Override
     public List<Incasari> searchByData(String data) {
         return incasariRepository.findAllByData(data);
@@ -318,6 +325,8 @@ public class IncasariServiceImpl implements IncasariService {
     @Override
     public Incasari update(String id, Incasari incasari) {
         List<Incasari> numberSearch = incasariRepository.findAllById(id);
+        List<Incasari> furnizorSearch = incasariRepository.findAllByFurnizorAndNumber(incasari.getFurnizor(), incasari.getNumber());
+
 
             Incasari search = numberSearch.get(0);
 //        Incasari search = new Incasari();
@@ -341,13 +350,18 @@ public class IncasariServiceImpl implements IncasariService {
 //                .sumaTVA(incasari.getSumaTotala())
 //                .build();
 //            incasariRepository.deleteById(id);
+        if (furnizorSearch.size() < 1) {
             search = incasariRepository.save(search);
+        }else {
+            throw HttpError.notFound("This provider with this number exists !");
 
-            log.info("Update");
+
+        }
+        log.info("Update");
         return search;
 
-
     }
+
 
 
     @Override

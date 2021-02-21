@@ -37,8 +37,13 @@ public interface IncasariService {
 
 
     List<Incasari> searchAll();
+
+
+
     List<Incasari> searchByData(String data);
     List<Incasari> searchByFurnizor(String furnizor);
+
+
 
 
 

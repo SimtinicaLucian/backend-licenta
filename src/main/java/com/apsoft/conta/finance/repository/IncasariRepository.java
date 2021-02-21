@@ -16,6 +16,8 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
     List<Incasari> findAByYear(String year);
 
     List<Incasari> findByMonth(String month);
+    
+    List<Incasari> findAllByFurnizorAndNumber(String furnizor, String number);
 
     List<Incasari> findAllByMonthAndYear(String month, String year);
 
@@ -123,6 +125,8 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
     List<Incasari> findAllById(String id);
 
     List<Incasari> findAllByFurnizor(String furnizor);
+
+
 
 
 

@@ -18,4 +18,6 @@ public class HttpError extends RuntimeException{
     public static HttpError notFound(String message){
         return builder().status(HttpStatus.NOT_FOUND).message(message).build();
     }
+
+
 }
