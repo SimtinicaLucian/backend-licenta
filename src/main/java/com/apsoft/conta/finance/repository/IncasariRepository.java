@@ -2,7 +2,6 @@ package com.apsoft.conta.finance.repository;
 
 import com.apsoft.conta.finance.persistence.Incasari;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -40,7 +39,6 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
     //furnizor, data1, data1, sum1, sum2
     List<Incasari> findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(String furnizor,String data1, String data2, double sumaTotala1, double sumaTotala2);
 
-
 // aici!!!!!!!!!!!!
 //    List<Incasari> findAllByFurnizorAndData1GreaterThanEqualAndDateCurrentAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(String furnizor, String data1, String dateCurrent, double sumaTotala1, double sumaTotala2);
 // aici!!!!!!!!!!!!
@@ -58,6 +56,7 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
     List<Incasari> findAllBySumaTotala1GreaterThanEqual(double sumaTotala1);
 
 
+
     // SUMATOTALA1
     // without sumaTotala1
     List<Incasari> findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala2LessThanEqual(String furnizor, String data1, String data2, double sumaTotala2);
@@ -70,6 +69,8 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 
     // without furnizor, data1, data2, sum1
     List<Incasari> findAllBySumaTotala2LessThanEqual(double sumaTotala2);
+
+
 
 
     //DATA1
@@ -93,6 +94,9 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 
     //without furnizor, data1, sum1, sum2
     List<Incasari> findAllByData2LessThanEqual(String data2);
+
+    // without data1, sum1, sum2
+    List<Incasari> findAllByFurnizorAndData2LessThanEqual(String furnizor, String data2);
 
 
 
@@ -118,11 +122,14 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
     //without furnizor, data2, sum1, sum2
     List<Incasari> findAllByData1GreaterThanEqual(String data1);
 
+    // without data2, sum1, sum2
+    List<Incasari> findAllByFurnizorAndData1GreaterThanEqual(String furnizor, String data1);
+
 
 
     List<Incasari> findAllByNumber(String number);
 
-    List<Incasari> findAllById(String id);
+    List<Incasari> findAllById(long id);
 
     List<Incasari> findAllByFurnizor(String furnizor);
 
@@ -131,10 +138,9 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 
 
     @Transactional
-    void deleteByNumber(String number);
+    void deleteById(long id);
 
-    @Transactional
-    void deleteById(String id);
+
 
 
 }

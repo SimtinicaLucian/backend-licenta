@@ -19,17 +19,17 @@ import java.util.Date;
 @Table(name = "incasari")
 public class Incasari {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-
-
-
-
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+
+
+
+//    @Id
+//    @GeneratedValue(generator = "system-uuid")
+//    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+//    private String id;
 
     // Date date = new Date();
     //    SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");

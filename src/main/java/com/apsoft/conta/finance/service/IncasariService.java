@@ -1,10 +1,8 @@
 package com.apsoft.conta.finance.service;
 
 import com.apsoft.conta.finance.persistence.Incasari;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Map;
 
 public interface IncasariService {
 
@@ -69,12 +67,14 @@ public interface IncasariService {
     List<Incasari> searchWithoutDatesAndSum2(String furnizor, double sumaTotala1);
     List<Incasari> searchWithoutFurnizorAndSum2(String data1, String data2, double sumaTotala1);
     List<Incasari> searchWithoutFunrizorAndDatesAndSum2(double sumaTotala1);
+    List<Incasari> searchWithoutData2AndSums(String furnizor, String data1);
 
 // SUMATOTALA1
     List<Incasari> searchWithoutsumaTotala1(String furnizor, String data1, String data2, double sumaTotala2);
     List<Incasari> searchWithoutDatesAndSum1(String furnizor, double sumaTotala2);
     List<Incasari> searchWithoutFurnizorAndSum1(String data1, String data2, double sumaTotala2);
     List<Incasari> searchWithoutFunrizorAndDatesAndSum1(double sumaTotala2);
+    List<Incasari> searchWithoutData1AndSums(String furnizor, String data2);
 
 
 // DATA1
@@ -97,8 +97,8 @@ public interface IncasariService {
 
 
 
-    Incasari update(String number, Incasari incasari);
-    void deleteNumber(String number);
+    Incasari update(long id, Incasari incasari);
+    void deleteId(long id);
 
     double calculateTotalByMonth(String month);
     double calculateTotalByYear(String year);

@@ -1,16 +1,20 @@
 package com.apsoft.conta.finance.resource;
 
 
-import ch.qos.logback.classic.Logger;
 import com.apsoft.conta.finance.persistence.Incasari;
 import com.apsoft.conta.finance.service.IncasariService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -166,7 +170,7 @@ public class IncasariResource {
 
 
     @GetMapping(value = "/test")
-    public List<Incasari> testMethod(@RequestParam Map<String, String> params) {
+    public List<Incasari> testMethod(@RequestParam Map<String, String> params) throws ParseException {
 
         if ((null == params.get("data1") || params.get("data1").isEmpty()) && ((null == params.get("data2")) || params.get("data2").isEmpty()) && (null == params.get("furnizor") || params.get("furnizor").isEmpty()) && null == params.get("sumaTotala2")) {
             System.out.println("without furnizor, data1, data2, sum2");
@@ -197,7 +201,6 @@ public class IncasariResource {
         }
 
 //        -------------------------------------------------pana aici
-
 
         else if((null == params.get("furnizor") || params.get("furnizor").isEmpty()) && (null == params.get("data1") || params.get("data1").isEmpty()) && null == params.get("sumaTotala2")){
             System.out.println("without furnizor, data1, sum2");
@@ -230,6 +233,20 @@ public class IncasariResource {
                     .searchWithoutFurnizorAndDates(Double.valueOf(params.get("sumaTotala1")), Double.valueOf(params.get("sumaTotala2")));
         }
 
+//        aici(22.02.2021)
+        else if (((null == params.get("data2")) || params.get("data2").isEmpty()) && (null == params.get("sumaTotala1")) && (null == params.get("sumaTotala2"))){
+            System.out.println("without data2, sum1, sum2");
+            return incasariService
+                    .searchWithoutData2AndSums(params.get("furnizor"), params.get("data1"));
+        }
+        else if(((null == params.get("data1")) || params.get("data1").isEmpty()) && (null == params.get("sumaTotala1")) && (null == params.get("sumaTotala2"))){
+            System.out.println("without data1, sum1, sum2");
+            return incasariService
+                    .searchWithoutData1AndSums(params.get("furnizor"), params.get("data2"));
+        }
+
+//        pana aici(22.02.2021)
+
         else if ((null == params.get("data1") || params.get("data1").isEmpty()) && (null == params.get("data2") || params.get("data2").isEmpty()) && (null == params.get("sumaTotala2"))) {
             System.out.println("without data1, data2, sum2");
             return incasariService
@@ -243,8 +260,46 @@ public class IncasariResource {
 
         else if (null == params.get("sumaTotala1") && (null == params.get("furnizor") || params.get("furnizor").isEmpty()) && null == params.get("sumaTotala2")) {
             System.out.println("without sum1, sum2, furnizor");
+            String date1 = params.get("data1");
+            String date2 = params.get("data2");
+            Date dateProcessed1 = new SimpleDateFormat("E MMM dd yyyy HH:mm:ss", Locale.ENGLISH).parse(date1);
+            Date dateProcessed2 = new SimpleDateFormat("E MMM dd yyyy HH:mm:ss", Locale.ENGLISH).parse(date2);
+            String dateBuild1 = dateProcessed1.getYear() + "." + dateProcessed1.getMonth() + "." + dateProcessed1.getDay();
+            String dateBuild2 = dateProcessed2.getYear() + "." + dateProcessed2.getMonth() + "." + dateProcessed2.getDay();
+            dateProcessed1.getTime();
+
+            String test = "24.02.2021";
+            Date testDate = new SimpleDateFormat("mm.dd.yyyy").parse(test);
+            int month = testDate.getMonth();
+            int day = testDate.getDay();
+
+//            String startDateString = date1;
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E MMM dd yyyy HH:mm:ss");
+//            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("E MMM dd yyyy HH:mm:ss");
+//            System.out.println(LocalDate.parse(startDateString, formatter).format(formatter2));
+
+//            OffsetDateTime odt = OffsetDateTime.parse ( date1 , DateTimeFormatter.ofPattern ( "yyyy.MM.dd" ) ) ;
+//            OffsetDateTime odt1 = OffsetDateTime.parse ( date2 , DateTimeFormatter.ofPattern ( "yyyy.MM.dd" ) ) ;
+
+
+
+//            DateTimeFormatter df = DateTimeFormatter.ofPattern("E MMM dd yyyy HH:mm:ss a z");
+//            LocalDate  d1 = LocalDate.parse(date1, df);
+//            LocalDate  d2 = LocalDate.parse(date2, df);
+//
+//            Long datediff = ChronoUnit.DAYS.between(d1,d2);
+
+
+            java.util.Date dateOne = new Date(date1);
+            java.util.Date dateTwo = new Date(date2);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+            String format1 = formatter.format(dateOne);
+            String format2 = formatter.format(dateTwo);
+            System.out.println(format1);
+            System.out.println(format2);
+
             return incasariService
-                    .searchWithoutFurnizorAndSum(params.get("data1"), params.get("data2"));
+                    .searchWithoutFurnizorAndSum(format1, format2);
         }
 
 //        ----------------------------------------------------
@@ -350,13 +405,6 @@ public class IncasariResource {
 
 
 
-
-
-
-
-
-
-
     @GetMapping(value = "/search/year/{year}")
     public List<Incasari> searchByYear(@PathVariable String year) {
         return incasariService.searchByYear(year);
@@ -370,13 +418,13 @@ public class IncasariResource {
 
 
     @PutMapping(value = "/update/{id}")
-    public Incasari update(@PathVariable String id, @RequestBody Incasari incasari) {
+    public Incasari update(@PathVariable long id, @RequestBody Incasari incasari) {
         return incasariService.update(id, incasari);
     }
 
-    @DeleteMapping(value = "/delete/number/{number}")
-    public void deleteId(@PathVariable String number) {
-        incasariService.deleteNumber(number);
+    @DeleteMapping(value = "/delete/{id}")
+    public void deleteId(@PathVariable long id) {
+        incasariService.deleteId(id);
     }
 
     @GetMapping(value = "/searchAllTVA")
