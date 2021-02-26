@@ -20,6 +20,8 @@ public class IncasariServiceImpl implements IncasariService {
     private IncasariRepository incasariRepository;
 
 
+
+
 //    @Override
 //    public Incasari saveIncasari(Incasari incasari) {
 //
@@ -81,16 +83,12 @@ public class IncasariServiceImpl implements IncasariService {
         incasari.setSumaTotala2(incasari.getSumaTotala());
     }
 
-    private boolean validateIncasari(Incasari incasari) {
-        return (null == incasari.getData() || incasari.getData().isEmpty()) || (null == incasari.getFurnizor() || incasari.getFurnizor().isEmpty()) ||
-                (null == incasari.getNumber() || incasari.getNumber().isEmpty()) || (null == incasari.getDetalii() || incasari.getDetalii().isEmpty()) ||
-                (incasari.getSumaTotala() == 0) || (incasari.getSumaFaraTVA() == 0) || (incasari.getSumaTVA() == 0);
-    }
+
 
     @Override
     public Incasari saveIncasari(Incasari incasari) {
 
-        if (validateIncasari(incasari)) {
+        if (IncasariUtils.validateIncasari(incasari)) {
             throw HttpError.notFound("Object is null");
         }
 
@@ -112,6 +110,8 @@ public class IncasariServiceImpl implements IncasariService {
 //        incasari.setSumaTotala2(incasari.getSumaTotala());
 
         Set(incasari);
+
+
 
         if (furnizorSearch.size() < 1) {
             incasari = incasariRepository.save(incasari);
@@ -180,6 +180,7 @@ public class IncasariServiceImpl implements IncasariService {
 
     @Override
     public List<Incasari> searchWithoutFurnizorAndSum(String data1, String data2) {
+        log.info("without sum1, sum2, furnizor");
         return incasariRepository.findAllByData1GreaterThanEqualAndData2LessThanEqual(data1, data2);
     }
 
@@ -335,7 +336,7 @@ public class IncasariServiceImpl implements IncasariService {
 
     @Override
     public Incasari update(long id, Incasari incasari) {
-        if (validateIncasari(incasari)) {
+        if (IncasariUtils.validateIncasari(incasari)) {
             throw HttpError.notFound("Object is null");
         }
 
