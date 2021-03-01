@@ -3,6 +3,7 @@ package com.apsoft.conta.user.persistence;
 import com.apsoft.conta.role.persistence.Role;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
