@@ -65,6 +65,14 @@
         </dependency>
 
 
+
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
@@ -83,8 +91,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<version>5.3.4.RELEASE</version>
+			<artifactId>spring-security-web</artifactId>
+			<version>5.4.5</version>
 		</dependency>
 
 
