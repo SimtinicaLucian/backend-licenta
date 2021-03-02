@@ -1,10 +1,13 @@
 package com.apsoft.conta.role.controller;
 
 
+import com.apsoft.conta.role.persistence.Role;
 import com.apsoft.conta.role.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.PermitAll;
 import java.util.Collection;
 import java.util.List;
 
@@ -17,6 +20,7 @@ public class RoleController {
     private RoleService roleService;
 
     @PostMapping("/role/add/{user_id}/{role_id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void addRoleToUser(@PathVariable long user_id, @PathVariable long role_id){
         roleService.addRoleToUser(user_id, role_id);
     }
@@ -30,4 +34,6 @@ public class RoleController {
     public List<Collection> viewAll(){
         return roleService.viewAllRoles();
     }
+
+
 }
