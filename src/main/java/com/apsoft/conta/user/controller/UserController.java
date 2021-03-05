@@ -4,6 +4,7 @@ package com.apsoft.conta.user.controller;
 import com.apsoft.conta.user.persistence.User;
 import com.apsoft.conta.user.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,6 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/viewAll")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public List<User> searchAll(){
         log.info("All");
         return userService.searchAll();

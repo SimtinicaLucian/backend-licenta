@@ -26,11 +26,13 @@ public class RoleController {
     }
 
     @DeleteMapping("/role/delete/{user_id}/{role_id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteTole(@PathVariable long user_id, @PathVariable long role_id){
         roleService.deleteRole(user_id,role_id);
     }
 
     @GetMapping("role/viewAll")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Collection> viewAll(){
         return roleService.viewAllRoles();
     }

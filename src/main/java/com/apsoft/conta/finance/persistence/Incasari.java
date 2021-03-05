@@ -74,6 +74,9 @@ public class Incasari {
     @Column(name = "sumaTotala2")
     private double sumaTotala2;
 
+    @Column(name = "by_added")
+    private String by_added;
+
 
 
 

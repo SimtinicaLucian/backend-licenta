@@ -21,7 +21,6 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
     void deleteRoleBytrews(long user_id, long role_id);
 
     @Modifying
-
     @Transactional
     @Query(value = "INSERT INTO user_roles VALUES (:user_id, :role_id)", nativeQuery=true)
     void addRoleToUser(@Param("user_id")long user_id,@Param("role_id") long role_id);

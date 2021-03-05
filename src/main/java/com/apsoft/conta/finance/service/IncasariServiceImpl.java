@@ -1,10 +1,12 @@
 package com.apsoft.conta.finance.service;
 
 import com.apsoft.conta.finance.exception.HttpError;
+import com.apsoft.conta.security.service.IAuthenticationFacade;
 import com.apsoft.conta.finance.persistence.Incasari;
 import com.apsoft.conta.finance.repository.IncasariRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 
@@ -18,6 +20,9 @@ public class IncasariServiceImpl implements IncasariService {
 
     @Autowired
     private IncasariRepository incasariRepository;
+
+    @Autowired
+    private IAuthenticationFacade authenticationFacade;
 
 
 
@@ -87,7 +92,8 @@ public class IncasariServiceImpl implements IncasariService {
 
     @Override
     public Incasari saveIncasari(Incasari incasari) {
-
+        Incasari newIncasari = incasari;
+        newIncasari.setBy_added(getUsername());
         if (IncasariUtils.validateIncasari(incasari)) {
             throw HttpError.notFound("Object is null");
         }
@@ -336,6 +342,9 @@ public class IncasariServiceImpl implements IncasariService {
 
     @Override
     public Incasari update(long id, Incasari incasari) {
+        Incasari newIncasari = incasari;
+        newIncasari.setBy_added(getUsername());
+
         if (IncasariUtils.validateIncasari(incasari)) {
             throw HttpError.notFound("Object is null");
         }
@@ -460,7 +469,12 @@ public class IncasariServiceImpl implements IncasariService {
 
 
         return incasariRepository.save(search);
-
-
     }
+
+    private String getUsername() {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        return authentication.getName();
+    }
+
+
 }

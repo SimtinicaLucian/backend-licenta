@@ -7,6 +7,7 @@ import com.apsoft.conta.finance.service.IncasariUtils;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -33,6 +34,7 @@ public class IncasariResource {
 
 
     @PostMapping(value = "/add")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public Incasari persist(@RequestBody Incasari incasari) {
         return incasariService.saveIncasari(incasari);
     }
@@ -45,32 +47,38 @@ public class IncasariResource {
 
 
     @GetMapping(value = "/searchAll")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public List<Incasari> searchAll() {
         return incasariService.searchAll();
     }
 
 
     @GetMapping(value = "/search/data/{data}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public List<Incasari> searchByData(@PathVariable String data) {
         return incasariService.searchByData(data);
     }
 
     @GetMapping(value = "/search/furnizor/{furnizor}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public List<Incasari> searchByFurnizor(@PathVariable String furnizor) {
         return incasariService.searchByFurnizor(furnizor);
     }
 
     @GetMapping(value = "/search/monthandyear")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public List<Incasari> searchByMonthAndYear(@RequestParam String month, @RequestParam String year) {
         return incasariService.searchByMonthAndYear(month, year);
     }
 
     @GetMapping(value = "/search/betweenData")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public List<Incasari> searchByBetweenData(@RequestParam String firstDate, @RequestParam String secondDate) {
         return incasariService.searchByBetweenData(firstDate, secondDate);
     }
 
     @GetMapping(value = "/search/betweenSumaTotala")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public List<Incasari> searchByBetweenSumaTotala(@RequestParam String firstDate, @RequestParam String secondDate, @RequestParam double firstDate1, @RequestParam double secondDate1) {
         return incasariService.searchByBetweenSumaTotala(firstDate, secondDate, firstDate1, secondDate1);
     }
@@ -175,6 +183,7 @@ public class IncasariResource {
 
 
     @GetMapping(value = "/test")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public List<Incasari> testMethod(@RequestParam Map<String, String> params) throws ParseException {
 
         if ((null == params.get("data1") || params.get("data1").isEmpty()) && ((null == params.get("data2")) || params.get("data2").isEmpty()) && (null == params.get("furnizor") || params.get("furnizor").isEmpty()) && null == params.get("sumaTotala2")) {
@@ -464,56 +473,66 @@ public class IncasariResource {
 
 
     @GetMapping(value = "/search/year/{year}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public List<Incasari> searchByYear(@PathVariable String year) {
         return incasariService.searchByYear(year);
     }
 
 
     @GetMapping(value = "/search/number/{number}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public List<Incasari> searchByNumar(@PathVariable String number) {
         return incasariService.searchByNumber(number);
     }
 
 
     @PutMapping(value = "/update/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public Incasari update(@PathVariable long id, @RequestBody Incasari incasari) {
         return incasariService.update(id, incasari);
     }
 
     @DeleteMapping(value = "/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public void deleteId(@PathVariable long id) {
         incasariService.deleteId(id);
     }
 
     @GetMapping(value = "/searchAllTVA")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public double searchByTVA() {
         return incasariService.calculateTotalTVA();
     }
 
     @GetMapping(value = "/searchAllTotal")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public double searchByTotal() {
         return incasariService.calculateSumaTotala();
     }
 
     @GetMapping(value = "/searchAllFaraTVA")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public double searchByFaraTVA() {
         return incasariService.calculateSumaFaraTVA();
     }
 
 
     @GetMapping(value = "/searchByDateTVA/{data}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public double searchByDateTVA(@PathVariable String data) {
 
         return incasariService.calculateTVAByDate(data);
     }
 
     @GetMapping(value = "/calculateTotalByMonth/{month}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public double calculateTotalByMonth(@PathVariable String month) {
         return incasariService.calculateTotalByMonth(month);
     }
 
 
     @GetMapping(value = "/calculateTotalByYear/{year}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public double calculateTotalByYear(@PathVariable String year) {
 
         return incasariService.calculateTotalByYear(year);
@@ -521,12 +540,14 @@ public class IncasariResource {
 
 
     @GetMapping(value = "/calculateTotalByMonthAndYear")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public double calculateTotalByMonthAndYear(@RequestParam String firstDate, @RequestParam String secondDate) {
         return incasariService.calculateTotalByMonthAndYear(firstDate, secondDate);
     }
 
 
     @GetMapping(value = "/calculateTotalByDataBetweenData")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public double calculateTotalByDataBetweenData(@RequestParam String firstDate, @RequestParam String secondDate) {
         return incasariService.calculateTotalByDataBetweenData(firstDate, secondDate);
     }
@@ -538,6 +559,7 @@ public class IncasariResource {
 
 
     @PutMapping(value = "/update")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public Incasari updaterows(@RequestBody Incasari incasari) {
 
         return incasariService.updaterows(incasari);

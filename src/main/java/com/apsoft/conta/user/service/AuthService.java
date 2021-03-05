@@ -33,10 +33,10 @@ import java.util.stream.Collectors;
 public class AuthService {
 
     @Autowired
-    UserRepository userRepository;
+    AuthenticationManager authenticationManager;
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    UserRepository userRepository;
 
     @Autowired
     RoleRepository roleRepository;
@@ -47,8 +47,7 @@ public class AuthService {
     @Autowired
     JwtUtils jwtUtils;
 
-
-    //partea de login
+    //login
     public ResponseEntity<?> authenticateUser(LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -68,10 +67,10 @@ public class AuthService {
                 userDetails.getUsername(),
                 userDetails.getEmail(),
                 roles));
+
     }
 
-    // partea de register
-
+    //register
     public ResponseEntity<?> registerUser(SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity

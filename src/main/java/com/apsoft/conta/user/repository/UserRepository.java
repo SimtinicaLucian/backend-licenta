@@ -3,8 +3,8 @@ package com.apsoft.conta.user.repository;
 import com.apsoft.conta.user.persistence.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 
     @Transactional
-    @Query(value = "SELECT * FROM users", nativeQuery = true)
+    @Query(value = "SELECT * FROM users", nativeQuery=true)
     ArrayList<User> viewAllUsers();
 
 }
