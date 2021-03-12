@@ -29,7 +29,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/auth/**",
             "/api/**",
             "/incasari/**",
-            "/password/**"
+            "/password/**",
+
     };
 
 
