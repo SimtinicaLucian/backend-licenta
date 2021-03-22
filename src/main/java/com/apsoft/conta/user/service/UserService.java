@@ -1,6 +1,7 @@
 package com.apsoft.conta.user.service;
 
 import com.apsoft.conta.finance.persistence.Incasari;
+import com.apsoft.conta.role.persistence.Role;
 import com.apsoft.conta.user.persistence.User;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface UserService {
     public void save(User user);
 
     List<User> searchAll();
+
+    void deleteId(long id);
 }

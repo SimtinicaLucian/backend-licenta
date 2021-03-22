@@ -30,6 +30,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/**",
             "/incasari/**",
             "/password/**",
+            "/admin/**",
+            "/api/user/**",
+            "/api/user/role/**"
 
     };
 

@@ -1,6 +1,7 @@
 package com.apsoft.conta.user.controller;
 
 
+import com.apsoft.conta.role.persistence.Role;
 import com.apsoft.conta.user.persistence.User;
 import com.apsoft.conta.user.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,16 @@ public class UserController {
     }
 
     @GetMapping("/viewAll")
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public List<User> searchAll(){
         log.info("All");
         return userService.searchAll();
     }
+
+
+    @DeleteMapping(value = "/delete/{id}")
+    public void deleteId(@PathVariable long id){
+        userService.deleteId(id);
+    }
+
 }

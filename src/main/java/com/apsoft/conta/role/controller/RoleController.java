@@ -20,14 +20,14 @@ public class RoleController {
     private RoleService roleService;
 
     @PostMapping("/role/add/{user_id}/{role_id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void addRoleToUser(@PathVariable long user_id, @PathVariable long role_id){
         roleService.addRoleToUser(user_id, role_id);
     }
 
     @DeleteMapping("/role/delete/{user_id}/{role_id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void deleteTole(@PathVariable long user_id, @PathVariable long role_id){
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void deleteRole(@PathVariable long user_id, @PathVariable long role_id){
         roleService.deleteRole(user_id,role_id);
     }
 
@@ -38,4 +38,9 @@ public class RoleController {
     }
 
 
+    @PutMapping("/role/update/{role_id}/{user_id}")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void updateRoleToUser(@PathVariable long role_id, @PathVariable long user_id){
+        roleService.updateRoleToUser(role_id, user_id);
+    }
 }
