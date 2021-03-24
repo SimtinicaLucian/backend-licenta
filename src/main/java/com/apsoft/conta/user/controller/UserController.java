@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/viewAll")
-//    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public List<User> searchAll(){
         log.info("All");
         return userService.searchAll();
@@ -37,6 +37,7 @@ public class UserController {
 
 
     @DeleteMapping(value = "/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteId(@PathVariable long id){
         userService.deleteId(id);
     }

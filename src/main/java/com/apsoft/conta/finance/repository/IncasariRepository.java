@@ -134,6 +134,15 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
     List<Incasari> findAllByFurnizor(String furnizor);
 
 
+//    long countByFurnizor(String furnizor);
+//
+//    long countAll();
+
+    long count();
+
+
+
+
 
 
 

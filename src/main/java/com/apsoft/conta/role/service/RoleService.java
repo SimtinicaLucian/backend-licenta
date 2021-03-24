@@ -1,5 +1,6 @@
 package com.apsoft.conta.role.service;
 
+import com.apsoft.conta.finance.exception.HttpError;
 import com.apsoft.conta.role.persistence.Role;
 import com.apsoft.conta.role.repository.RoleRepository;
 import com.apsoft.conta.user.persistence.User;
@@ -40,6 +41,9 @@ public class RoleService {
     }
 
     public void updateRoleToUser(long role_id, long user_id) {
+        if((role_id != 1) && (role_id != 2) && role_id != 3){
+            throw HttpError.notFound("Invalid role");
+        }
         log.info("update");
         roleRepository.updateRoleToUser(role_id, user_id);
     }

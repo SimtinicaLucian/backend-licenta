@@ -492,6 +492,23 @@ public class IncasariResource {
         return incasariService.update(id, incasari);
     }
 
+//    @GetMapping(value = "/countAll/{furnizor}")
+//    public long countFurnizor(@PathVariable String furnizor){
+//        return incasariService.countFurnizor(furnizor);
+//    }
+//
+//    @GetMapping(value = "/countAl")
+//    public long countAll(){
+//        return incasariService.countAll();
+//    }
+
+    @GetMapping(value = "/countAll")
+    public long count(){
+        return incasariService.count();
+    }
+
+
+
     @DeleteMapping(value = "/delete/{id}")
     @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public void deleteId(@PathVariable long id) {
@@ -541,8 +558,8 @@ public class IncasariResource {
 
     @GetMapping(value = "/calculateTotalByMonthAndYear")
     @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
-    public double calculateTotalByMonthAndYear(@RequestParam String firstDate, @RequestParam String secondDate) {
-        return incasariService.calculateTotalByMonthAndYear(firstDate, secondDate);
+    public double calculateTotalByMonthAndYear(@RequestParam String month, @RequestParam String year) {
+        return incasariService.calculateTotalByMonthAndYear(month, year);
     }
 
 

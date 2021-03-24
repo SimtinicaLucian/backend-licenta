@@ -124,6 +124,7 @@ public class IncasariServiceImpl implements IncasariService {
         } else {
             throw HttpError.notFound("This provider with this number exists !");
         }
+
         log.info("The {} has been added to the database", incasari.getDetalii());
         return incasari;
     }
@@ -390,6 +391,23 @@ public class IncasariServiceImpl implements IncasariService {
         log.info("delete");
         incasariRepository.deleteById(id);
     }
+
+//    @Override
+//    public long countFurnizor(String furnizor){
+//        return incasariRepository.countByFurnizor(furnizor);
+//    }
+//
+//    @Override
+//    public long countAll(){
+//        return incasariRepository.countAll();
+//    }
+
+    @Override
+    public long count(){
+        log.info("Count all");
+        return incasariRepository.count();
+    }
+
 
 
     public double calculateTVAByDate(String data) {

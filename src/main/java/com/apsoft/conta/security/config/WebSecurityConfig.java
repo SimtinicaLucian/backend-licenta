@@ -32,7 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/password/**",
             "/admin/**",
             "/api/user/**",
-            "/api/user/role/**"
+            "/api/user/role/**",
+            "/cheltuieli/**"
 
     };
 

@@ -112,6 +112,15 @@ public interface IncasariService {
 
 
     double calculateTotalTVA();
+
+//    long countFurnizor(String furnizor);
+//
+//    long countAll();
+
+    long count();
+
+
+
     double calculateTVAByDate(String data);
 
     Incasari updaterows(Incasari incasari);
