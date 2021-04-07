@@ -118,4 +118,11 @@ public class CheltuieliServiceImpl implements CheltuieliService {
         return cheltuieliList.stream().map(Cheltuieli::getSumaTotala).reduce(0.0, Double::sum);
     }
 
+
+    @Override
+    public List<Cheltuieli> searchAll() {
+        log.info("Return all cheltuieli");
+        return cheltuieliRepository.findAll();
+    }
+
 }

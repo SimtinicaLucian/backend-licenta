@@ -1,6 +1,7 @@
 package com.apsoft.conta.finance.persistence;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name = "cheltuieli")
-public class Cheltuieli {
+public class Cheltuieli{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,7 +70,11 @@ public class Cheltuieli {
     @Column(name = "sumaTotala2")
     private double sumaTotala2;
 
+    @Column(name = "stare")
+    private String stare;
+
     @Column(name = "by_added")
     private String by_added;
+
 
 }

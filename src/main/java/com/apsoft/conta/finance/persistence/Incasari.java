@@ -74,6 +74,9 @@ public class Incasari {
     @Column(name = "sumaTotala2")
     private double sumaTotala2;
 
+    @Column(name = "stare")
+    private String stare;
+
     @Column(name = "by_added")
     private String by_added;
 
@@ -95,6 +98,7 @@ public class Incasari {
         this.sumaTotala1 = builder.sumaTotala1;
         this.sumaTotala2 = builder.sumaTotala2;
     }
+
 
 
     public static class IncasariBilder{

@@ -17,4 +17,8 @@ public interface CheltuieliRepository extends JpaRepository<Cheltuieli, Long> {
     List<Cheltuieli> findAllByData1GreaterThanEqualAndData2LessThanEqual(String data1, String data2);
 
     List<Cheltuieli> findAllByMonthAndYear(String month, String year);
+
+    List<Cheltuieli> findAllByYear(String year);
+
+    List<Cheltuieli> findAllByStare(String stare);
 }
