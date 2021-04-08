@@ -52,6 +52,18 @@ public class Cheltuieli{
     @Column(name = "sumaTVA")
     private double sumaTVA;
 
+    @Column(name = "sumaTotala_Achitata")
+    private double sumaTotala_Achitata;
+
+    @Column(name = "sumaFaraTVA_Achitata")
+    private double sumaFaraTVA_Achitata;
+
+    @Column(name = "sumaTVA_Achitata")
+    private double sumaTVA_Achitata;
+
+    @Column(name = "rest")
+    private double rest;
+
     @Column(name = "month")
     private String month;
 

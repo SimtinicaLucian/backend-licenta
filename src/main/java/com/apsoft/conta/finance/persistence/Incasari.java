@@ -56,6 +56,18 @@ public class Incasari {
     @Column(name = "sumaTVA")
     private double sumaTVA;
 
+    @Column(name = "sumaTotala_Incasata")
+    private double sumaTotala_Incasata;
+
+    @Column(name = "sumaFaraTVA_Incasata")
+    private double sumaFaraTVA_Incasata;
+
+    @Column(name = "sumaTVA_Incasata")
+    private double sumaTVA_Incasata;
+
+    @Column(name = "rest")
+    private double rest;
+
     @Column(name = "month")
     private String month;
 

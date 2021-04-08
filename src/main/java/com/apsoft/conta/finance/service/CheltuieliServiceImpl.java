@@ -11,11 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 @Slf4j
 @Service
 public class CheltuieliServiceImpl implements CheltuieliService {
+
 
     @Autowired
     private CheltuieliRepository cheltuieliRepository;
@@ -50,9 +53,35 @@ public class CheltuieliServiceImpl implements CheltuieliService {
         if (CheltuieliUtils.validareCheltuieli(cheltuieli)){
             throw HttpError.notFound("Object is null");
         }
+
+
     List<Cheltuieli> beneficiarSerch = cheltuieliRepository.findAllByBeneficiarAndNumber(cheltuieli.getBeneficiar(), cheltuieli.getNumber());
 
         SetCheltuieli(cheltuieli);
+        double sumaTVA = CheltuieliUtils.calculareTVA(cheltuieli);
+        cheltuieli.setSumaTVA(sumaTVA);
+
+        double sumaFaraTVA = CheltuieliUtils.calculareFaraTVA(cheltuieli);
+        cheltuieli.setSumaFaraTVA(sumaFaraTVA);
+
+        double sumaTVA_Achitata = CheltuieliUtils.calculareTVA_Achitata(cheltuieli);
+        cheltuieli.setSumaTVA_Achitata(sumaTVA_Achitata);
+
+        double sumaFaraTVA_Achitata = CheltuieliUtils.calculareFaraTVA_Achitata(cheltuieli);
+        cheltuieli.setSumaFaraTVA_Achitata(sumaFaraTVA_Achitata);
+
+        double rest = CheltuieliUtils.Rest(cheltuieli);
+        cheltuieli.setRest(rest);
+
+        if(cheltuieli.getSumaTotala() == cheltuieli.getSumaTotala_Achitata()){
+            cheltuieli.setStare("achitata");
+        } else if(cheltuieli.getSumaTotala() > rest){
+            cheltuieli.setStare("partial achitata");
+        } else if(cheltuieli.getSumaTotala_Achitata() == 0){
+            cheltuieli.setStare("neachitata");
+        }
+
+
 
         if(beneficiarSerch.size() < 1){
             cheltuieli = cheltuieliRepository.save(cheltuieli);
@@ -60,6 +89,7 @@ public class CheltuieliServiceImpl implements CheltuieliService {
             throw HttpError.notFound("This provider with this number exists !");
         }
         log.info("The {} has been added to the database", cheltuieli.getDetalii());
+        
 
         return cheltuieli;
     }

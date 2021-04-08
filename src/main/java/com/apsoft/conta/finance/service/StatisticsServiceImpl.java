@@ -232,6 +232,7 @@ public class StatisticsServiceImpl implements StatisticsService{
         return cheltuieliList.stream().map(Cheltuieli::getSumaTotala).reduce(0.0, Double::sum);
     }
 
+
     @Override
     public double sold(){
         double sold = 0;

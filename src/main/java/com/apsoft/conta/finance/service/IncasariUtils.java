@@ -1,7 +1,9 @@
 package com.apsoft.conta.finance.service;
 
+import com.apsoft.conta.finance.persistence.Cheltuieli;
 import com.apsoft.conta.finance.persistence.Incasari;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +20,7 @@ public class IncasariUtils {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
         return formatter.format(dateOne);
     }
+
 
 
 
