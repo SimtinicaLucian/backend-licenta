@@ -104,19 +104,32 @@ public class IncasariServiceImpl implements IncasariService {
         List<Incasari> incasariSearch = incasariRepository.findAllByNumber(incasari.getNumber());
         List<Incasari> furnizorSearch = incasariRepository.findAllByFurnizorAndNumber(incasari.getFurnizor(), incasari.getNumber());
 
-//        incasari.setMonth(incasari.getData().substring(5, 7));
-//        incasari.setYear(incasari.getData().substring(0, 4));
-//
-//
-//        incasari.setData1(incasari.getData().substring(0, 10));
-//        incasari.setData2(incasari.getData().substring(0, 10));
-//
-//
-//        incasari.setSumaTotala1(incasari.getSumaTotala());
-//        incasari.setSumaTotala2(incasari.getSumaTotala());
 
         Set(incasari);
 
+        double sumaTVA = IncasariUtils.calculareTVA(incasari);
+        incasari.setSumaTVA(sumaTVA);
+
+        double sumaFaraTVA = IncasariUtils.calculareFaraTVA(incasari);
+        incasari.setSumaFaraTVA(sumaFaraTVA);
+
+        double sumaTVA_Incasata= IncasariUtils.calculareTVA_Incasata(incasari);
+        incasari.setSumaTVA_Incasata(sumaTVA_Incasata);
+
+        double sumaFaraTVA_Incasata= IncasariUtils.calculareFaraTVA_Incasata(incasari);
+        incasari.setSumaFaraTVA_Incasata(sumaFaraTVA_Incasata);
+
+        double rest = IncasariUtils.Rest(incasari);
+        incasari.setRest(rest);
+
+
+        if(incasari.getSumaTotala() == incasari.getSumaTotala_Incasata()){
+            incasari.setStare("achitata");
+        } else if(incasari.getSumaTotala() > rest){
+            incasari.setStare("partial achitata");
+        } else if(incasari.getSumaTotala_Incasata() == 0){
+            incasari.setStare("neachitata");
+        }
 
 
         if (furnizorSearch.size() < 1) {
