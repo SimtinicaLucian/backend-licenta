@@ -3,11 +3,12 @@ package com.apsoft.conta.finance.service;
 import com.apsoft.conta.finance.persistence.Cheltuieli;
 import com.apsoft.conta.finance.persistence.Incasari;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface CheltuieliService {
 
-    Cheltuieli saveCheltuieli(Cheltuieli cheltuieli);
+    Cheltuieli saveCheltuieli(Cheltuieli cheltuieli) throws ParseException;
 
     void deleteId(long id);
 

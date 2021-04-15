@@ -21,4 +21,5 @@ public interface CheltuieliRepository extends JpaRepository<Cheltuieli, Long> {
     List<Cheltuieli> findAllByYear(String year);
 
     List<Cheltuieli> findAllByStare(String stare);
+
 }

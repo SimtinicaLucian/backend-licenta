@@ -1,5 +1,10 @@
 package com.apsoft.conta.finance.service;
 
+import com.apsoft.conta.finance.persistence.Incasari;
+
+import java.text.ParseException;
+import java.util.List;
+
 public interface StatisticsService {
 
     double calculareSumaTotalaCuTVA_Incasari();
@@ -47,5 +52,12 @@ public interface StatisticsService {
 
     double calculareSumaTotalaCuTVAPerStare_Cheltuieli(String stare);
 
+    double calculareSumaTotalaCuTVAByStare_Incasari_Achitata(String stare);
+
+    double calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata(String stare);
+
     double sold();
+
+
+    double CifraAfaceri(String year);
 }

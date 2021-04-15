@@ -4,13 +4,18 @@ import com.apsoft.conta.finance.exception.HttpError;
 import com.apsoft.conta.security.service.IAuthenticationFacade;
 import com.apsoft.conta.finance.persistence.Incasari;
 import com.apsoft.conta.finance.repository.IncasariRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 
+import java.text.ParseException;
 import java.util.*;
+
+import static java.util.stream.Collectors.toList;
 
 
 @Slf4j
@@ -23,8 +28,6 @@ public class IncasariServiceImpl implements IncasariService {
 
     @Autowired
     private IAuthenticationFacade authenticationFacade;
-
-
 
 
 //    @Override
@@ -75,7 +78,7 @@ public class IncasariServiceImpl implements IncasariService {
 //    }
 
 
-    private void Set(Incasari incasari){
+    private void Set(Incasari incasari) {
         incasari.setMonth(incasari.getData().substring(5, 7));
         incasari.setYear(incasari.getData().substring(0, 4));
 
@@ -88,17 +91,31 @@ public class IncasariServiceImpl implements IncasariService {
         incasari.setSumaTotala2(incasari.getSumaTotala());
     }
 
+    public void SetCalcule(Incasari incasari) {
+        double sumaTVA = IncasariUtils.calculareTVA(incasari);
+        incasari.setSumaTVA(sumaTVA);
+
+        double sumaFaraTVA = IncasariUtils.calculareFaraTVA(incasari);
+        incasari.setSumaFaraTVA(sumaFaraTVA);
+
+        double sumaTVA_Incasata = IncasariUtils.calculareTVA_Incasata(incasari);
+        incasari.setSumaTVA_Incasata(sumaTVA_Incasata);
+
+        double sumaFaraTVA_Incasata = IncasariUtils.calculareFaraTVA_Incasata(incasari);
+        incasari.setSumaFaraTVA_Incasata(sumaFaraTVA_Incasata);
+
+        double rest = IncasariUtils.Rest(incasari);
+        incasari.setRest(rest);
+    }
 
 
     @Override
-    public Incasari saveIncasari(Incasari incasari) {
+    public Incasari saveIncasari(Incasari incasari) throws ParseException {
         Incasari newIncasari = incasari;
         newIncasari.setBy_added(getUsername());
         if (IncasariUtils.validateIncasari(incasari)) {
             throw HttpError.notFound("Object is null");
         }
-
-
 
 
         List<Incasari> incasariSearch = incasariRepository.findAllByNumber(incasari.getNumber());
@@ -107,29 +124,24 @@ public class IncasariServiceImpl implements IncasariService {
 
         Set(incasari);
 
-        double sumaTVA = IncasariUtils.calculareTVA(incasari);
-        incasari.setSumaTVA(sumaTVA);
+//        double sumaTVA = IncasariUtils.calculareTVA(incasari);
+//        incasari.setSumaTVA(sumaTVA);
+//
+//        double sumaFaraTVA = IncasariUtils.calculareFaraTVA(incasari);
+//        incasari.setSumaFaraTVA(sumaFaraTVA);
+//
+//        double sumaTVA_Incasata= IncasariUtils.calculareTVA_Incasata(incasari);
+//        incasari.setSumaTVA_Incasata(sumaTVA_Incasata);
+//
+//        double sumaFaraTVA_Incasata= IncasariUtils.calculareFaraTVA_Incasata(incasari);
+//        incasari.setSumaFaraTVA_Incasata(sumaFaraTVA_Incasata);
+//
+//        double rest = IncasariUtils.Rest(incasari);
+//        incasari.setRest(rest);
 
-        double sumaFaraTVA = IncasariUtils.calculareFaraTVA(incasari);
-        incasari.setSumaFaraTVA(sumaFaraTVA);
+        SetCalcule(incasari);
 
-        double sumaTVA_Incasata= IncasariUtils.calculareTVA_Incasata(incasari);
-        incasari.setSumaTVA_Incasata(sumaTVA_Incasata);
-
-        double sumaFaraTVA_Incasata= IncasariUtils.calculareFaraTVA_Incasata(incasari);
-        incasari.setSumaFaraTVA_Incasata(sumaFaraTVA_Incasata);
-
-        double rest = IncasariUtils.Rest(incasari);
-        incasari.setRest(rest);
-
-
-        if(incasari.getSumaTotala() == incasari.getSumaTotala_Incasata()){
-            incasari.setStare("achitata");
-        } else if(incasari.getSumaTotala() > rest){
-            incasari.setStare("partial achitata");
-        } else if(incasari.getSumaTotala_Incasata() == 0){
-            incasari.setStare("neachitata");
-        }
+        IncasariUtils.setStare(incasari);
 
 
         if (furnizorSearch.size() < 1) {
@@ -144,9 +156,14 @@ public class IncasariServiceImpl implements IncasariService {
 
 
     @Override
-    public List<Incasari> searchAll() {
+    public List<Incasari> searchAll() throws ParseException {
         log.info("Return all incasari");
-        return incasariRepository.findAll();
+        return incasariRepository.findAll().stream()
+                .map(i -> {
+                    i.setStare(IncasariUtils.setSearchAll(i));
+                    return i;
+                })
+                .collect(toList());
     }
 
 
@@ -199,6 +216,7 @@ public class IncasariServiceImpl implements IncasariService {
     public List<Incasari> searchWithoutFurnizorAndStare(String firstDate, String secondDate, double totalSum, double totalSumTwo) {
         return incasariRepository.findAllByData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqual(firstDate, secondDate, totalSum, totalSumTwo);
     }
+
     @Override
     public List<Incasari> searchWithoutFurnizor(String firstDate, String secondDate, double totalSum, double totalSumTwo, String stare) {
         return incasariRepository.findAllByData1GreaterThanEqualAndData2LessThanEqualAndSumaTotala1GreaterThanEqualAndSumaTotala2LessThanEqualAndStare(firstDate, secondDate, totalSum, totalSumTwo, stare);
@@ -215,7 +233,7 @@ public class IncasariServiceImpl implements IncasariService {
         return incasariRepository.findAllByFurnizorAndData1GreaterThanEqualAndData2LessThanEqualAndStare(furnizor, data1, data2, stare);
     }
 
-//-----------------------
+    //-----------------------
     @Override
     public List<Incasari> searchWithoutFurnizorAndSumAndStare(String data1, String data2) {
         log.info("without sum1, sum2, furnizor");
@@ -352,6 +370,7 @@ public class IncasariServiceImpl implements IncasariService {
     public List<Incasari> searchWithoutData1AndSum1AndStare(String furnizor, String data2, double sumaTotala2) {
         return incasariRepository.findAllByFurnizorAndData2LessThanEqualAndSumaTotala2LessThanEqual(furnizor, data2, sumaTotala2);
     }
+
     @Override
     public List<Incasari> searchWithoutData1AndSum1(String furnizor, String data2, double sumaTotala2, String stare) {
         return incasariRepository.findAllByFurnizorAndData2LessThanEqualAndSumaTotala2LessThanEqualAndStare(furnizor, data2, sumaTotala2, stare);
@@ -539,15 +558,14 @@ public class IncasariServiceImpl implements IncasariService {
     }
 
     @Override
-    public List<Incasari> searchWithoutFurnizorAndDatesAndSums(String stare){
+    public List<Incasari> searchWithoutFurnizorAndDatesAndSums(String stare) {
         return incasariRepository.findAllByStare(stare);
     }
 
     @Override
-    public List<Incasari> searchWithoutDatesAndSums(String furnizor, String stare){
-        return incasariRepository.findAllByFurnizorAndStare(furnizor,stare);
+    public List<Incasari> searchWithoutDatesAndSums(String furnizor, String stare) {
+        return incasariRepository.findAllByFurnizorAndStare(furnizor, stare);
     }
-
 
 
     @Override
@@ -556,16 +574,26 @@ public class IncasariServiceImpl implements IncasariService {
         return incasariRepository.findAllByNumber(number);
     }
 
+    @Override
+    public List<Incasari> searchById(long id) {
+        return incasariRepository.findAllById(id);
+    }
 
 
     @Override
-    public Incasari update(long id, Incasari incasari) {
+    public Incasari update(long id, Incasari incasari) throws ParseException {
         Incasari newIncasari = incasari;
         newIncasari.setBy_added(getUsername());
 
         if (IncasariUtils.validateIncasari(incasari)) {
             throw HttpError.notFound("Object is null");
         }
+
+        Set(incasari);
+
+        SetCalcule(incasari);
+
+        IncasariUtils.setStare(incasari);
 
         long noOfIncasari = incasariRepository.findAllByFurnizorAndNumber(incasari.getFurnizor(), incasari.getNumber()).stream()
                 .filter(i -> i.getId() != id)
@@ -574,8 +602,6 @@ public class IncasariServiceImpl implements IncasariService {
         if (noOfIncasari > 0L) {
             throw HttpError.notFound("This provider with this number exists !");
         }
-
-        Set(incasari);
 
 
         Optional<Incasari> incasariFound = incasariRepository.findById(id);
@@ -602,7 +628,6 @@ public class IncasariServiceImpl implements IncasariService {
     }
 
 
-
     @Override
     public void deleteId(long id) {
         log.info("delete");
@@ -620,11 +645,10 @@ public class IncasariServiceImpl implements IncasariService {
 //    }
 
     @Override
-    public long count(){
+    public long count() {
         log.info("Count all");
         return incasariRepository.count();
     }
-
 
 
     public double calculateTVAByDate(String data) {

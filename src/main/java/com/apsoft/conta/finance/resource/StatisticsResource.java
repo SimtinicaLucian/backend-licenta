@@ -1,6 +1,7 @@
 package com.apsoft.conta.finance.resource;
 
 
+import com.apsoft.conta.finance.persistence.Incasari;
 import com.apsoft.conta.finance.service.CheltuieliService;
 import com.apsoft.conta.finance.service.IncasariUtils;
 import com.apsoft.conta.finance.service.StatisticsService;
@@ -8,7 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -169,6 +174,15 @@ public class StatisticsResource {
     public double sold(){
         return statisticsService.sold();
     }
+
+    @GetMapping(value = "/cifraAfaceri")
+    public double CifraAfaceri(@RequestParam String year){
+        return statisticsService.CifraAfaceri(year);
+    }
+
+
+
+
 
 
 }

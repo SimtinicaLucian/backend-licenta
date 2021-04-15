@@ -9,7 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.text.ParseException;
+
 
 @Slf4j
 @Service
@@ -232,13 +236,38 @@ public class StatisticsServiceImpl implements StatisticsService{
         return cheltuieliList.stream().map(Cheltuieli::getSumaTotala).reduce(0.0, Double::sum);
     }
 
+    @Override
+    public double calculareSumaTotalaCuTVAByStare_Incasari_Achitata(String stare) {
+        log.info("Calculare sumaTotalaPerStare - Incasate");
+        List<Incasari> incasariList = incasariRepository.findAllByStare(stare);
+        return incasariList.stream().map(Incasari::getSumaTotala_Incasata).reduce(0.0, Double::sum);
+    }
 
     @Override
-    public double sold(){
+    public double calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata(String stare){
+        log.info("Calculare sumaTotalaPerStare - Achitata");
+        List<Cheltuieli> cheltuieliList = cheltuieliRepository.findAllByStare(stare);
+        return cheltuieliList.stream().map(Cheltuieli::getSumaTotala_Achitata).reduce(0.0, Double::sum);
+    }
+
+
+    @Override
+    public double sold()  {
         double sold = 0;
         log.info("Sold");
-        return sold + calculareSumaTotalaCuTVAPerStare_Incasari("achitat") - calculareSumaTotalaCuTVAPerStare_Cheltuieli("achitat");
+
+        return sold + calculareSumaTotalaCuTVAPerStare_Incasari("achitata") - calculareSumaTotalaCuTVAPerStare_Cheltuieli("achitata") + calculareSumaTotalaCuTVAByStare_Incasari_Achitata("partial achitata") - calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata("partial achitata") + calculareSumaTotalaCuTVAByStare_Incasari_Achitata("intarziata")- calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata("intarziata");
     }
+
+    @Override
+    public double CifraAfaceri(String year){
+        log.info("Cifra afaceri");
+        return calculareSumaTotalaCuTVAPerYear_Incasari(year);
+        }
+
+
+
+
 
 
 }

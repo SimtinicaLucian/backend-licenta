@@ -178,7 +178,7 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 
     List<Incasari> findAllByNumber(String number);
 
-    List<Incasari> findAllById(long id);
+
 
     List<Incasari> findAllByFurnizor(String furnizor);
 
@@ -190,7 +190,7 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
     long count();
 
 
-
+    List<Incasari> findAllById(long id);
 
 
 

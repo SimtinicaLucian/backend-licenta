@@ -2,6 +2,7 @@ package com.apsoft.conta.finance.service;
 
 import com.apsoft.conta.finance.persistence.Incasari;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface IncasariService {
@@ -29,12 +30,12 @@ public interface IncasariService {
 
 
 
-    Incasari saveIncasari(Incasari incasari);
+    Incasari saveIncasari(Incasari incasari) throws ParseException;
 
 
 
 
-    List<Incasari> searchAll();
+    List<Incasari> searchAll() throws ParseException;
 
 
 
@@ -203,13 +204,15 @@ public interface IncasariService {
 
 
 
-    Incasari update(long id, Incasari incasari);
+    Incasari update(long id, Incasari incasari) throws ParseException;
     void deleteId(long id);
 
     double calculateTotalByMonth(String month);
     double calculateTotalByYear(String year);
 
     List<Incasari> searchByYear(String year);
+
+    List<Incasari> searchById(long id);
 
     double calculateTotalByMonthAndYear(String month, String year);
 

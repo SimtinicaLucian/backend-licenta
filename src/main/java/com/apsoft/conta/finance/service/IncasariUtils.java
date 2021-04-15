@@ -1,12 +1,13 @@
 package com.apsoft.conta.finance.service;
 
-import com.apsoft.conta.finance.persistence.Cheltuieli;
+import com.apsoft.conta.finance.exception.HttpError;
 import com.apsoft.conta.finance.persistence.Incasari;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class IncasariUtils {
     public static boolean validateIncasari(Incasari incasari) {
@@ -21,6 +22,80 @@ public class IncasariUtils {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
         return formatter.format(dateOne);
     }
+
+
+    public static String setStare(Incasari incasari) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        Date date = new Date();
+
+
+//        if ((sdf.parse(incasari.getData_Plata()).after(sdf.parse(incasari.getData_Scadenta()))) && ((incasari.getSumaTotala() > incasari.getSumaTotala_Incasata())) || (incasari.getSumaTotala() > incasari.getSumaTotala_Incasata())) {
+//            incasari.setStare("Intarziat");
+//        }
+        if(incasari.getSumaTotala() == incasari.getSumaTotala_Incasata()){
+            incasari.setStare("achitata");
+        }
+        else if ((sdf.parse(String.valueOf(dateFormat.format(date))).after(sdf.parse(incasari.getData_Scadenta()))) && ((incasari.getSumaTotala_Incasata() == 0)|| incasari.getSumaTotala() > incasari.getSumaTotala_Incasata())) {
+            incasari.setStare("intarziata");
+        }else if(incasari.getSumaTotala_Incasata() == 0){
+            incasari.setStare("neachitata");
+        } else if(incasari.getSumaTotala() > incasari.getSumaTotala_Incasata()){
+            incasari.setStare("partial achitata");
+        } else if(incasari.getSumaTotala() < incasari.getSumaTotala_Incasata()){
+            throw HttpError.notFound("Error");
+        }
+
+        return incasari.getStare();
+    }
+
+    public static String setSearchAll(Incasari incasari) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        try {
+            Date date = new Date();
+//            System.out.println("data este: " + dateFormat.format(date));
+//            System.out.println("data2 este: " + sdf.parse(incasari.getData_Scadenta()));
+
+
+
+//        if (((incasari.getSumaTotala_Incasata() == 0) || incasari.getSumaTotala() > incasari.getSumaTotala_Incasata()) && (sdf.parse(String.valueOf(dateFormat.format(date))).equals(sdf.parse(incasari.getData_Scadenta())))) {
+//            incasari.setStare("intarziata");
+//        }
+        if ((dateFormat.parse(String.valueOf(dateFormat.format(date))).after(sdf.parse(incasari.getData_Scadenta()))) && ((incasari.getSumaTotala_Incasata() == 0) || incasari.getSumaTotala() > incasari.getSumaTotala_Incasata())) {
+                incasari.setStare("intarziata");
+            }
+        } catch(ParseException e) {
+            e.printStackTrace();
+        }
+        return incasari.getStare();
+
+    }
+
+
+
+//    public static String Stadiu(Cheltuieli cheltuieli) throws ParseException {
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+//
+//        if ((sdf.parse(cheltuieli.getData_Plata()).after(sdf.parse(cheltuieli.getData_Scadenta()))) && ((cheltuieli.getSumaTotala() > cheltuieli.getSumaTotala_Achitata())) || (cheltuieli.getSumaTotala() > cheltuieli.getSumaTotala_Achitata())) {
+//            cheltuieli.setStare("Intarziat");
+//        } else if(cheltuieli.getSumaTotala() == cheltuieli.getSumaTotala_Achitata()){
+//            cheltuieli.setStare("achitata");
+//        }  else if(cheltuieli.getSumaTotala_Achitata() == 0){
+//            cheltuieli.setStare("neachitata");
+//        } else if(cheltuieli.getSumaTotala() > cheltuieli.getSumaTotala_Achitata()){
+//            cheltuieli.setStare("partial achitata");
+//        } else if(cheltuieli.getSumaTotala() < cheltuieli.getSumaTotala_Achitata()){
+//            throw HttpError.notFound("Error");
+//        }
+//
+//        return cheltuieli.getStare();
+//    }
+
+
+
+
+
 
 
     public static double calculareTVA(Incasari incasari){

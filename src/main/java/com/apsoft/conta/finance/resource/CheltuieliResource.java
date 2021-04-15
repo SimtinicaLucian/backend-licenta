@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Slf4j
@@ -23,7 +24,7 @@ public class CheltuieliResource {
 
     @PostMapping(value = "/add")
 //    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
-    public Cheltuieli cheltuieli(@RequestBody Cheltuieli cheltuieli){
+    public Cheltuieli cheltuieli(@RequestBody Cheltuieli cheltuieli) throws ParseException {
         return cheltuieliService.saveCheltuieli(cheltuieli);
     }
     //1

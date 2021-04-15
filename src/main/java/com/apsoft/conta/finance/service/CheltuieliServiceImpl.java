@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.List;
 
 @Slf4j
@@ -45,8 +46,26 @@ public class CheltuieliServiceImpl implements CheltuieliService {
         cheltuieli.setSumaTotala2(cheltuieli.getSumaTotala());
     }
 
+
+    public void SetCalcule(Cheltuieli cheltuieli){
+        double sumaTVA = CheltuieliUtils.calculareTVA(cheltuieli);
+        cheltuieli.setSumaTVA(sumaTVA);
+
+        double sumaFaraTVA = CheltuieliUtils.calculareFaraTVA(cheltuieli);
+        cheltuieli.setSumaFaraTVA(sumaFaraTVA);
+
+        double sumaTVA_Incasata= CheltuieliUtils.calculareTVA_Achitata(cheltuieli);
+        cheltuieli.setSumaTVA_Achitata(sumaTVA_Incasata);
+
+        double sumaFaraTVA_Incasata= CheltuieliUtils.calculareFaraTVA_Achitata(cheltuieli);
+        cheltuieli.setSumaFaraTVA_Achitata(sumaFaraTVA_Incasata);
+
+        double rest = CheltuieliUtils.Rest(cheltuieli);
+        cheltuieli.setRest(rest);
+    }
+
     @Override
-    public Cheltuieli saveCheltuieli(Cheltuieli cheltuieli){
+    public Cheltuieli saveCheltuieli(Cheltuieli cheltuieli) throws ParseException {
         Cheltuieli newCheltuieli = cheltuieli;
         newCheltuieli.setBy_added(getUsername());
 
@@ -73,14 +92,9 @@ public class CheltuieliServiceImpl implements CheltuieliService {
         double rest = CheltuieliUtils.Rest(cheltuieli);
         cheltuieli.setRest(rest);
 
-        if(cheltuieli.getSumaTotala() == cheltuieli.getSumaTotala_Achitata()){
-            cheltuieli.setStare("achitata");
-        } else if(cheltuieli.getSumaTotala() > rest){
-            cheltuieli.setStare("partial achitata");
-        } else if(cheltuieli.getSumaTotala_Achitata() == 0){
-            cheltuieli.setStare("neachitata");
-        }
-
+//
+        SetCalcule(cheltuieli);
+        CheltuieliUtils.setStare(cheltuieli);
 
 
         if(beneficiarSerch.size() < 1){

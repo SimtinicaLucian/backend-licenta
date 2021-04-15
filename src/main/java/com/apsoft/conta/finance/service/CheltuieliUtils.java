@@ -1,9 +1,14 @@
 package com.apsoft.conta.finance.service;
 
+import com.apsoft.conta.finance.exception.HttpError;
 import com.apsoft.conta.finance.persistence.Cheltuieli;
+import com.apsoft.conta.finance.persistence.Incasari;
 
-import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CheltuieliUtils {
     public static boolean validareCheltuieli(Cheltuieli cheltuieli) {
@@ -42,6 +47,51 @@ public class CheltuieliUtils {
         double rest = cheltuieli.getSumaTotala() - cheltuieli.getSumaTotala_Achitata();
         return Double.parseDouble(numberFormat.format(rest));
     }
+
+//    public static String Stadiu(Cheltuieli cheltuieli) throws ParseException {
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+//
+//        if ((sdf.parse(cheltuieli.getData_Plata()).after(sdf.parse(cheltuieli.getData_Scadenta()))) && ((cheltuieli.getSumaTotala() > cheltuieli.getSumaTotala_Achitata())) || (cheltuieli.getSumaTotala() > cheltuieli.getSumaTotala_Achitata())) {
+//            cheltuieli.setStare("intarziata");
+//        } else if(cheltuieli.getSumaTotala() == cheltuieli.getSumaTotala_Achitata()){
+//            cheltuieli.setStare("achitata");
+//        }  else if(cheltuieli.getSumaTotala_Achitata() == 0){
+//            cheltuieli.setStare("neachitata");
+//        } else if(cheltuieli.getSumaTotala() > cheltuieli.getSumaTotala_Achitata()){
+//            cheltuieli.setStare("partial achitata");
+//        } else if(cheltuieli.getSumaTotala() < cheltuieli.getSumaTotala_Achitata()){
+//            throw HttpError.notFound("Error");
+//        }
+//
+//        return cheltuieli.getStare();
+//    }
+
+    public static String setStare(Cheltuieli cheltuieli) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        Date date = new Date();
+
+
+//        if ((sdf.parse(incasari.getData_Plata()).after(sdf.parse(incasari.getData_Scadenta()))) && ((incasari.getSumaTotala() > incasari.getSumaTotala_Incasata())) || (incasari.getSumaTotala() > incasari.getSumaTotala_Incasata())) {
+//            incasari.setStare("Intarziat");
+//        }
+        if(cheltuieli.getSumaTotala() == cheltuieli.getSumaTotala_Achitata()){
+            cheltuieli.setStare("achitata");
+        }
+        else if ((sdf.parse(String.valueOf(dateFormat.format(date))).after(sdf.parse(cheltuieli.getData_Scadenta()))) && ((cheltuieli.getSumaTotala_Achitata() == 0)|| cheltuieli.getSumaTotala() > cheltuieli.getSumaTotala_Achitata())) {
+            cheltuieli.setStare("intarziata");
+        }else if(cheltuieli.getSumaTotala_Achitata() == 0){
+            cheltuieli.setStare("neachitata");
+        } else if(cheltuieli.getSumaTotala() > cheltuieli.getSumaTotala_Achitata()){
+            cheltuieli.setStare("partial achitata");
+        } else if(cheltuieli.getSumaTotala() < cheltuieli.getSumaTotala_Achitata()){
+            throw HttpError.notFound("Error");
+        }
+
+        return cheltuieli.getStare();
+    }
+
+
 
     }
 

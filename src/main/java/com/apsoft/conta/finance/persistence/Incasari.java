@@ -80,6 +80,13 @@ public class Incasari {
     @Column(name = "data2")
     private String data2;
 
+    @Column(name = "data_Scadenta")
+    private String data_Scadenta;
+
+    @Column(name = "data_Plata")
+    private String data_Plata;
+
+
     @Column(name = "sumaTotala1")
     private double sumaTotala1;
 

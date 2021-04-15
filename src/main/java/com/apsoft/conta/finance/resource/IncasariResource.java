@@ -39,7 +39,7 @@ public class IncasariResource {
 
     @PostMapping(value = "/add")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
-    public Incasari persist(@RequestBody Incasari incasari) {
+    public Incasari persist(@RequestBody Incasari incasari) throws ParseException {
         return incasariService.saveIncasari(incasari);
     }
 
@@ -52,7 +52,7 @@ public class IncasariResource {
 
     @GetMapping(value = "/searchAll")
     @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
-    public List<Incasari> searchAll() {
+    public List<Incasari> searchAll() throws ParseException {
         return incasariService.searchAll();
     }
 
@@ -91,7 +91,7 @@ public class IncasariResource {
 
     @GetMapping(value = "/test")
     @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
-    public List<Incasari> testMethod(@RequestParam Map<String, String> params) throws ParseException {
+    public List<Incasari> testMethod(@RequestParam Map<String, String> params) {
 
         if ((null == params.get("data1") || params.get("data1").isEmpty()) && ((null == params.get("data2")) || params.get("data2").isEmpty()) && (null == params.get("furnizor") || params.get("furnizor").isEmpty()) && null == params.get("sumaTotala2") && (null == params.get("stare") || params.get("stare").isEmpty())) {
             System.out.println("without furnizor, data1, data2, sum2, stare");
@@ -675,7 +675,7 @@ public class IncasariResource {
 
     @PutMapping(value = "/update/{id}")
     @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
-    public Incasari update(@PathVariable long id, @RequestBody Incasari incasari) {
+    public Incasari update(@PathVariable long id, @RequestBody Incasari incasari) throws ParseException {
         return incasariService.update(id, incasari);
     }
 
@@ -777,6 +777,12 @@ public class IncasariResource {
     public void addFact(@PathVariable String detalii){
         incasariServiceImpl.addFact(detalii);
         incasariServiceImpl.deleteFact(detalii);
+    }
+
+    @GetMapping(value = "/search/id/{id}")
+//    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
+    public List<Incasari> searchById(@PathVariable long id) {
+        return incasariService.searchById(id);
     }
 
 
