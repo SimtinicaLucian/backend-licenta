@@ -161,9 +161,11 @@ public class IncasariServiceImpl implements IncasariService {
         return incasariRepository.findAll().stream()
                 .map(i -> {
                     i.setStare(IncasariUtils.setSearchAll(i));
+                    incasariRepository.save(i);
                     return i;
                 })
                 .collect(toList());
+
     }
 
 

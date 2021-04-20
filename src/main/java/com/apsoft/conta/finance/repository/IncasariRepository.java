@@ -187,7 +187,9 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 //
 //    long countAll();
 
-    long count();
+    long countAllByStare(String stare);
+
+
 
 
     List<Incasari> findAllById(long id);

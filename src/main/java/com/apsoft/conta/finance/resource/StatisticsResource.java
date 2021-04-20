@@ -180,6 +180,20 @@ public class StatisticsResource {
         return statisticsService.CifraAfaceri(year);
     }
 
+    @GetMapping(value = "/incasari/intarziate")
+    public long Incasari_Intarziate(){
+        return statisticsService.Incasari_Intarziate();
+    }
+
+    @GetMapping(value = "/cheltuieli/intarziate")
+    public long Cheltuieli_Intarziate(){
+        return statisticsService.Cheltuieli_Intarziate();
+    }
+
+    @GetMapping(value = "/incasari/Rest_DeIncasat")
+    public double Rest_DeIncasat(){
+        return statisticsService.Rest_DeIncasat();
+    }
 
 
 

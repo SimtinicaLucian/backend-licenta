@@ -60,4 +60,10 @@ public interface StatisticsService {
 
 
     double CifraAfaceri(String year);
+
+    long Incasari_Intarziate();
+
+    long Cheltuieli_Intarziate();
+
+    Double Rest_DeIncasat();
 }

@@ -9,10 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.text.ParseException;
 
 
 @Slf4j
@@ -263,7 +260,28 @@ public class StatisticsServiceImpl implements StatisticsService{
     public double CifraAfaceri(String year){
         log.info("Cifra afaceri");
         return calculareSumaTotalaCuTVAPerYear_Incasari(year);
-        }
+    }
+
+    @Override
+    public long Incasari_Intarziate(){
+        log.info("count");
+        return incasariRepository.countAllByStare("intarziata");
+    }
+
+    @Override
+    public long Cheltuieli_Intarziate(){
+        log.info("count cheltuieli");
+        return cheltuieliRepository.countAllByStare("intarziata");
+    }
+
+    @Override
+    public Double Rest_DeIncasat(){
+        List<Incasari> incasariList = incasariRepository.findAllByStare("intarziata");
+        return incasariList.stream().map(Incasari::getRest).reduce(0.0, Double:: sum);
+
+    }
+
+
 
 
 

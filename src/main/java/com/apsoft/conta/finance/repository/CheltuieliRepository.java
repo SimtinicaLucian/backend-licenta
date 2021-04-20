@@ -22,4 +22,6 @@ public interface CheltuieliRepository extends JpaRepository<Cheltuieli, Long> {
 
     List<Cheltuieli> findAllByStare(String stare);
 
+    long countAllByStare(String stare);
+
 }
