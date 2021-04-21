@@ -190,9 +190,14 @@ public class StatisticsResource {
         return statisticsService.Cheltuieli_Intarziate();
     }
 
-    @GetMapping(value = "/incasari/Rest_DeIncasat")
-    public double Rest_DeIncasat(){
-        return statisticsService.Rest_DeIncasat();
+    @GetMapping(value = "/incasari/intarziate/Rest_DeIncasat")
+    public double Incasari_Intarziate_Rest_DeIncasat(){
+        return statisticsService.Incasari_Intarziate_Rest_DeIncasat();
+    }
+
+    @GetMapping(value = "/cheltuieli/intarziate/Rest_DeAchitat")
+    public double Cheltuieli_Intarziate_Rest_DeAchitat(){
+        return statisticsService.Cheltuieli_Intarziate_Rest_DeAchitat();
     }
 
 

@@ -65,5 +65,7 @@ public interface StatisticsService {
 
     long Cheltuieli_Intarziate();
 
-    Double Rest_DeIncasat();
+    double Incasari_Intarziate_Rest_DeIncasat();
+
+    double Cheltuieli_Intarziate_Rest_DeAchitat();
 }

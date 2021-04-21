@@ -275,10 +275,17 @@ public class StatisticsServiceImpl implements StatisticsService{
     }
 
     @Override
-    public Double Rest_DeIncasat(){
+    public double Incasari_Intarziate_Rest_DeIncasat(){
+        log.info("Incasari_Intarziate_Rest_DeIncasat");
         List<Incasari> incasariList = incasariRepository.findAllByStare("intarziata");
         return incasariList.stream().map(Incasari::getRest).reduce(0.0, Double:: sum);
+    }
 
+    @Override
+    public double Cheltuieli_Intarziate_Rest_DeAchitat(){
+        log.info("Cheltuieli_Intarziate_Rest_DeAchitat");
+        List<Cheltuieli> cheltuieliList = cheltuieliRepository.findAllByStare("intarziata");
+        return cheltuieliList.stream().map(Cheltuieli::getRest).reduce(0.0, Double:: sum);
     }
 
 
