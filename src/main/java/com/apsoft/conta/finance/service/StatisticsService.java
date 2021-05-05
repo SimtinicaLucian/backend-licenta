@@ -43,6 +43,11 @@ public interface StatisticsService {
     double calculareSumaTotalaTVAPerYear_Incasari(String year);
     double calculareSumaTotalaTVAPerYear_Cheltuieli(String year);
 
+
+
+
+    double calculareSumaTVAMonthAndYear_LaIncasare_Incasari(String month, String year);
+
     double Profit_Total();
     double Profit_Lunar(String month, String year);
     double Profit_Anual(String year);
@@ -68,4 +73,8 @@ public interface StatisticsService {
     double Incasari_Intarziate_Rest_DeIncasat();
 
     double Cheltuieli_Intarziate_Rest_DeAchitat();
+
+    double BugetulDeStat_TVA(String month, String year);
+
+    double BugetulDeStat_TVAIncasare(String month, String year);
 }

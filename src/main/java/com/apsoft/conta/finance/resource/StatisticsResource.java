@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,8 @@ public class StatisticsResource {
 
     @Autowired
     private StatisticsService statisticsService;
+
+    String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 
 
     @GetMapping(value = "/incasari/calculareSumaTotalaCuTVA")
@@ -95,13 +98,13 @@ public class StatisticsResource {
     }
 
     @GetMapping(value = "/incasari/calculareSumaTotalaCuTVAMonthAndYear")
-    public double calculareSumaTotalaCuTVAMonthAndYear_Incasari(@RequestParam String month, @RequestParam String year) {
-        return statisticsService.calculareSumaTotalaCuTVAMonthAndYear_Incasari(month, year);
+    public double calculareSumaTotalaCuTVAMonthAndYear_Incasari(@RequestParam Map<String, String> params) {
+        return statisticsService.calculareSumaTotalaCuTVAMonthAndYear_Incasari(params.get("month"), params.get("year"));
     }
 
     @GetMapping(value = "/cheltuieli/calculareSumaTotalaCuTVAMonthAndYear")
-    public double calculareSumaTotalaCuTVAMonthAndYear_Cheltuieli(@RequestParam String month, @RequestParam String year) {
-        return statisticsService.calculareSumaTotalaCuTVAMonthAndYear_Cheltuieli(month, year);
+    public double calculareSumaTotalaCuTVAMonthAndYear_Cheltuieli(@RequestParam Map<String, String> params) {
+        return statisticsService.calculareSumaTotalaCuTVAMonthAndYear_Cheltuieli(params.get("month"), params.get("year"));
     }
 
     @GetMapping(value = "/incasari/calculareSumaTotalaFaraTVAMonthAndYear")
@@ -125,13 +128,13 @@ public class StatisticsResource {
     }
 
     @GetMapping(value = "/incasari/calculareSumaTotalaCuTVAPerYear")
-    public double calculareSumaTotalaCuTVAPerYear_Incasari(@RequestParam String year) {
-        return statisticsService.calculareSumaTotalaCuTVAPerYear_Incasari(year);
+    public double calculareSumaTotalaCuTVAPerYear_Incasari(@RequestParam Map<String, String> params) {
+        return statisticsService.calculareSumaTotalaCuTVAPerYear_Incasari(params.get("year"));
     }
 
     @GetMapping(value = "/cheltuieli/calculareSumaTotalaCuTVAPerYear")
-    public double calculareSumaTotalaCuTVAPerYear_Cheltuieli(@RequestParam String year) {
-        return statisticsService.calculareSumaTotalaCuTVAPerYear_Cheltuieli(year);
+    public double calculareSumaTotalaCuTVAPerYear_Cheltuieli(@RequestParam Map<String, String> params) {
+        return statisticsService.calculareSumaTotalaCuTVAPerYear_Cheltuieli(params.get("year"));
     }
 
     @GetMapping(value = "/incasari/calculareSumaTotalaFaraTVAPerYear")
@@ -161,13 +164,13 @@ public class StatisticsResource {
     }
 
     @GetMapping(value = "/profit_Lunar")
-    public double Profit_Lunar(@RequestParam String month, @RequestParam String year){
-        return statisticsService.Profit_Lunar(month, year);
+    public double Profit_Lunar(@RequestParam Map<String, String> params){
+        return statisticsService.Profit_Lunar(params.get("month"), params.get("year"));
     }
 
     @GetMapping(value = "/profit_Anual")
-    public double Profit_Anual(@RequestParam String year){
-        return statisticsService.Profit_Anual(year);
+    public double Profit_Anual(@RequestParam Map<String, String> params){
+        return statisticsService.Profit_Anual(params.get("year"));
     }
 
     @GetMapping(value = "/sold")
@@ -176,8 +179,8 @@ public class StatisticsResource {
     }
 
     @GetMapping(value = "/cifraAfaceri")
-    public double CifraAfaceri(@RequestParam String year){
-        return statisticsService.CifraAfaceri(year);
+    public double CifraAfaceri(@RequestParam Map<String, String> params){
+        return statisticsService.CifraAfaceri(params.get("year"));
     }
 
     @GetMapping(value = "/incasari/intarziate")
@@ -199,6 +202,28 @@ public class StatisticsResource {
     public double Cheltuieli_Intarziate_Rest_DeAchitat(){
         return statisticsService.Cheltuieli_Intarziate_Rest_DeAchitat();
     }
+
+    @GetMapping(value = "/BugetulDeStat_TVA")
+    public double BugetulDeStat_TVA(@RequestParam Map<String, String> params){
+        return statisticsService.BugetulDeStat_TVA(params.get("month"), params.get("year"));
+    }
+
+    @GetMapping(value = "/test1")
+    public double calculareSumaTVAMonthAndYear_LaIncasare_Incasari(@RequestParam Map<String, String> params){
+        return statisticsService.calculareSumaTVAMonthAndYear_LaIncasare_Incasari(params.get("month"), params.get("year"));
+    }
+
+    @GetMapping(value = "/BugetulDeStat_TVAIncasare")
+    public double BugetulDeStat_TVA_LaIncasare(@RequestParam Map<String, String> params){
+        return statisticsService.BugetulDeStat_TVAIncasare(params.get("month"), params.get("year"));
+    }
+
+
+
+//    @GetMapping(value = "/BugetulDeStat_TVAIncasare")
+//    public double BugetulDeStat_TVAIncasare(@RequestParam Map<String, String> params, @RequestBody Incasari incasari){
+//        return statisticsService.BugetulDeStat_TVAIncasare(params.get("month"), params.get("year"), incasari);
+//    }
 
 
 

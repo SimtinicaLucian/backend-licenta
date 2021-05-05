@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -167,6 +168,36 @@ public class CheltuieliServiceImpl implements CheltuieliService {
     public List<Cheltuieli> searchAll() {
         log.info("Return all cheltuieli");
         return cheltuieliRepository.findAll();
+    }
+
+    @Override
+    public Cheltuieli update(long id, Cheltuieli cheltuieli) throws ParseException {
+        Cheltuieli newCheltuieli = cheltuieli;
+        newCheltuieli.setBy_added(getUsername());
+
+        if(CheltuieliUtils.validareCheltuieli(cheltuieli)){
+            throw HttpError.notFound("Object is null");
+        }
+
+        SetCheltuieli(cheltuieli);
+        SetCalcule(cheltuieli);
+        CheltuieliUtils.setStare(cheltuieli);
+
+        long noOfCheltuieli = cheltuieliRepository.findAllByBeneficiarAndNumber(cheltuieli.getBeneficiar(),cheltuieli.getNumber()).
+                stream().filter(i-> i.getId() != id).count();
+
+        if (noOfCheltuieli > 0L){
+            throw HttpError.notFound("This provider with this number exists !");
+        }
+
+        Optional<Cheltuieli> cheltuieliFound = cheltuieliRepository.findById(id);
+        cheltuieliFound.ifPresent(i -> {
+            cheltuieli.setId(i.getId());
+
+            cheltuieliRepository.save(cheltuieli);
+        });
+        log.info("Update cheltuieli");
+        return cheltuieli;
     }
 
 }

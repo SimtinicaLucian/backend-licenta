@@ -7,7 +7,10 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Date;
+
 
 public class IncasariUtils {
     public static boolean validateIncasari(Incasari incasari) {
@@ -30,6 +33,9 @@ public class IncasariUtils {
         Date date = new Date();
 
 
+
+
+
 //        if ((sdf.parse(incasari.getData_Plata()).after(sdf.parse(incasari.getData_Scadenta()))) && ((incasari.getSumaTotala() > incasari.getSumaTotala_Incasata())) || (incasari.getSumaTotala() > incasari.getSumaTotala_Incasata())) {
 //            incasari.setStare("Intarziat");
 //        }
@@ -46,12 +52,17 @@ public class IncasariUtils {
             throw HttpError.notFound("Error");
         }
 
+
         return incasari.getStare();
     }
 
     public static String setSearchAll(Incasari incasari) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
         DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+
+
+
+
         try {
             Date date = new Date();
 //            System.out.println("data este: " + dateFormat.format(date));
@@ -127,6 +138,8 @@ public class IncasariUtils {
         double rest = incasari.getSumaTotala() - incasari.getSumaTotala_Incasata();
         return Double.parseDouble(numberFormat.format(rest));
     }
+
+
 
 
 

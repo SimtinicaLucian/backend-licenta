@@ -3,6 +3,7 @@ version: '3'
 services:
   mysql:
     image: mysql:8.0
+    container_name: conta-database
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=root
@@ -11,9 +12,16 @@ services:
       - 3306:3306
   conta:
     image: conta:v1.0.1
+    container_name: conta-backend
     restart: always
     depends_on:
       - mysql
     ports:
       - 8080:8080
+  conta-ui:
+    image: dragomiralin/adcost-ui:v1.0.0
+    container_name: conta-ui
+    restart: always
+    ports:
+    - 80:80
 

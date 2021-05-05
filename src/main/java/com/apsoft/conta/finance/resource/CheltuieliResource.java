@@ -22,6 +22,7 @@ public class CheltuieliResource {
     private CheltuieliService cheltuieliService;
 
 
+
     @PostMapping(value = "/add")
 //    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public Cheltuieli cheltuieli(@RequestBody Cheltuieli cheltuieli) throws ParseException {
@@ -55,5 +56,18 @@ public class CheltuieliResource {
 //    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public List<Cheltuieli> searchAll() {
         return cheltuieliService.searchAll();
+    }
+
+
+    @DeleteMapping(value = "/delete/{id}")
+//    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
+    public void deleteId(@PathVariable long id) {
+        cheltuieliService.deleteId(id);
+    }
+
+    @PutMapping(value = "/update/{id}")
+//    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
+    public Cheltuieli update(@PathVariable long id, @RequestBody Cheltuieli cheltuieli) throws ParseException {
+        return cheltuieliService.update(id, cheltuieli);
     }
 }

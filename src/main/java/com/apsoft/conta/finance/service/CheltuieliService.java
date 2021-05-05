@@ -27,6 +27,5 @@ public interface CheltuieliService {
     List<Cheltuieli> searchAll();
 
 
-
-
+    Cheltuieli update(long id, Cheltuieli cheltuieli) throws ParseException;
 }

@@ -194,6 +194,9 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 
     List<Incasari> findAllById(long id);
 
+//    List<Incasari> findAllByMonthAndYearAndSumaTVA_Incasata(String month, String year, double sumaTVA_Incasata);
+
+    List<Incasari> findAllByMonthAndYearAndStare(String month, String year, String stare);
 
 
 

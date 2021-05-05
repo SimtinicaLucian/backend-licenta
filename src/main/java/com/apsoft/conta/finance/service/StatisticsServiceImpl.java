@@ -6,9 +6,13 @@ import com.apsoft.conta.finance.repository.CheltuieliRepository;
 import com.apsoft.conta.finance.repository.IncasariRepository;
 import com.apsoft.conta.finance.repository.StatisticsRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.stat.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
+import java.time.Month;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -30,6 +34,10 @@ public class StatisticsServiceImpl implements StatisticsService{
 
     @Autowired
     private CheltuieliServiceImpl cheltuieliServiceImpl;
+
+    DecimalFormat numberFormat = new DecimalFormat("#.##");
+
+    String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 
     @Override
     public double calculareSumaTotalaCuTVA_Incasari(){
@@ -199,6 +207,12 @@ public class StatisticsServiceImpl implements StatisticsService{
         return cheltuieliList.stream().map(Cheltuieli::getSumaTVA).reduce(0.0, Double::sum);
     }
 
+    @Override
+    public double calculareSumaTVAMonthAndYear_LaIncasare_Incasari(String month, String year){
+        List<Incasari> incasariList = incasariRepository.findAllByMonthAndYear(month, year);
+        return incasariList.stream().map(Incasari::getSumaTVA_Incasata).reduce(0.0, Double :: sum);
+    }
+
 
     @Override
     public double Profit_Total(){
@@ -253,7 +267,11 @@ public class StatisticsServiceImpl implements StatisticsService{
         double sold = 0;
         log.info("Sold");
 
-        return sold + calculareSumaTotalaCuTVAPerStare_Incasari("achitata") - calculareSumaTotalaCuTVAPerStare_Cheltuieli("achitata") + calculareSumaTotalaCuTVAByStare_Incasari_Achitata("partial achitata") - calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata("partial achitata") + calculareSumaTotalaCuTVAByStare_Incasari_Achitata("intarziata")- calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata("intarziata");
+
+//        double sumaTVA = incasari.getSumaTotala() * 19/119;
+//        return Double.parseDouble(numberFormat.format(sumaTVA));
+
+        return Double.parseDouble(numberFormat.format(sold + calculareSumaTotalaCuTVAPerStare_Incasari("achitata") - calculareSumaTotalaCuTVAPerStare_Cheltuieli("achitata") + calculareSumaTotalaCuTVAByStare_Incasari_Achitata("partial achitata") - calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata("partial achitata") + calculareSumaTotalaCuTVAByStare_Incasari_Achitata("intarziata")- calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata("intarziata")));
     }
 
     @Override
@@ -278,15 +296,35 @@ public class StatisticsServiceImpl implements StatisticsService{
     public double Incasari_Intarziate_Rest_DeIncasat(){
         log.info("Incasari_Intarziate_Rest_DeIncasat");
         List<Incasari> incasariList = incasariRepository.findAllByStare("intarziata");
-        return incasariList.stream().map(Incasari::getRest).reduce(0.0, Double:: sum);
+        return Double.parseDouble(numberFormat.format(incasariList.stream().map(Incasari::getRest).reduce(0.0, Double:: sum)));
     }
 
     @Override
     public double Cheltuieli_Intarziate_Rest_DeAchitat(){
         log.info("Cheltuieli_Intarziate_Rest_DeAchitat");
         List<Cheltuieli> cheltuieliList = cheltuieliRepository.findAllByStare("intarziata");
-        return cheltuieliList.stream().map(Cheltuieli::getRest).reduce(0.0, Double:: sum);
+        return Double.parseDouble(numberFormat.format(cheltuieliList.stream().map(Cheltuieli::getRest).reduce(0.0, Double:: sum)));
     }
+
+    @Override
+    public double BugetulDeStat_TVA(String month, String year){
+        log.info("BugetulDeStat_TVA");
+        double Bugetul_DeStat_TVA = Double.parseDouble(numberFormat.format(calculareSumaTotalaTVAMonthAndYear_Incasari(month,year) - calculareSumaTotalaTVAMonthAndYear_Cheltuieli(month,year)));
+        if(Bugetul_DeStat_TVA < 0){
+
+
+
+        }
+        return Bugetul_DeStat_TVA;
+    }
+
+    @Override
+    public double BugetulDeStat_TVAIncasare(String month, String year){
+        log.info("BugetulDeStat_TVA_LaIncasare");
+        return Double.parseDouble(numberFormat.format(calculareSumaTVAMonthAndYear_LaIncasare_Incasari(month, year)- calculareSumaTotalaTVAMonthAndYear_Cheltuieli(month,year)));
+
+    }
+
 
 
 
