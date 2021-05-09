@@ -9,11 +9,18 @@ services:
       - MYSQL_DATABASE=appsoft
     ports:
       - 3306:3306
-  conta:
-    image: conta:v1.0.1
+  backend:
+    image: cosminlucian/adcost-backend:1.0.0
     restart: always
     depends_on:
       - mysql
     ports:
       - 8080:8080
+  frontend:
+    image:
+    restart: always
+    environment:
+      - API=
+    ports:
+      - 80:80
 
