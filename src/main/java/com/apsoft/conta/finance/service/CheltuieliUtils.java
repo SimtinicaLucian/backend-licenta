@@ -92,6 +92,34 @@ public class CheltuieliUtils {
     }
 
 
+    public static String setSearchAll_Cheltuieli(Cheltuieli cheltuieli) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+
+
+
+
+        try {
+            Date date = new Date();
+//            System.out.println("data este: " + dateFormat.format(date));
+//            System.out.println("data2 este: " + sdf.parse(incasari.getData_Scadenta()));
+
+
+
+//        if (((incasari.getSumaTotala_Incasata() == 0) || incasari.getSumaTotala() > incasari.getSumaTotala_Incasata()) && (sdf.parse(String.valueOf(dateFormat.format(date))).equals(sdf.parse(incasari.getData_Scadenta())))) {
+//            incasari.setStare("intarziata");
+//        }
+            if ((dateFormat.parse(String.valueOf(dateFormat.format(date))).after(sdf.parse(cheltuieli.getData_Scadenta()))) && ((cheltuieli.getSumaTotala_Achitata() == 0) || cheltuieli.getSumaTotala() > cheltuieli.getSumaTotala_Achitata())) {
+                cheltuieli.setStare("intarziata");
+            }
+        } catch(ParseException e) {
+            e.printStackTrace();
+        }
+        return cheltuieli.getStare();
+
+    }
+
+
 
     }
 

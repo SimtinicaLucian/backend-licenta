@@ -1,5 +1,5 @@
 FROM openjdk:latest
- 
+
 COPY target/*.jar /srv/
 
 EXPOSE 8080

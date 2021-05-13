@@ -10,18 +10,33 @@ services:
       - MYSQL_DATABASE=appsoft
     ports:
       - 3306:3306
+<<<<<<< HEAD
   conta:
     image: conta:v1.0.1
     container_name: conta-backend
+=======
+  backend:
+    image: cosminlucian/adcost-backend:1.0.0
+>>>>>>> 9475c6e669d81654263bb0650a51e003801d4492
     restart: always
     depends_on:
       - mysql
     ports:
       - 8080:8080
+<<<<<<< HEAD
   conta-ui:
     image: dragomiralin/adcost-ui:v1.0.0
     container_name: conta-ui
     restart: always
     ports:
     - 80:80
+=======
+  frontend:
+    image:
+    restart: always
+    environment:
+      - API=
+    ports:
+      - 80:80
+>>>>>>> 9475c6e669d81654263bb0650a51e003801d4492
 

@@ -147,7 +147,7 @@ public class IncasariServiceImpl implements IncasariService {
         if (furnizorSearch.size() < 1) {
             incasari = incasariRepository.save(incasari);
         } else {
-            throw HttpError.notFound("This provider with this number exists !");
+            throw HttpError.notFound("Acest furnizor cu acest numar de factura exista!");
         }
 
         log.info("The {} has been added to the database", incasari.getDetalii());
@@ -602,7 +602,7 @@ public class IncasariServiceImpl implements IncasariService {
                 .count();
 
         if (noOfIncasari > 0L) {
-            throw HttpError.notFound("This provider with this number exists !");
+            throw HttpError.notFound("Acest furnizor cu acest numar de factura exista !");
         }
 
 

@@ -130,6 +130,15 @@ public class IncasariResource {
                     .searchWithoutFurnizorAndData2AndSumsAndStare(format1);
         }
 
+        else if((null == params.get("data1") || params.get("data1").isEmpty()) && (null == params.get("data2") || params.get("data2").isEmpty()) && null == params.get("sumaTotala1") && null == params.get("sumaTotala2")&& (null == params.get("stare") || params.get("stare").isEmpty())){
+            System.out.println("without data1, data2, sum1, sum2, stare");
+
+
+
+            return incasariService
+                    .searchByFurnizor(params.get("furnizor"));
+        }
+
 //        De aici
         else if ((null == params.get("data1") || params.get("data1").isEmpty()) && ((null == params.get("data2")) || params.get("data2").isEmpty()) && (null == params.get("furnizor") || params.get("furnizor").isEmpty()) && null == params.get("sumaTotala2")) {
             System.out.println("without furnizor, data1, data2, sum2");
@@ -780,7 +789,7 @@ public class IncasariResource {
     }
 
     @GetMapping(value = "/search/id/{id}")
-//    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public List<Incasari> searchById(@PathVariable long id) {
         return incasariService.searchById(id);
     }
