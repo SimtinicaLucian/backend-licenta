@@ -91,7 +91,7 @@ public class IncasariResource {
 
     @GetMapping(value = "/test")
     @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
-    public List<Incasari> testMethod(@RequestParam Map<String, String> params) {
+    public List<Incasari> testMethod(@RequestParam Map<String, String> params) throws ParseException {
 
         if ((null == params.get("data1") || params.get("data1").isEmpty()) && ((null == params.get("data2")) || params.get("data2").isEmpty()) && (null == params.get("furnizor") || params.get("furnizor").isEmpty()) && null == params.get("sumaTotala2") && (null == params.get("stare") || params.get("stare").isEmpty())) {
             System.out.println("without furnizor, data1, data2, sum2, stare");

@@ -225,6 +225,12 @@ public class StatisticsResource {
         return statisticsService.Cheltuieli_Intarziate();
     }
 
+    @GetMapping(value = "/salariu/intarziate")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
+    public long Salarii_Intarziate(){
+        return statisticsService.Salarii_Intarziate();
+    }
+
     @GetMapping(value = "/incasari/intarziate/Rest_DeIncasat")
     @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public double Incasari_Intarziate_Rest_DeIncasat(){
@@ -235,6 +241,12 @@ public class StatisticsResource {
     @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public double Cheltuieli_Intarziate_Rest_DeAchitat(){
         return statisticsService.Cheltuieli_Intarziate_Rest_DeAchitat();
+    }
+
+    @GetMapping(value = "/salariu/intarziate/Rest_DeAchitat")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
+    public double Salarii_Intarziate_Rest_DeAchitat(){
+        return statisticsService.Salarii_Intarziate_Rest_DeAchitat();
     }
 
     @GetMapping(value = "/BugetulDeStat_TVA")

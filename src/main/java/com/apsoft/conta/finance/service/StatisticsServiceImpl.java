@@ -2,8 +2,10 @@ package com.apsoft.conta.finance.service;
 
 import com.apsoft.conta.finance.persistence.Cheltuieli;
 import com.apsoft.conta.finance.persistence.Incasari;
+import com.apsoft.conta.finance.persistence.Salariu;
 import com.apsoft.conta.finance.repository.CheltuieliRepository;
 import com.apsoft.conta.finance.repository.IncasariRepository;
+import com.apsoft.conta.finance.repository.SalariuRepository;
 import com.apsoft.conta.finance.repository.StatisticsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.stat.Statistics;
@@ -27,7 +29,12 @@ public class StatisticsServiceImpl implements StatisticsService{
     private IncasariRepository incasariRepository;
 
     @Autowired
+    private SalariuRepository salariuRepository;
+
+    @Autowired
     private StatisticsRepository statisticsRepository;
+
+
 
     @Autowired
     private IncasariServiceImpl incasariServiceImpl;
@@ -51,6 +58,13 @@ public class StatisticsServiceImpl implements StatisticsService{
         log.info("Calculare suma cu TVA - Cheltuieli");
         List<Cheltuieli> cheltuieliList = cheltuieliRepository.findAll();
         return cheltuieliList.stream().map(Cheltuieli::getSumaTotala).reduce(0.0, Double::sum);
+    }
+
+    @Override
+    public double calculareSalariuNetTotal_Salariu(){
+        log.info("Calculare salariu net total - Salariu");
+        List<Salariu> salariuList = salariuRepository.findAll();
+        return salariuList.stream().map(Salariu::getSalariu_net).reduce(0.0, Double::sum);
     }
 
     @Override
@@ -137,6 +151,17 @@ public class StatisticsServiceImpl implements StatisticsService{
         return cheltuieliList.stream().map(Cheltuieli::getSumaTotala).reduce(0.0, Double::sum);
     }
 
+
+
+    @Override
+    public double calculareSalariuNetTotalMonthAndYear_Salariu(String month, String year){
+        List<Salariu> salariuList = salariuRepository.findAllByMonthAndYear(month, year);
+        log.info("Calculare salariu net total MonthAndYear_Salariu");
+        return salariuList.stream().map(Salariu::getSalariu_net).reduce(0.0, Double::sum);
+    }
+
+
+
     @Override
     public double calculareSumaTotalaFaraTVAMonthAndYear_Incasari(String month, String year){
         List<Incasari> incasariList = incasariRepository.findAllByMonthAndYear(month, year);
@@ -180,6 +205,13 @@ public class StatisticsServiceImpl implements StatisticsService{
     }
 
     @Override
+    public double calculareSalariuNetTotalPerYear_Salariu(String year) {
+        List<Salariu> salariuList = salariuRepository.findAllByYear(year);
+        log.info("Calculare salariu net total per Year_Cheltuieli");
+        return salariuList.stream().map(Salariu::getSalariu_net).reduce(0.0, Double::sum);
+    }
+
+    @Override
     public double calculareSumaTotalaFaraTVAPerYear_Incasari(String year) {
         List<Incasari> incasariList = incasariRepository.findAllByYear(year);
         log.info("Calculare suma Totala Fara TVA per Year_Incasari");
@@ -217,19 +249,19 @@ public class StatisticsServiceImpl implements StatisticsService{
     @Override
     public double Profit_Total(){
         log.info("Calculare profit_total");
-        return calculareSumaTotalaCuTVA_Incasari() - calculareSumaTotalaCuTVA_Cheltuieli();
+        return Double.parseDouble(numberFormat.format(calculareSumaTotalaCuTVA_Incasari() - calculareSumaTotalaCuTVA_Cheltuieli() - calculareSalariuNetTotal_Salariu()));
     }
 
     @Override
     public double Profit_Lunar(String month, String year){
         log.info("Calculare profit_lunar");
-        return calculareSumaTotalaCuTVAMonthAndYear_Incasari(month,year) - calculareSumaTotalaCuTVAMonthAndYear_Cheltuieli(month, year);
+        return Double.parseDouble(numberFormat.format(calculareSumaTotalaCuTVAMonthAndYear_Incasari(month,year) - calculareSumaTotalaCuTVAMonthAndYear_Cheltuieli(month, year) - calculareSalariuNetTotalMonthAndYear_Salariu(month, year)));
     }
 
     @Override
     public double Profit_Anual(String year){
         log.info("Calculare profit anual");
-        return calculareSumaTotalaCuTVAPerYear_Incasari(year) - calculareSumaTotalaCuTVAPerYear_Cheltuieli(year);
+        return Double.parseDouble(numberFormat.format(calculareSumaTotalaCuTVAPerYear_Incasari(year) - calculareSumaTotalaCuTVAPerYear_Cheltuieli(year) - calculareSalariuNetTotalPerYear_Salariu(year)));
     }
 
 
@@ -263,6 +295,14 @@ public class StatisticsServiceImpl implements StatisticsService{
 
 
     @Override
+    public double calculareSalariuNetTotalPerStare_Salariu_Achitat(String stare){
+        log.info("Calculare salariu net _ total per stare");
+        List<Salariu> salariuList = salariuRepository.findAllByStare(stare);
+        return salariuList.stream().map(Salariu::getSalariu_net_achitat).reduce(0.0, Double::sum);
+    }
+
+
+    @Override
     public double sold()  {
         double sold = 0;
         log.info("Sold");
@@ -271,13 +311,16 @@ public class StatisticsServiceImpl implements StatisticsService{
 //        double sumaTVA = incasari.getSumaTotala() * 19/119;
 //        return Double.parseDouble(numberFormat.format(sumaTVA));
 
-        return Double.parseDouble(numberFormat.format(sold + calculareSumaTotalaCuTVAPerStare_Incasari("achitata") - calculareSumaTotalaCuTVAPerStare_Cheltuieli("achitata") + calculareSumaTotalaCuTVAByStare_Incasari_Achitata("partial achitata") - calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata("partial achitata") + calculareSumaTotalaCuTVAByStare_Incasari_Achitata("intarziata")- calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata("intarziata")));
+        return Double.parseDouble(numberFormat.format(sold + calculareSumaTotalaCuTVAPerStare_Incasari("achitata") -
+                calculareSumaTotalaCuTVAPerStare_Cheltuieli("achitata") - calculareSalariuNetTotalPerStare_Salariu_Achitat("achitata") + calculareSumaTotalaCuTVAByStare_Incasari_Achitata("partial achitata") -
+                calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata("partial achitata") - calculareSalariuNetTotalPerStare_Salariu_Achitat("partial achitata") + calculareSumaTotalaCuTVAByStare_Incasari_Achitata("intarziata")-
+                calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata("intarziata") - calculareSalariuNetTotalPerStare_Salariu_Achitat("intarziata")));
     }
 
     @Override
     public double CifraAfaceri(String year){
         log.info("Cifra afaceri");
-        return calculareSumaTotalaCuTVAPerYear_Incasari(year);
+        return Double.parseDouble(numberFormat.format(calculareSumaTotalaCuTVAPerYear_Incasari(year)));
     }
 
     @Override
@@ -293,6 +336,12 @@ public class StatisticsServiceImpl implements StatisticsService{
     }
 
     @Override
+    public long Salarii_Intarziate(){
+        log.info("count salarii");
+        return salariuRepository.countAllByStare("intarziata");
+    }
+
+    @Override
     public double Incasari_Intarziate_Rest_DeIncasat(){
         log.info("Incasari_Intarziate_Rest_DeIncasat");
         List<Incasari> incasariList = incasariRepository.findAllByStare("intarziata");
@@ -304,6 +353,13 @@ public class StatisticsServiceImpl implements StatisticsService{
         log.info("Cheltuieli_Intarziate_Rest_DeAchitat");
         List<Cheltuieli> cheltuieliList = cheltuieliRepository.findAllByStare("intarziata");
         return Double.parseDouble(numberFormat.format(cheltuieliList.stream().map(Cheltuieli::getRest).reduce(0.0, Double:: sum)));
+    }
+
+    @Override
+    public double Salarii_Intarziate_Rest_DeAchitat(){
+        log.info("Salarii_Intarziate_Rest_DeAchitat");
+        List<Salariu> salariuList = salariuRepository.findAllByStare("intarziata");
+        return Double.parseDouble(numberFormat.format(salariuList.stream().map(Salariu::getRest).reduce(0.0, Double:: sum)));
     }
 
     @Override

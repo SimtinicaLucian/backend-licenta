@@ -1,7 +1,5 @@
 package com.apsoft.conta.finance.persistence;
 
-
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,8 +10,9 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "cheltuieli")
-public class Cheltuieli{
+@Table(name = "salariu")
+public class Salariu {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,32 +33,27 @@ public class Cheltuieli{
     @Column(name = "data")
     private String data;
 
-    @Column(name = "beneficiar")
-    private String beneficiar;
+    @Column(name = "nume")
+    private String nume;
 
     @Column(name = "number")
     private String number;
 
+    @Column(name = "functie")
+    private String functie;
+
     @Column(name = "detalii")
     private String detalii;
 
-    @Column(name = "sumaTotala")
-    private double sumaTotala;
+    @Column(name = "salariu_brut")
+    private double salariu_brut;
 
-    @Column(name = "sumaFaraTVA")
-    private double sumaFaraTVA;
 
-    @Column(name = "sumaTVA")
-    private double sumaTVA;
+    @Column(name = "salariu_net")
+    private double salariu_net;
 
-    @Column(name = "sumaTotala_Achitata")
-    private double sumaTotala_Achitata;
-
-    @Column(name = "sumaFaraTVA_Achitata")
-    private double sumaFaraTVA_Achitata;
-
-    @Column(name = "sumaTVA_Achitata")
-    private double sumaTVA_Achitata;
+    @Column(name = "salariu_net_achitat")
+    private double salariu_net_achitat;
 
     @Column(name = "rest")
     private double rest;
@@ -79,23 +73,12 @@ public class Cheltuieli{
     @Column(name = "data_Scadenta")
     private String data_Scadenta;
 
-    @Column(name = "data_Plata")
-    private String data_Plata;
-
-    @Column(name = "sumaTotala1")
-    private double sumaTotala1;
-
-    @Column(name = "sumaTotala2")
-    private double sumaTotala2;
-
     @Column(name = "stare")
     private String stare;
-
-    @Column(name = "cota_TVA")
-    private int cota_TVA;
 
     @Column(name = "by_added")
     private String by_added;
 
 
 }
+

@@ -34,7 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/user/**",
             "/api/user/role/**",
             "/cheltuieli/**",
-            "/statistics/***"
+            "/statistics/***",
+            "/salariu/**"
 
     };
 

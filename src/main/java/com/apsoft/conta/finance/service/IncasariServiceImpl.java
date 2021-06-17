@@ -118,11 +118,17 @@ public class IncasariServiceImpl implements IncasariService {
         }
 
 
-        List<Incasari> incasariSearch = incasariRepository.findAllByNumber(incasari.getNumber());
-        List<Incasari> furnizorSearch = incasariRepository.findAllByFurnizorAndNumber(incasari.getFurnizor(), incasari.getNumber());
-
-
         Set(incasari);
+
+//        List<Incasari> incasariSearch = incasariRepository.findAllByYear(incasari.getYear());
+
+
+        List<Incasari> furnizorSearch = incasariRepository.findAllByFurnizorAndNumberAndYear(incasari.getFurnizor(), incasari.getNumber(), incasari.getYear());
+
+//        double raportareSuma = incasariRepository.findAllByFurnizorAndRest(incasari.getFurnizor(), incasari.getRest());
+
+
+
 
 //        double sumaTVA = IncasariUtils.calculareTVA(incasari);
 //        incasari.setSumaTVA(sumaTVA);
@@ -141,10 +147,20 @@ public class IncasariServiceImpl implements IncasariService {
 
         SetCalcule(incasari);
 
+
         IncasariUtils.setStare(incasari);
 
 
+
+
+
+
         if (furnizorSearch.size() < 1) {
+
+//            String formattedDate = IncasariUtils.changeDateFormat(incasari.getData());
+//            incasari.setData(formattedDate);
+
+
             incasari = incasariRepository.save(incasari);
         } else {
             throw HttpError.notFound("Acest furnizor cu acest numar de factura exista!");
@@ -165,7 +181,6 @@ public class IncasariServiceImpl implements IncasariService {
                     return i;
                 })
                 .collect(toList());
-
     }
 
 

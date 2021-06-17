@@ -20,6 +20,11 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
     List<Incasari> findByMonth(String month);
     
     List<Incasari> findAllByFurnizorAndNumber(String furnizor, String number);
+    List<Incasari> findAllByFurnizorAndNumberAndYear(String furnizor, String number, String year);
+
+//    double findAllByFurnizorAndRest(String furnizor, double rest);
+
+
 
     List<Incasari> findAllByMonthAndYear(String month, String year);
 
@@ -182,6 +187,8 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 
     List<Incasari> findAllByFurnizor(String furnizor);
 
+    List<Incasari> findAllByYearAndFurnizorAndNumber(String year, String furnizor, String number);
+
 
 //    long countByFurnizor(String furnizor);
 //
@@ -197,6 +204,8 @@ public interface IncasariRepository extends JpaRepository<Incasari, Long> {
 //    List<Incasari> findAllByMonthAndYearAndSumaTVA_Incasata(String month, String year, double sumaTVA_Incasata);
 
     List<Incasari> findAllByMonthAndYearAndStare(String month, String year, String stare);
+
+    List<Incasari> findAllByNumberAndYear(String number, String year);
 
 
 

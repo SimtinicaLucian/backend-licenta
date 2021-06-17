@@ -83,10 +83,6 @@ public class Incasari {
     @Column(name = "data_Scadenta")
     private String data_Scadenta;
 
-    @Column(name = "data_Plata")
-    private String data_Plata;
-
-
     @Column(name = "sumaTotala1")
     private double sumaTotala1;
 
@@ -95,6 +91,9 @@ public class Incasari {
 
     @Column(name = "stare")
     private String stare;
+
+    @Column(name = "cota_TVA")
+    private int cota_TVA;
 
     @Column(name = "by_added")
     private String by_added;

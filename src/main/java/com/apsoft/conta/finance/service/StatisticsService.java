@@ -10,6 +10,8 @@ public interface StatisticsService {
     double calculareSumaTotalaCuTVA_Incasari();
     double calculareSumaTotalaCuTVA_Cheltuieli();
 
+    double calculareSalariuNetTotal_Salariu();
+
     double calculareSumaTotalaFaraTVA_Incasari();
     double calculareSumaTotalaFaraTVA_Cheltuieli();
 
@@ -28,6 +30,8 @@ public interface StatisticsService {
     double calculareSumaTotalaCuTVAMonthAndYear_Incasari(String month, String year);
     double calculareSumaTotalaCuTVAMonthAndYear_Cheltuieli(String month, String year);
 
+    double calculareSalariuNetTotalMonthAndYear_Salariu(String month, String year);
+
     double calculareSumaTotalaFaraTVAMonthAndYear_Incasari(String month, String year);
     double calculareSumaTotalaFaraTVAMonthAndYear_Cheltuieli(String month, String year);
 
@@ -36,6 +40,8 @@ public interface StatisticsService {
 
     double calculareSumaTotalaCuTVAPerYear_Incasari(String year);
     double calculareSumaTotalaCuTVAPerYear_Cheltuieli(String year);
+
+    double calculareSalariuNetTotalPerYear_Salariu(String year);
 
     double calculareSumaTotalaFaraTVAPerYear_Incasari(String year);
     double calculareSumaTotalaFaraTVAPerYear_Cheltuieli(String year);
@@ -61,6 +67,8 @@ public interface StatisticsService {
 
     double calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata(String stare);
 
+    double calculareSalariuNetTotalPerStare_Salariu_Achitat(String stare);
+
     double sold();
 
 
@@ -70,9 +78,13 @@ public interface StatisticsService {
 
     long Cheltuieli_Intarziate();
 
+    long Salarii_Intarziate();
+
     double Incasari_Intarziate_Rest_DeIncasat();
 
     double Cheltuieli_Intarziate_Rest_DeAchitat();
+
+    double Salarii_Intarziate_Rest_DeAchitat();
 
     double BugetulDeStat_TVA(String month, String year);
 

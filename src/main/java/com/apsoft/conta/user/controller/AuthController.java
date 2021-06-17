@@ -20,13 +20,13 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    //login
+    //conectare
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         return authService.authenticateUser(loginRequest);
     }
 
-    //register
+    //înregistrare
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         return authService.registerUser(signUpRequest);

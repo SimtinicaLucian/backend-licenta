@@ -36,7 +36,7 @@ public class MailController {
 //        mailService.sendMailTo(params);
 //    }
 
-    @PostMapping("/test")
+    @PostMapping("/contact")
     public void sendMailContact(@RequestBody MailServiceImpl.SendMailContact sendMailContact) {
         mailServiceImpl.sendMailTo(sendMailContact);
     }

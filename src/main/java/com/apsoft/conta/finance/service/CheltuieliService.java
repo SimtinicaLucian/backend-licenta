@@ -14,6 +14,8 @@ public interface CheltuieliService {
 
     List<Cheltuieli> searchById(long id);
 
+    List<Cheltuieli> searchByBeneficiar(String beneficiar);
+
     double calculareSumaTotalaCuTVA();
 
     double calculareSumaTVA();
@@ -30,6 +32,8 @@ public interface CheltuieliService {
 
 
     Cheltuieli update(long id, Cheltuieli cheltuieli) throws ParseException;
+
+    List<Cheltuieli> searchByMonthAndYear(String month, String year);
 
     List<Cheltuieli> searchWithoutFunrizorAndDatesAndSum2AndStare(double sumaTotala1);
 

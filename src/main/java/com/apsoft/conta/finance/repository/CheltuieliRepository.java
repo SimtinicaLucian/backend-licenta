@@ -20,9 +20,13 @@ public interface CheltuieliRepository extends JpaRepository<Cheltuieli, Long> {
 
     List<Cheltuieli> findAllByMonthAndYear(String month, String year);
 
+    List<Cheltuieli> findAllByBeneficiar(String beneficiar);
+
     List<Cheltuieli> findAllByYear(String year);
 
     List<Cheltuieli> findAllByStare(String stare);
+
+    List<Cheltuieli> findAllByNumberAndYear(String number, String year);
 
     List<Cheltuieli> findAllBySumaTotala1GreaterThanEqual(double sumaTotala1);
 

@@ -53,6 +53,8 @@ public interface IncasariService {
 
 
 
+
+
     List<Incasari> searchWithoutDates(String furnizor, double sumaTotala1, double SumaTotala2, String stare);
     List<Incasari> searchWithoutDatesAndStare(String furnizor, double sumaTotala1, double SumaTotala2);
 

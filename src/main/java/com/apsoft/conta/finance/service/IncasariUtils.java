@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 
@@ -20,10 +21,16 @@ public class IncasariUtils {
 //                (incasari.getSumaFaraTVA() == 0) || (incasari.getSumaTVA() == 0);
     }
 
-    public static String changeDateFormat(String date) {
+    public static String changeDateFormat(String date) throws ParseException {
         Date dateOne = new Date(date);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
         return formatter.format(dateOne);
+
+
+
+//        Date dateOne = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+//        return formatter.format(dateOne);
     }
 
 
@@ -73,7 +80,7 @@ public class IncasariUtils {
 //        if (((incasari.getSumaTotala_Incasata() == 0) || incasari.getSumaTotala() > incasari.getSumaTotala_Incasata()) && (sdf.parse(String.valueOf(dateFormat.format(date))).equals(sdf.parse(incasari.getData_Scadenta())))) {
 //            incasari.setStare("intarziata");
 //        }
-        if ((dateFormat.parse(String.valueOf(dateFormat.format(date))).after(sdf.parse(incasari.getData_Scadenta()))) && ((incasari.getSumaTotala_Incasata() == 0) || incasari.getSumaTotala() > incasari.getSumaTotala_Incasata())) {
+            if ((dateFormat.parse(String.valueOf(dateFormat.format(date))).after(sdf.parse(incasari.getData_Scadenta()))) && ((incasari.getSumaTotala_Incasata() == 0) || incasari.getSumaTotala() > incasari.getSumaTotala_Incasata())) {
                 incasari.setStare("intarziata");
             }
         } catch(ParseException e) {
@@ -111,7 +118,14 @@ public class IncasariUtils {
 
     public static double calculareTVA(Incasari incasari){
         DecimalFormat numberFormat = new DecimalFormat("#.##");
-        double sumaTVA = incasari.getSumaTotala() * 19/119;
+        double sumaTVA = incasari.getSumaTotala() * incasari.getCota_TVA();
+        if(incasari.getCota_TVA() == 19){
+            sumaTVA = incasari.getSumaTotala() * 19/119;
+        } else if(incasari.getCota_TVA() == 9){
+            sumaTVA = incasari.getSumaTotala() * 9/109;
+        } else if(incasari.getCota_TVA() == 5){
+            sumaTVA = incasari.getSumaTotala() * 5/105;
+        }
         return Double.parseDouble(numberFormat.format(sumaTVA));
     }
 
@@ -123,7 +137,14 @@ public class IncasariUtils {
 
     public static double calculareTVA_Incasata(Incasari incasari){
         DecimalFormat numberFormat = new DecimalFormat("#.##");
-        double sumaTVA_Incasata = incasari.getSumaTotala_Incasata() * 19/119;
+        double sumaTVA_Incasata = incasari.getSumaTotala_Incasata() * incasari.getCota_TVA();
+        if(incasari.getCota_TVA() == 19){
+            sumaTVA_Incasata = incasari.getSumaTotala_Incasata() * 19/119;
+        } else if(incasari.getCota_TVA() == 9){
+            sumaTVA_Incasata = incasari.getSumaTotala_Incasata() * 9/109;
+        } else if(incasari.getCota_TVA() == 5){
+            sumaTVA_Incasata = incasari.getSumaTotala_Incasata() * 5/105;
+        }
         return Double.parseDouble(numberFormat.format(sumaTVA_Incasata));
     }
 

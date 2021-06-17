@@ -69,8 +69,11 @@ public class CheltuieliServiceImpl implements CheltuieliService {
 
     @Override
     public Cheltuieli saveCheltuieli(Cheltuieli cheltuieli) throws ParseException {
+
         Cheltuieli newCheltuieli = cheltuieli;
         newCheltuieli.setBy_added(getUsername());
+
+
 
         if (CheltuieliUtils.validareCheltuieli(cheltuieli)){
             throw HttpError.notFound("Object is null");
@@ -100,14 +103,17 @@ public class CheltuieliServiceImpl implements CheltuieliService {
         CheltuieliUtils.setStare(cheltuieli);
 
 
+
         if(beneficiarSerch.size() < 1){
+//            String formattedDate = CheltuieliUtils.changeDateFormat(cheltuieli.getData());
+//            cheltuieli.setData(formattedDate);
             cheltuieli = cheltuieliRepository.save(cheltuieli);
         } else{
             throw HttpError.notFound("This provider with this number exists !");
         }
-        log.info("The {} has been added to the database", cheltuieli.getDetalii());
-        
 
+
+        log.info("The {} has been added to the database", cheltuieli.getDetalii());
         return cheltuieli;
     }
 
@@ -126,6 +132,12 @@ public class CheltuieliServiceImpl implements CheltuieliService {
     @Override
     public List<Cheltuieli> searchById(long id) {
         return cheltuieliRepository.findAllById(id);
+    }
+
+    @Override
+    public List<Cheltuieli> searchByBeneficiar(String beneficiar) {
+
+        return cheltuieliRepository.findAllByBeneficiar(beneficiar);
     }
 
     @Override
@@ -210,6 +222,13 @@ public class CheltuieliServiceImpl implements CheltuieliService {
         });
         log.info("Update cheltuieli");
         return cheltuieli;
+    }
+
+
+    @Override
+    public List<Cheltuieli> searchByMonthAndYear(String month, String year) {
+        log.info("filtrare luna-an");
+        return cheltuieliRepository.findAllByMonthAndYear(month, year);
     }
 
     @Override

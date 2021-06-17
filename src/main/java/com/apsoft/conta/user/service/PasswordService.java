@@ -55,8 +55,8 @@ public class PasswordService {
             Mail passwordResetEmail = new Mail();
             passwordResetEmail.setMailFrom(sender);
             passwordResetEmail.setMailTo(user.getEmail());
-            passwordResetEmail.setMailSubject("Password Reset Request");
-            passwordResetEmail.setMailContent("To reset your password, click the link below:\n" + appUrl
+            passwordResetEmail.setMailSubject("Cerere de resetare a parolei ");
+            passwordResetEmail.setMailContent("Pentru a vă reseta parola, faceți clic pe linkul de mai jos: \n" + appUrl
                     + "/reset?token=" + user.getTokenReset());
 
             emailService.sendMail(passwordResetEmail);
