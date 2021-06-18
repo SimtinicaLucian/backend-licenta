@@ -158,6 +158,13 @@ public class StatisticsResource {
         return statisticsService.calculareSumaTotalaCuTVAPerYear_Cheltuieli(params.get("year"));
     }
 
+
+    @GetMapping(value = "/salariu/calculareSalariuNetTotalPerYear")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
+    public double calculareSalariuNetTotalPerYear_Salariu(@RequestParam Map<String, String> params) {
+        return statisticsService.calculareSalariuNetTotalPerYear_Salariu(params.get("year"));
+    }
+
     @GetMapping(value = "/incasari/calculareSumaTotalaFaraTVAPerYear")
     @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public double calculareSumaTotalaFaraTVAPerYear_Incasari(@RequestParam String year) {

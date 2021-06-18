@@ -232,6 +232,8 @@ public class StatisticsServiceImpl implements StatisticsService{
         return incasariList.stream().map(Incasari::getSumaTVA).reduce(0.0, Double::sum);
     }
 
+
+
     @Override
     public double calculareSumaTotalaTVAPerYear_Cheltuieli(String year) {
         List<Cheltuieli> cheltuieliList = cheltuieliRepository.findAllByYear(year);
@@ -249,19 +251,22 @@ public class StatisticsServiceImpl implements StatisticsService{
     @Override
     public double Profit_Total(){
         log.info("Calculare profit_total");
-        return Double.parseDouble(numberFormat.format(calculareSumaTotalaCuTVA_Incasari() - calculareSumaTotalaCuTVA_Cheltuieli() - calculareSalariuNetTotal_Salariu()));
+        return Double.parseDouble(numberFormat.format(calculareSumaTotalaCuTVA_Incasari() -
+                calculareSumaTotalaCuTVA_Cheltuieli() - calculareSalariuNetTotal_Salariu()));
     }
 
     @Override
     public double Profit_Lunar(String month, String year){
         log.info("Calculare profit_lunar");
-        return Double.parseDouble(numberFormat.format(calculareSumaTotalaCuTVAMonthAndYear_Incasari(month,year) - calculareSumaTotalaCuTVAMonthAndYear_Cheltuieli(month, year) - calculareSalariuNetTotalMonthAndYear_Salariu(month, year)));
+        return Double.parseDouble(numberFormat.format(calculareSumaTotalaCuTVAMonthAndYear_Incasari(month,year) -
+                calculareSumaTotalaCuTVAMonthAndYear_Cheltuieli(month, year) - calculareSalariuNetTotalMonthAndYear_Salariu(month, year)));
     }
 
     @Override
     public double Profit_Anual(String year){
         log.info("Calculare profit anual");
-        return Double.parseDouble(numberFormat.format(calculareSumaTotalaCuTVAPerYear_Incasari(year) - calculareSumaTotalaCuTVAPerYear_Cheltuieli(year) - calculareSalariuNetTotalPerYear_Salariu(year)));
+        return Double.parseDouble(numberFormat.format(calculareSumaTotalaCuTVAPerYear_Incasari(year) -
+                calculareSumaTotalaCuTVAPerYear_Cheltuieli(year) - calculareSalariuNetTotalPerYear_Salariu(year)));
     }
 
 
@@ -312,8 +317,9 @@ public class StatisticsServiceImpl implements StatisticsService{
 //        return Double.parseDouble(numberFormat.format(sumaTVA));
 
         return Double.parseDouble(numberFormat.format(sold + calculareSumaTotalaCuTVAPerStare_Incasari("achitata") -
-                calculareSumaTotalaCuTVAPerStare_Cheltuieli("achitata") - calculareSalariuNetTotalPerStare_Salariu_Achitat("achitata") + calculareSumaTotalaCuTVAByStare_Incasari_Achitata("partial achitata") -
-                calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata("partial achitata") - calculareSalariuNetTotalPerStare_Salariu_Achitat("partial achitata") + calculareSumaTotalaCuTVAByStare_Incasari_Achitata("intarziata")-
+                calculareSumaTotalaCuTVAPerStare_Cheltuieli("achitata") - calculareSalariuNetTotalPerStare_Salariu_Achitat("achitata") +
+                calculareSumaTotalaCuTVAByStare_Incasari_Achitata("partial achitata") - calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata("partial achitata") -
+                calculareSalariuNetTotalPerStare_Salariu_Achitat("partial achitata") + calculareSumaTotalaCuTVAByStare_Incasari_Achitata("intarziata")-
                 calculareSumaTotalaCuTVAPerStare_Cheltuieli_Achitata("intarziata") - calculareSalariuNetTotalPerStare_Salariu_Achitat("intarziata")));
     }
 

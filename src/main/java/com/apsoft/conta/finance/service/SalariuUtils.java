@@ -37,10 +37,6 @@ public class SalariuUtils {
     public static String setSearchAll_salariu(Salariu salariu) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
         DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-
-
-
-
         try {
             Date date = new Date();
             if ((dateFormat.parse(String.valueOf(dateFormat.format(date))).after(sdf.parse(salariu.getData_Scadenta()))) && ((salariu.getSalariu_net_achitat() == 0) || salariu.getSalariu_net() > salariu.getSalariu_net_achitat())) {
