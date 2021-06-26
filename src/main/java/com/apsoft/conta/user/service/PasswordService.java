@@ -50,7 +50,7 @@ public class PasswordService {
             user.setTokenReset(UUID.randomUUID().toString());
             userService.save(user);
 
-            String appUrl = request.getScheme() + "://" + request.getServerName() + ":4200";
+            String appUrl = request.getScheme() + "://" + "uniconta.ro";
 
             Mail passwordResetEmail = new Mail();
             passwordResetEmail.setMailFrom(sender);
