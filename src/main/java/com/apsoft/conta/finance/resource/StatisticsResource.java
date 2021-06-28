@@ -43,6 +43,15 @@ public class StatisticsResource {
         return statisticsService.calculareSumaTotalaCuTVA_Cheltuieli();
     }
 
+
+
+    @GetMapping(value = "/salariu/salariuNet_Total")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
+    public double calculareSalariuNetTotal_Salariu(){
+        return statisticsService.calculareSalariuNetTotal_Salariu();
+    }
+
+
     @GetMapping(value = "/incasari/calculareSumaTotalaFaraTVA")
     @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public double calculareSumaTotalaFaraTVA_Incasari(){
@@ -120,6 +129,12 @@ public class StatisticsResource {
     @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public double calculareSumaTotalaCuTVAMonthAndYear_Cheltuieli(@RequestParam Map<String, String> params) {
         return statisticsService.calculareSumaTotalaCuTVAMonthAndYear_Cheltuieli(params.get("month"), params.get("year"));
+    }
+
+    @GetMapping(value = "/salariu/calculareSalariuNetTotalMonthAndYear")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
+    public double calculareSalariuNetTotalMonthAndYear_Salariu(@RequestParam Map<String, String> params) {
+        return statisticsService.calculareSalariuNetTotalMonthAndYear_Salariu(params.get("month"), params.get("year"));
     }
 
     @GetMapping(value = "/incasari/calculareSumaTotalaFaraTVAMonthAndYear")

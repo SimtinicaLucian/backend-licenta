@@ -38,6 +38,7 @@ public interface StatisticsService {
     double calculareSumaTotalaTVAMonthAndYear_Incasari(String month, String year);
     double calculareSumaTotalaTVAMonthAndYear_Cheltuieli(String month, String year);
 
+
     double calculareSumaTotalaCuTVAPerYear_Incasari(String year);
     double calculareSumaTotalaCuTVAPerYear_Cheltuieli(String year);
 
